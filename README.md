@@ -54,8 +54,8 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/unidel2035/dronedoc2025.git
-cd dronedoc2025
+git clone https://github.com/unidel2035/a2d2.git
+cd a2d2
 ```
 
 ### 2. Установка зависимостей
@@ -96,7 +96,7 @@ bin/rails server
 ## Структура проекта
 
 ```
-dronedoc2025/
+a2d2/
 ├── app/
 │   ├── controllers/      # Контроллеры приложения
 │   ├── models/          # Модели данных
@@ -242,9 +242,9 @@ API будет доступен для интеграции с внешними 
 
 ## Контакты
 
-- **Проект**: [https://github.com/unidel2035/dronedoc2025](https://github.com/unidel2035/dronedoc2025)
-- **Документация**: [Wiki проекта](https://github.com/unidel2035/dronedoc2025/wiki)
-- **Issues**: [GitHub Issues](https://github.com/unidel2035/dronedoc2025/issues)
+- **Проект**: [https://github.com/unidel2035/a2d2](https://github.com/unidel2035/a2d2)
+- **Документация**: [Wiki проекта](https://github.com/unidel2035/a2d2/wiki)
+- **Issues**: [GitHub Issues](https://github.com/unidel2035/a2d2/issues)
 
 ## Дорожная карта
 
