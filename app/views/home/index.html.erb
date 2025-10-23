@@ -6,6 +6,9 @@
       Современная платформа для управления техническими документами, полетными журналами
       и инспекционными отчетами беспилотных летательных аппаратов
     </p>
+    <div class="hero-actions">
+      <%= link_to "Табличный редактор", spreadsheets_path, class: "btn btn-primary" %>
+    </div>
   </div>
 </div>
 
@@ -114,9 +117,34 @@
   .description {
     font-size: 1.1rem;
     max-width: 700px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     opacity: 0.9;
     line-height: 1.8;
+  }
+
+  .hero-actions {
+    margin-top: 30px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    background: white;
+    color: #667eea;
+  }
+
+  .btn-primary:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
 
   .container {
