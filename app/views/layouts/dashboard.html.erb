@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DronDoc 2025 - Dashboard</title>
+    <title>DronDoc 2025 - TERMINAL ACCESS</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -10,22 +10,16 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
       :root {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --secondary: #8b5cf6;
-        --accent: #ec4899;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        --dark: #0f172a;
-        --dark-light: #1e293b;
-        --dark-lighter: #334155;
-        --text: #f1f5f9;
-        --text-muted: #94a3b8;
-        --border: #334155;
+        --terminal-green: #00ff00;
+        --matrix-green: #0f0;
+        --dark-green: #003300;
+        --bg-black: #000000;
+        --danger-red: #ff0000;
+        --warning-yellow: #ffff00;
+        --cyber-blue: #00ffff;
       }
 
       * {
@@ -35,14 +29,15 @@
       }
 
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        color: var(--text);
+        font-family: 'Fira Code', 'Share Tech Mono', monospace;
+        background: #000;
+        color: var(--terminal-green);
         min-height: 100vh;
         overflow-x: hidden;
+        position: relative;
       }
 
-      /* Animated Background */
+      /* Scanline Effect */
       body::before {
         content: '';
         position: fixed;
@@ -50,81 +45,136 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background:
-          radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-          radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-          radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(0, 255, 0, 0.03) 0px,
+          rgba(0, 255, 0, 0.03) 1px,
+          transparent 1px,
+          transparent 2px
+        );
+        pointer-events: none;
+        z-index: 9999;
+        animation: scanline 8s linear infinite;
+      }
+
+      @keyframes scanline {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100%); }
+      }
+
+      /* Matrix Rain Background */
+      body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+        background-size: 20px 20px;
         pointer-events: none;
         z-index: 0;
       }
 
-      /* Top Header - Glassmorphism */
+      /* Glitch Animation */
+      @keyframes glitch {
+        0% {
+          text-shadow:
+            2px 0 var(--danger-red),
+            -2px 0 var(--cyber-blue);
+        }
+        25% {
+          text-shadow:
+            -2px 0 var(--danger-red),
+            2px 0 var(--cyber-blue);
+        }
+        50% {
+          text-shadow:
+            2px 0 var(--danger-red),
+            -2px 0 var(--cyber-blue);
+        }
+        75% {
+          text-shadow:
+            -2px 0 var(--danger-red),
+            2px 0 var(--cyber-blue);
+        }
+        100% {
+          text-shadow:
+            2px 0 var(--danger-red),
+            -2px 0 var(--cyber-blue);
+        }
+      }
+
+      /* Terminal Blink */
+      @keyframes blink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+
+      /* Top Header - Terminal Style */
       .top-header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        height: 70px;
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        color: white;
+        height: 60px;
+        background: rgba(0, 0, 0, 0.95);
+        border-bottom: 2px solid var(--terminal-green);
+        color: var(--terminal-green);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 30px;
+        padding: 0 20px;
         z-index: 1000;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        font-family: 'Fira Code', monospace;
       }
 
       .header-left {
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: 20px;
       }
 
       .menu-toggle {
         display: none;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
-        font-size: 20px;
+        background: none;
+        border: 1px solid var(--terminal-green);
+        color: var(--terminal-green);
+        font-size: 16px;
         cursor: pointer;
-        padding: 10px 15px;
-        border-radius: 12px;
-        transition: all 0.3s ease;
+        padding: 8px 12px;
+        font-family: 'Fira Code', monospace;
+        transition: all 0.3s;
       }
 
       .menu-toggle:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(1.05);
+        background: var(--terminal-green);
+        color: #000;
+        box-shadow: 0 0 10px var(--terminal-green);
       }
 
       .logo {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 700;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         text-decoration: none;
-        color: white;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        letter-spacing: -0.5px;
+        color: var(--terminal-green);
+        text-shadow: 0 0 10px var(--terminal-green);
+        letter-spacing: 2px;
       }
 
-      .logo-icon {
-        font-size: 28px;
-        filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
-        animation: float 3s ease-in-out infinite;
+      .logo::before {
+        content: '>';
+        animation: blink 1s infinite;
       }
 
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-5px); }
+      .logo:hover {
+        animation: glitch 0.3s infinite;
       }
 
       .header-right {
@@ -136,190 +186,173 @@
       .header-search {
         display: flex;
         align-items: center;
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
-        padding: 10px 18px;
+        background: rgba(0, 255, 0, 0.05);
+        border: 1px solid var(--terminal-green);
+        padding: 8px 15px;
         gap: 10px;
-        transition: all 0.3s ease;
-        min-width: 280px;
-      }
-
-      .header-search:focus-within {
-        background: rgba(255, 255, 255, 0.12);
-        border-color: var(--primary);
-        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
       }
 
       .header-search input {
         background: none;
         border: none;
-        color: white;
+        color: var(--terminal-green);
         outline: none;
-        width: 100%;
-        font-size: 14px;
-        font-family: 'Inter', sans-serif;
+        width: 200px;
+        font-family: 'Fira Code', monospace;
+        font-size: 13px;
       }
 
       .header-search input::placeholder {
-        color: var(--text-muted);
+        color: rgba(0, 255, 0, 0.5);
       }
 
       .header-icon-btn {
         position: relative;
         cursor: pointer;
-        padding: 10px;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px;
+        border: 1px solid var(--terminal-green);
+        transition: all 0.3s;
+        background: rgba(0, 255, 0, 0.05);
       }
 
       .header-icon-btn:hover {
-        background: rgba(255, 255, 255, 0.12);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        background: var(--terminal-green);
+        color: #000;
+        box-shadow: 0 0 15px var(--terminal-green);
       }
 
       .notification-badge {
         position: absolute;
-        top: 6px;
-        right: 6px;
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        border-radius: 10px;
-        min-width: 20px;
-        height: 20px;
+        top: -5px;
+        right: -5px;
+        background: var(--danger-red);
+        color: #000;
+        border-radius: 0;
+        min-width: 18px;
+        height: 18px;
         font-size: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 600;
-        border: 2px solid var(--dark);
-        animation: pulse 2s infinite;
+        font-weight: 700;
+        border: 1px solid var(--danger-red);
+        box-shadow: 0 0 10px var(--danger-red);
+        animation: blink 2s infinite;
       }
 
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-      }
-
-      /* Sidebar - Modern Dark Theme */
+      /* Sidebar - Hacker Terminal */
       .sidebar {
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: 0;
-        width: 280px;
-        height: calc(100vh - 70px);
-        background: rgba(30, 41, 59, 0.5);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
-        color: white;
+        width: 260px;
+        height: calc(100vh - 60px);
+        background: rgba(0, 0, 0, 0.95);
+        border-right: 2px solid var(--terminal-green);
+        color: var(--terminal-green);
         overflow-y: auto;
-        overflow-x: hidden;
         transition: transform 0.3s ease;
         z-index: 999;
-        scrollbar-width: thin;
-        scrollbar-color: var(--primary) transparent;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
       }
 
       .sidebar::-webkit-scrollbar {
-        width: 6px;
+        width: 8px;
       }
 
       .sidebar::-webkit-scrollbar-track {
-        background: transparent;
+        background: #000;
       }
 
       .sidebar::-webkit-scrollbar-thumb {
-        background: var(--primary);
-        border-radius: 3px;
+        background: var(--terminal-green);
+        box-shadow: 0 0 10px var(--terminal-green);
       }
 
       .sidebar.collapsed {
-        transform: translateX(-280px);
+        transform: translateX(-260px);
       }
 
       .sidebar-nav {
-        padding: 25px 0;
+        padding: 20px 0;
       }
 
       .nav-section {
-        margin-bottom: 35px;
+        margin-bottom: 25px;
       }
 
       .nav-section-title {
-        padding: 0 25px 12px;
+        padding: 0 20px 10px;
         font-size: 11px;
         text-transform: uppercase;
-        color: var(--text-muted);
+        color: var(--terminal-green);
         font-weight: 700;
-        letter-spacing: 1.5px;
+        letter-spacing: 3px;
+        border-bottom: 1px dashed rgba(0, 255, 0, 0.3);
+        margin: 0 10px 10px;
+      }
+
+      .nav-section-title::before {
+        content: '[';
+        margin-right: 5px;
+      }
+
+      .nav-section-title::after {
+        content: ']';
+        margin-left: 5px;
       }
 
       .nav-item {
         display: flex;
         align-items: center;
-        gap: 15px;
-        padding: 14px 25px;
-        margin: 4px 15px;
-        color: var(--text);
+        gap: 12px;
+        padding: 12px 20px;
+        color: var(--terminal-green);
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border-radius: 12px;
+        transition: all 0.3s;
+        border-left: 3px solid transparent;
+        font-size: 13px;
         position: relative;
-        font-size: 14px;
-        font-weight: 500;
       }
 
       .nav-item::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 3px;
-        height: 0;
-        background: linear-gradient(180deg, var(--primary), var(--secondary));
-        border-radius: 0 3px 3px 0;
-        transition: height 0.3s ease;
+        content: '>';
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .nav-item:hover::before,
+      .nav-item.active::before {
+        opacity: 1;
+        animation: blink 1s infinite;
       }
 
       .nav-item:hover {
-        background: rgba(99, 102, 241, 0.1);
-        color: white;
-        transform: translateX(5px);
-      }
-
-      .nav-item:hover::before {
-        height: 60%;
+        background: rgba(0, 255, 0, 0.1);
+        border-left-color: var(--terminal-green);
+        box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.2);
+        text-shadow: 0 0 5px var(--terminal-green);
       }
 
       .nav-item.active {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-        color: white;
-        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-      }
-
-      .nav-item.active::before {
-        height: 70%;
+        background: rgba(0, 255, 0, 0.15);
+        border-left-color: var(--terminal-green);
+        box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.3);
+        text-shadow: 0 0 8px var(--terminal-green);
       }
 
       .nav-item-icon {
-        font-size: 20px;
-        width: 24px;
+        font-size: 16px;
+        width: 20px;
         text-align: center;
-        filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
       }
 
       /* Main Content */
       .main-content {
-        margin-left: 280px;
-        margin-top: 70px;
-        padding: 35px;
-        min-height: calc(100vh - 70px);
+        margin-left: 260px;
+        margin-top: 60px;
+        padding: 30px;
+        min-height: calc(100vh - 60px);
         transition: margin-left 0.3s ease;
         position: relative;
         z-index: 1;
@@ -336,7 +369,7 @@
         }
 
         .sidebar {
-          transform: translateX(-280px);
+          transform: translateX(-260px);
         }
 
         .sidebar.mobile-open {
@@ -345,32 +378,27 @@
 
         .main-content {
           margin-left: 0;
-          padding: 20px;
+          padding: 15px;
         }
 
         .header-search {
           display: none;
         }
 
-        .logo span:not(.logo-icon) {
+        .logo span:not(:first-child) {
           display: none;
-        }
-
-        .top-header {
-          padding: 0 15px;
         }
       }
 
-      /* Overlay for mobile */
+      /* Overlay */
       .sidebar-overlay {
         display: none;
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(4px);
+        background: rgba(0, 0, 0, 0.9);
         z-index: 998;
       }
 
@@ -378,23 +406,10 @@
         display: block;
       }
 
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: rgba(30, 41, 59, 0.3);
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, var(--primary), var(--secondary));
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-dark);
+      /* Terminal Cursor */
+      .cursor::after {
+        content: '▮';
+        animation: blink 1s infinite;
       }
     </style>
   </head>
@@ -403,26 +418,26 @@
     <!-- Top Header -->
     <header class="top-header">
       <div class="header-left">
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <button class="menu-toggle" onclick="toggleSidebar()">[MENU]</button>
         <a href="/" class="logo">
-          <span class="logo-icon">✈️</span>
-          <span>DronDoc 2025</span>
+          <span>DRONDOC_2025</span>
+          <span class="cursor"></span>
         </a>
       </div>
 
       <div class="header-right">
         <div class="header-search">
-          <span style="opacity: 0.7;">🔍</span>
-          <input type="text" placeholder="Поиск дронов, полетов, операторов...">
+          <span>$</span>
+          <input type="text" placeholder="search...">
         </div>
 
-        <div class="header-icon-btn">
-          <span style="font-size: 20px;">🔔</span>
+        <div class="header-icon-btn" title="Alerts">
+          <span>[!]</span>
           <span class="notification-badge">3</span>
         </div>
 
-        <div class="header-icon-btn">
-          <span style="font-size: 20px;">👤</span>
+        <div class="header-icon-btn" title="User">
+          <span>[#]</span>
         </div>
       </div>
     </header>
@@ -431,64 +446,64 @@
     <aside class="sidebar" id="sidebar">
       <nav class="sidebar-nav">
         <div class="nav-section">
-          <div class="nav-section-title">Главное</div>
+          <div class="nav-section-title">MAIN</div>
           <a href="<%= dashboard_path %>" class="nav-item <%= 'active' if current_page?(dashboard_path) %>">
-            <span class="nav-item-icon">📊</span>
-            <span>Дашборд</span>
+            <span class="nav-item-icon">[#]</span>
+            <span>DASHBOARD</span>
           </a>
           <a href="#" class="nav-item">
-            <span class="nav-item-icon">📈</span>
-            <span>Аналитика</span>
-          </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">Управление</div>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">✈️</span>
-            <span>Дроны</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">📋</span>
-            <span>Полеты</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">👥</span>
-            <span>Операторы</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">📸</span>
-            <span>Инспекции</span>
+            <span class="nav-item-icon">[%]</span>
+            <span>ANALYTICS</span>
           </a>
         </div>
 
         <div class="nav-section">
-          <div class="nav-section-title">Документы</div>
+          <div class="nav-section-title">CONTROL</div>
           <a href="#" class="nav-item">
-            <span class="nav-item-icon">📄</span>
-            <span>Документация</span>
+            <span class="nav-item-icon">[D]</span>
+            <span>DRONES</span>
           </a>
           <a href="#" class="nav-item">
-            <span class="nav-item-icon">📝</span>
-            <span>Отчеты</span>
+            <span class="nav-item-icon">[F]</span>
+            <span>FLIGHTS</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="nav-item-icon">[U]</span>
+            <span>OPERATORS</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="nav-item-icon">[I]</span>
+            <span>INSPECTIONS</span>
           </a>
         </div>
 
         <div class="nav-section">
-          <div class="nav-section-title">Обслуживание</div>
+          <div class="nav-section-title">DATA</div>
           <a href="#" class="nav-item">
-            <span class="nav-item-icon">🔧</span>
-            <span>Техническое ТО</span>
+            <span class="nav-item-icon">[*]</span>
+            <span>DOCUMENTS</span>
           </a>
           <a href="#" class="nav-item">
-            <span class="nav-item-icon">⚙️</span>
-            <span>Настройки</span>
+            <span class="nav-item-icon">[R]</span>
+            <span>REPORTS</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">SYSTEM</div>
+          <a href="#" class="nav-item">
+            <span class="nav-item-icon">[M]</span>
+            <span>MAINTENANCE</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="nav-item-icon">[S]</span>
+            <span>SETTINGS</span>
           </a>
         </div>
       </nav>
     </aside>
 
-    <!-- Sidebar Overlay (Mobile) -->
+    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- Main Content -->
