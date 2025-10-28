@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # Components showcase
   get "components", to: "components#index", as: "components"
 
+  # Theme generator
+  get "theme-generator", to: "theme_generator#index", as: "theme_generator"
+
   # Dashboard
   get "dashboard", to: "dashboard#index", as: "dashboard"
   get "home/index"
