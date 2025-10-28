@@ -1,0 +1,164 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14-alpine
+    container_name: a2d2_postgres
+    environment:
+      POSTGRES_DB: a2d2_development
+      POSTGRES_USER: a2d2_user
+      POSTGRES_PASSWORD: development_password
+      POSTGRES_INITDB_ARGS: |
+        -c max_connections=200
+        -c shared_buffers=256MB
+        -c effective_cache_size=1GB
+        -c work_mem=4MB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/postgresql:/etc/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U a2d2_user -d a2d2_development"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - a2d2_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: a2d2_redis
+    command: redis-server --appendonly yes --requirepass development_password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - a2d2_network
+
+  # Rails Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: a2d2_app
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgresql://a2d2_user:development_password@postgres:5432/a2d2_development
+      REDIS_URL: redis://:development_password@redis:6379
+      REDIS_CACHE_URL: redis://:development_password@redis:6379/1
+      RAILS_LOG_TO_STDOUT: "1"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+      - /rails/node_modules
+      - /rails/tmp
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: >
+      sh -c "
+        bin/rails db:create db:migrate &&
+        ./bin/dev
+      "
+    networks:
+      - a2d2_network
+
+  # Nginx (for testing production-like setup)
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: a2d2_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/conf.d:/etc/nginx/conf.d:ro
+      - nginx_cache:/var/cache/nginx
+    depends_on:
+      - app
+    networks:
+      - a2d2_network
+
+  # Prometheus (Metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: a2d2_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - a2d2_network
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: a2d2_grafana
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+    depends_on:
+      - prometheus
+    networks:
+      - a2d2_network
+
+  # Loki (Logging)
+  loki:
+    image: grafana/loki:latest
+    container_name: a2d2_loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki.yml:/etc/loki/local-config.yml:ro
+      - loki_data:/loki
+    command: -config.file=/etc/loki/local-config.yml
+    networks:
+      - a2d2_network
+
+  # Promtail (Log Shipper)
+  promtail:
+    image: grafana/promtail:latest
+    container_name: a2d2_promtail
+    volumes:
+      - ./monitoring/promtail.yml:/etc/promtail/config.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+    networks:
+      - a2d2_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  nginx_cache:
+
+networks:
+  a2d2_network:
+    driver: bridge
