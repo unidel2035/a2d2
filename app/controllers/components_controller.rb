@@ -1,6 +1,9 @@
 class ComponentsController < ApplicationController
   # This controller showcases all design components
   def index
-    # No data needed, just display the components
+    render Components::IndexView.new(
+      logged_in: logged_in?,
+      current_user: current_user
+    )
   end
 end

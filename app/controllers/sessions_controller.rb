@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :require_login, only: [ :new, :create ]
 
   def new
+    render Sessions::NewView.new(flash: flash)
   end
 
   def create
@@ -12,7 +13,7 @@ class SessionsController < ApplicationController
       redirect_to components_path, notice: "Добро пожаловать, #{user.name}!"
     else
       flash.now[:alert] = "Неверный email или пароль"
-      render :new, status: :unprocessable_entity
+      render Sessions::NewView.new(flash: flash), status: :unprocessable_entity
     end
   end
 
