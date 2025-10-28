@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html data-theme="light">
+  <head>
+    <title>Компоненты дизайна - A2D2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-base-200">
+    <!-- Navigation -->
+    <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+      <div class="navbar-start">
+        <%= link_to root_path, class: "btn btn-ghost text-xl font-bold" do %>
+          <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">A2D2</span>
+        <% end %>
+      </div>
+      <div class="navbar-center">
+        <span class="text-lg font-semibold">Компоненты дизайна</span>
+      </div>
+      <div class="navbar-end gap-2">
+        <%= link_to dashboard_path, class: "btn btn-ghost" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Dashboard
+        <% end %>
+        <% if logged_in? %>
+          <%= button_to "Выйти", logout_path, method: :delete, class: "btn btn-ghost" %>
+        <% else %>
+          <%= link_to "Войти", login_path, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="container mx-auto p-6">
+      <!-- Welcome Message -->
+      <% if logged_in? %>
+        <div class="alert alert-success mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Добро пожаловать, <%= current_user.name %>! Вы успешно вошли в систему.</span>
+        </div>
+      <% end %>
+
+      <!-- Page Header -->
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Компоненты дизайна A2D2
+        </h1>
+        <p class="text-lg text-base-content/70">
+          Полная коллекция компонентов дизайн-системы на базе Tailwind CSS + DaisyUI
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        <a href="#buttons" class="btn btn-sm btn-outline">Кнопки</a>
+        <a href="#cards" class="btn btn-sm btn-outline">Карточки</a>
+        <a href="#forms" class="btn btn-sm btn-outline">Формы</a>
+        <a href="#alerts" class="btn btn-sm btn-outline">Оповещения</a>
+        <a href="#modals" class="btn btn-sm btn-outline">Модальные окна</a>
+        <a href="#tables" class="btn btn-sm btn-outline">Таблицы</a>
+        <a href="#badges" class="btn btn-sm btn-outline">Бейджи</a>
+        <a href="#stats" class="btn btn-sm btn-outline">Статистика</a>
+      </div>
+
+      <!-- Buttons Section -->
+      <section id="buttons" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Кнопки</h2>
+
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-semibold mb-2">Основные стили:</h3>
+                <div class="flex flex-wrap gap-2">
+                  <button class="btn">Default</button>
+                  <button class="btn btn-neutral">Neutral</button>
+                  <button class="btn btn-primary">Primary</button>
+                  <button class="btn btn-secondary">Secondary</button>
+                  <button class="btn btn-accent">Accent</button>
+                  <button class="btn btn-ghost">Ghost</button>
+                  <button class="btn btn-link">Link</button>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-2">Состояния:</h3>
+                <div class="flex flex-wrap gap-2">
+                  <button class="btn btn-info">Info</button>
+                  <button class="btn btn-success">Success</button>
+                  <button class="btn btn-warning">Warning</button>
+                  <button class="btn btn-error">Error</button>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-2">Размеры:</h3>
+                <div class="flex flex-wrap gap-2 items-center">
+                  <button class="btn btn-xs">Tiny</button>
+                  <button class="btn btn-sm">Small</button>
+                  <button class="btn">Normal</button>
+                  <button class="btn btn-lg">Large</button>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-2">Варианты:</h3>
+                <div class="flex flex-wrap gap-2">
+                  <button class="btn btn-outline">Outline</button>
+                  <button class="btn btn-outline btn-primary">Outline Primary</button>
+                  <button class="btn btn-wide">Wide</button>
+                  <button class="btn btn-block">Block</button>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-2">С иконками:</h3>
+                <div class="flex flex-wrap gap-2">
+                  <button class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    Button
+                  </button>
+                  <button class="btn btn-secondary">
+                    Button
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cards Section -->
+      <section id="cards" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Карточки</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="card bg-base-200 shadow-md">
+                <figure class="bg-primary/20 h-32"></figure>
+                <div class="card-body">
+                  <h3 class="card-title">Карточка с изображением</h3>
+                  <p>Описание карточки с placeholder изображением.</p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary btn-sm">Действие</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card bg-base-200 shadow-md">
+                <div class="card-body">
+                  <h3 class="card-title">Простая карточка</h3>
+                  <p>Карточка без изображения с действиями внизу.</p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-ghost btn-sm">Отмена</button>
+                    <button class="btn btn-primary btn-sm">OK</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card bg-primary text-primary-content shadow-md">
+                <div class="card-body">
+                  <h3 class="card-title">Цветная карточка</h3>
+                  <p>Карточка с цветным фоном.</p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-sm">Подробнее</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Forms Section -->
+      <section id="forms" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Элементы форм</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-4">
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Текстовое поле</span></label>
+                  <input type="text" placeholder="Введите текст" class="input input-bordered" />
+                </div>
+
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Email</span></label>
+                  <input type="email" placeholder="email@example.com" class="input input-bordered input-primary" />
+                </div>
+
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Пароль</span></label>
+                  <input type="password" placeholder="Пароль" class="input input-bordered input-secondary" />
+                </div>
+
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Выпадающий список</span></label>
+                  <select class="select select-bordered">
+                    <option disabled selected>Выберите опцию</option>
+                    <option>Опция 1</option>
+                    <option>Опция 2</option>
+                    <option>Опция 3</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Текстовая область</span></label>
+                  <textarea class="textarea textarea-bordered" placeholder="Введите текст"></textarea>
+                </div>
+
+                <div class="form-control">
+                  <label class="label cursor-pointer justify-start gap-2">
+                    <input type="checkbox" checked class="checkbox checkbox-primary" />
+                    <span class="label-text">Чекбокс Primary</span>
+                  </label>
+                </div>
+
+                <div class="form-control">
+                  <label class="label cursor-pointer justify-start gap-2">
+                    <input type="radio" name="radio" class="radio radio-secondary" checked />
+                    <span class="label-text">Радио кнопка 1</span>
+                  </label>
+                  <label class="label cursor-pointer justify-start gap-2">
+                    <input type="radio" name="radio" class="radio radio-secondary" />
+                    <span class="label-text">Радио кнопка 2</span>
+                  </label>
+                </div>
+
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Переключатель</span></label>
+                  <input type="checkbox" class="toggle toggle-primary" checked />
+                </div>
+
+                <div class="form-control">
+                  <label class="label"><span class="label-text">Диапазон</span></label>
+                  <input type="range" min="0" max="100" value="40" class="range range-primary" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alerts Section -->
+      <section id="alerts" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Оповещения</h2>
+
+            <div class="space-y-4">
+              <div class="alert alert-info">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Информационное сообщение</span>
+              </div>
+
+              <div class="alert alert-success">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Операция выполнена успешно!</span>
+              </div>
+
+              <div class="alert alert-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span>Предупреждение: требуется внимание!</span>
+              </div>
+
+              <div class="alert alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Ошибка! Операция не выполнена.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modals Section -->
+      <section id="modals" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Модальные окна</h2>
+
+            <div class="flex flex-wrap gap-2">
+              <button class="btn btn-primary" onclick="modal_1.showModal()">Открыть модальное окно</button>
+              <button class="btn btn-secondary" onclick="modal_2.showModal()">С действиями</button>
+            </div>
+
+            <!-- Modal 1 -->
+            <dialog id="modal_1" class="modal">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg">Привет!</h3>
+                <p class="py-4">Это простое модальное окно. Нажмите ESC или кнопку ниже, чтобы закрыть.</p>
+                <div class="modal-action">
+                  <form method="dialog">
+                    <button class="btn">Закрыть</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
+
+            <!-- Modal 2 -->
+            <dialog id="modal_2" class="modal">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg">Подтвердите действие</h3>
+                <p class="py-4">Вы уверены, что хотите продолжить?</p>
+                <div class="modal-action">
+                  <form method="dialog">
+                    <button class="btn btn-ghost">Отмена</button>
+                    <button class="btn btn-primary">Подтвердить</button>
+                  </form>
+                </div>
+              </div>
+              <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+              </form>
+            </dialog>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tables Section -->
+      <section id="tables" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Таблицы</h2>
+
+            <div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Название</th>
+                    <th>Статус</th>
+                    <th>Прогресс</th>
+                    <th>Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>1</th>
+                    <td>Проект Alpha</td>
+                    <td><span class="badge badge-success">Активен</span></td>
+                    <td>
+                      <progress class="progress progress-success w-20" value="70" max="100"></progress>
+                    </td>
+                    <td>
+                      <button class="btn btn-ghost btn-xs">Детали</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>Проект Beta</td>
+                    <td><span class="badge badge-warning">В процессе</span></td>
+                    <td>
+                      <progress class="progress progress-warning w-20" value="40" max="100"></progress>
+                    </td>
+                    <td>
+                      <button class="btn btn-ghost btn-xs">Детали</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>Проект Gamma</td>
+                    <td><span class="badge badge-error">Остановлен</span></td>
+                    <td>
+                      <progress class="progress progress-error w-20" value="10" max="100"></progress>
+                    </td>
+                    <td>
+                      <button class="btn btn-ghost btn-xs">Детали</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Badges Section -->
+      <section id="badges" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Бейджи и Метки</h2>
+
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-semibold mb-2">Цвета:</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge">Default</span>
+                  <span class="badge badge-neutral">Neutral</span>
+                  <span class="badge badge-primary">Primary</span>
+                  <span class="badge badge-secondary">Secondary</span>
+                  <span class="badge badge-accent">Accent</span>
+                  <span class="badge badge-ghost">Ghost</span>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-2">Размеры:</h3>
+                <div class="flex flex-wrap gap-2 items-center">
+                  <span class="badge badge-xs">Tiny</span>
+                  <span class="badge badge-sm">Small</span>
+                  <span class="badge badge-md">Medium</span>
+                  <span class="badge badge-lg">Large</span>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold mb-2">С иконками:</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-info gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Info
+                  </span>
+                  <span class="badge badge-success gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Success
+                  </span>
+                  <span class="badge badge-warning gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Warning
+                  </span>
+                  <span class="badge badge-error gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Error
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section id="stats" class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Статистические блоки</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-figure text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                  </div>
+                  <div class="stat-title">Всего лайков</div>
+                  <div class="stat-value text-primary">25.6K</div>
+                  <div class="stat-desc">↗︎ 21% больше</div>
+                </div>
+              </div>
+
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-figure text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div class="stat-title">Просмотров страниц</div>
+                  <div class="stat-value text-secondary">2.6M</div>
+                  <div class="stat-desc">↗︎ 12% больше</div>
+                </div>
+              </div>
+
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-figure text-accent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                    </svg>
+                  </div>
+                  <div class="stat-title">Новые пользователи</div>
+                  <div class="stat-value text-accent">1,200</div>
+                  <div class="stat-desc">↗︎ 90 сегодня</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional Components -->
+      <section class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Дополнительные компоненты</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Progress bars -->
+              <div>
+                <h3 class="font-semibold mb-2">Индикаторы прогресса:</h3>
+                <div class="space-y-2">
+                  <progress class="progress progress-primary w-full" value="0" max="100"></progress>
+                  <progress class="progress progress-secondary w-full" value="25" max="100"></progress>
+                  <progress class="progress progress-accent w-full" value="50" max="100"></progress>
+                  <progress class="progress progress-success w-full" value="75" max="100"></progress>
+                  <progress class="progress progress-info w-full" value="100" max="100"></progress>
+                </div>
+              </div>
+
+              <!-- Loading -->
+              <div>
+                <h3 class="font-semibold mb-2">Загрузка:</h3>
+                <div class="flex flex-wrap gap-4">
+                  <span class="loading loading-spinner loading-xs"></span>
+                  <span class="loading loading-spinner loading-sm"></span>
+                  <span class="loading loading-spinner loading-md"></span>
+                  <span class="loading loading-spinner loading-lg"></span>
+                </div>
+                <div class="flex flex-wrap gap-4 mt-4">
+                  <span class="loading loading-dots loading-xs"></span>
+                  <span class="loading loading-dots loading-sm"></span>
+                  <span class="loading loading-dots loading-md"></span>
+                  <span class="loading loading-dots loading-lg"></span>
+                </div>
+              </div>
+
+              <!-- Breadcrumbs -->
+              <div>
+                <h3 class="font-semibold mb-2">Хлебные крошки:</h3>
+                <div class="text-sm breadcrumbs">
+                  <ul>
+                    <li><a>Главная</a></li>
+                    <li><a>Документы</a></li>
+                    <li>Детали</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Steps -->
+              <div>
+                <h3 class="font-semibold mb-2">Шаги:</h3>
+                <ul class="steps">
+                  <li class="step step-primary">Регистрация</li>
+                  <li class="step step-primary">Выбор плана</li>
+                  <li class="step">Оплата</li>
+                  <li class="step">Завершение</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Color Palette -->
+      <section class="mb-12">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Цветовая палитра</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="p-4 bg-primary text-primary-content rounded-lg text-center">
+                <div class="font-bold">Primary</div>
+              </div>
+              <div class="p-4 bg-secondary text-secondary-content rounded-lg text-center">
+                <div class="font-bold">Secondary</div>
+              </div>
+              <div class="p-4 bg-accent text-accent-content rounded-lg text-center">
+                <div class="font-bold">Accent</div>
+              </div>
+              <div class="p-4 bg-neutral text-neutral-content rounded-lg text-center">
+                <div class="font-bold">Neutral</div>
+              </div>
+              <div class="p-4 bg-info text-info-content rounded-lg text-center">
+                <div class="font-bold">Info</div>
+              </div>
+              <div class="p-4 bg-success text-success-content rounded-lg text-center">
+                <div class="font-bold">Success</div>
+              </div>
+              <div class="p-4 bg-warning text-warning-content rounded-lg text-center">
+                <div class="font-bold">Warning</div>
+              </div>
+              <div class="p-4 bg-error text-error-content rounded-lg text-center">
+                <div class="font-bold">Error</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Back to Home -->
+      <div class="text-center">
+        <%= link_to root_path, class: "btn btn-outline btn-lg" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Вернуться на главную
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content mt-12">
+      <div>
+        <p class="font-bold text-xl">
+          <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">A2D2</span>
+        </p>
+        <p class="text-base-content/70">Компоненты дизайна на базе Tailwind CSS + DaisyUI</p>
+      </div>
+    </footer>
+  </body>
+</html>
