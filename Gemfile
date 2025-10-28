@@ -20,6 +20,16 @@ gem "jbuilder"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
+# Authentication and Authorization - AUTH-001 to AUTH-006
+gem "devise", "~> 4.9"
+gem "devise-two-factor", "~> 5.0"
+gem "pundit", "~> 2.3"
+gem "rqrcode", "~> 2.0" # For QR code generation in MFA
+
+# Rate limiting and security - INFRA-001, SEC-001
+gem "rack-attack", "~> 6.7"
+gem "secure_headers", "~> 6.5"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
