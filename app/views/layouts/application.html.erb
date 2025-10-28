@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <title><%= content_for(:title) || "DronDoc 2025" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,11 +18,33 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <%# Tailwind CSS via CDN - for production, consider using tailwindcss-rails gem %>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <%# DaisyUI via CDN %>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+
+    <%# Configure Tailwind with DaisyUI %>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3b82f6',
+              secondary: '#6366f1',
+              accent: '#8b5cf6',
+            }
+          }
+        }
+      }
+    </script>
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-base-200">
     <%= yield %>
   </body>
 </html>

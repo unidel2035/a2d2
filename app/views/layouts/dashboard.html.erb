@@ -1,537 +1,233 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
-    <title>DronDoc 2025 - TERMINAL ACCESS</title>
+    <title>DronDoc 2025 - Dashboard</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --terminal-green: #00ff00;
-        --matrix-green: #0f0;
-        --dark-green: #003300;
-        --bg-black: #000000;
-        --danger-red: #ff0000;
-        --warning-yellow: #ffff00;
-        --cyber-blue: #00ffff;
-      }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+    <%# Tailwind CSS via CDN - for production, consider using tailwindcss-rails gem %>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-      body {
-        font-family: 'Fira Code', 'Share Tech Mono', monospace;
-        background: #000;
-        color: var(--terminal-green);
-        min-height: 100vh;
-        overflow-x: hidden;
-        position: relative;
-      }
+    <%# DaisyUI via CDN %>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
 
-      /* Scanline Effect */
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: repeating-linear-gradient(
-          0deg,
-          rgba(0, 255, 0, 0.03) 0px,
-          rgba(0, 255, 0, 0.03) 1px,
-          transparent 1px,
-          transparent 2px
-        );
-        pointer-events: none;
-        z-index: 9999;
-        animation: scanline 8s linear infinite;
-      }
-
-      @keyframes scanline {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(100%); }
-      }
-
-      /* Matrix Rain Background */
-      body::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-          linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
-        background-size: 20px 20px;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      /* Glitch Animation */
-      @keyframes glitch {
-        0% {
-          text-shadow:
-            2px 0 var(--danger-red),
-            -2px 0 var(--cyber-blue);
-        }
-        25% {
-          text-shadow:
-            -2px 0 var(--danger-red),
-            2px 0 var(--cyber-blue);
-        }
-        50% {
-          text-shadow:
-            2px 0 var(--danger-red),
-            -2px 0 var(--cyber-blue);
-        }
-        75% {
-          text-shadow:
-            -2px 0 var(--danger-red),
-            2px 0 var(--cyber-blue);
-        }
-        100% {
-          text-shadow:
-            2px 0 var(--danger-red),
-            -2px 0 var(--cyber-blue);
+    <%# Configure Tailwind with DaisyUI %>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3b82f6',
+              secondary: '#6366f1',
+              accent: '#8b5cf6',
+            }
+          }
         }
       }
+    </script>
 
-      /* Terminal Blink */
-      @keyframes blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
-      }
-
-      /* Top Header - Terminal Style */
-      .top-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60px;
-        background: rgba(0, 0, 0, 0.95);
-        border-bottom: 2px solid var(--terminal-green);
-        color: var(--terminal-green);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        z-index: 1000;
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-        font-family: 'Fira Code', monospace;
-      }
-
-      .header-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-
-      .menu-toggle {
-        display: none;
-        background: none;
-        border: 1px solid var(--terminal-green);
-        color: var(--terminal-green);
-        font-size: 16px;
-        cursor: pointer;
-        padding: 8px 12px;
-        font-family: 'Fira Code', monospace;
-        transition: all 0.3s;
-      }
-
-      .menu-toggle:hover {
-        background: var(--terminal-green);
-        color: #000;
-        box-shadow: 0 0 10px var(--terminal-green);
-      }
-
-      .logo {
-        font-size: 1.2rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        color: var(--terminal-green);
-        text-shadow: 0 0 10px var(--terminal-green);
-        letter-spacing: 2px;
-      }
-
-      .logo::before {
-        content: '>';
-        animation: blink 1s infinite;
-      }
-
-      .logo:hover {
-        animation: glitch 0.3s infinite;
-      }
-
-      .header-right {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .header-search {
-        display: flex;
-        align-items: center;
-        background: rgba(0, 255, 0, 0.05);
-        border: 1px solid var(--terminal-green);
-        padding: 8px 15px;
-        gap: 10px;
-      }
-
-      .header-search input {
-        background: none;
-        border: none;
-        color: var(--terminal-green);
-        outline: none;
-        width: 200px;
-        font-family: 'Fira Code', monospace;
-        font-size: 13px;
-      }
-
-      .header-search input::placeholder {
-        color: rgba(0, 255, 0, 0.5);
-      }
-
-      .header-icon-btn {
-        position: relative;
-        cursor: pointer;
-        padding: 8px;
-        border: 1px solid var(--terminal-green);
-        transition: all 0.3s;
-        background: rgba(0, 255, 0, 0.05);
-      }
-
-      .header-icon-btn:hover {
-        background: var(--terminal-green);
-        color: #000;
-        box-shadow: 0 0 15px var(--terminal-green);
-      }
-
-      .notification-badge {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: var(--danger-red);
-        color: #000;
-        border-radius: 0;
-        min-width: 18px;
-        height: 18px;
-        font-size: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        border: 1px solid var(--danger-red);
-        box-shadow: 0 0 10px var(--danger-red);
-        animation: blink 2s infinite;
-      }
-
-      /* Sidebar - Hacker Terminal */
-      .sidebar {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 260px;
-        height: calc(100vh - 60px);
-        background: rgba(0, 0, 0, 0.95);
-        border-right: 2px solid var(--terminal-green);
-        color: var(--terminal-green);
-        overflow-y: auto;
-        transition: transform 0.3s ease;
-        z-index: 999;
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-      }
-
-      .sidebar::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      .sidebar::-webkit-scrollbar-track {
-        background: #000;
-      }
-
-      .sidebar::-webkit-scrollbar-thumb {
-        background: var(--terminal-green);
-        box-shadow: 0 0 10px var(--terminal-green);
-      }
-
-      .sidebar.collapsed {
-        transform: translateX(-260px);
-      }
-
-      .sidebar-nav {
-        padding: 20px 0;
-      }
-
-      .nav-section {
-        margin-bottom: 25px;
-      }
-
-      .nav-section-title {
-        padding: 0 20px 10px;
-        font-size: 11px;
-        text-transform: uppercase;
-        color: var(--terminal-green);
-        font-weight: 700;
-        letter-spacing: 3px;
-        border-bottom: 1px dashed rgba(0, 255, 0, 0.3);
-        margin: 0 10px 10px;
-      }
-
-      .nav-section-title::before {
-        content: '[';
-        margin-right: 5px;
-      }
-
-      .nav-section-title::after {
-        content: ']';
-        margin-left: 5px;
-      }
-
-      .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 20px;
-        color: var(--terminal-green);
-        text-decoration: none;
-        transition: all 0.3s;
-        border-left: 3px solid transparent;
-        font-size: 13px;
-        position: relative;
-      }
-
-      .nav-item::before {
-        content: '>';
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      .nav-item:hover::before,
-      .nav-item.active::before {
-        opacity: 1;
-        animation: blink 1s infinite;
-      }
-
-      .nav-item:hover {
-        background: rgba(0, 255, 0, 0.1);
-        border-left-color: var(--terminal-green);
-        box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.2);
-        text-shadow: 0 0 5px var(--terminal-green);
-      }
-
-      .nav-item.active {
-        background: rgba(0, 255, 0, 0.15);
-        border-left-color: var(--terminal-green);
-        box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.3);
-        text-shadow: 0 0 8px var(--terminal-green);
-      }
-
-      .nav-item-icon {
-        font-size: 16px;
-        width: 20px;
-        text-align: center;
-      }
-
-      /* Main Content */
-      .main-content {
-        margin-left: 260px;
-        margin-top: 60px;
-        padding: 30px;
-        min-height: calc(100vh - 60px);
-        transition: margin-left 0.3s ease;
-        position: relative;
-        z-index: 1;
-      }
-
-      .main-content.expanded {
-        margin-left: 0;
-      }
-
-      /* Mobile Responsive */
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: block;
-        }
-
-        .sidebar {
-          transform: translateX(-260px);
-        }
-
-        .sidebar.mobile-open {
-          transform: translateX(0);
-        }
-
-        .main-content {
-          margin-left: 0;
-          padding: 15px;
-        }
-
-        .header-search {
-          display: none;
-        }
-
-        .logo span:not(:first-child) {
-          display: none;
-        }
-      }
-
-      /* Overlay */
-      .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.9);
-        z-index: 998;
-      }
-
-      .sidebar-overlay.active {
-        display: block;
-      }
-
-      /* Terminal Cursor */
-      .cursor::after {
-        content: '▮';
-        animation: blink 1s infinite;
-      }
-    </style>
+    <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <!-- Top Header -->
-    <header class="top-header">
-      <div class="header-left">
-        <button class="menu-toggle" onclick="toggleSidebar()">[MENU]</button>
-        <a href="/" class="logo">
-          <span>DRONDOC_2025</span>
-          <span class="cursor"></span>
-        </a>
+  <body class="bg-base-200">
+    <div class="drawer lg:drawer-open">
+      <input id="drawer-toggle" type="checkbox" class="drawer-toggle" />
+
+      <!-- Main Content -->
+      <div class="drawer-content flex flex-col">
+        <!-- Top Navigation Bar -->
+        <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+          <div class="flex-none lg:hidden">
+            <label for="drawer-toggle" class="btn btn-square btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </label>
+          </div>
+
+          <div class="flex-1">
+            <a href="/" class="btn btn-ghost text-xl font-bold">
+              DronDoc 2025
+            </a>
+          </div>
+
+          <div class="flex-none gap-2">
+            <!-- Search -->
+            <div class="form-control hidden md:block">
+              <input type="text" placeholder="Search..." class="input input-bordered w-24 md:w-auto" />
+            </div>
+
+            <!-- Notifications -->
+            <div class="dropdown dropdown-end">
+              <label tabindex="0" class="btn btn-ghost btn-circle">
+                <div class="indicator">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <span class="badge badge-sm badge-error indicator-item">3</span>
+                </div>
+              </label>
+              <div tabindex="0" class="mt-3 z-[1] card card-compact dropdown-content w-80 bg-base-100 shadow-xl">
+                <div class="card-body">
+                  <h3 class="font-bold text-lg">Notifications</h3>
+                  <div class="space-y-2">
+                    <div class="alert alert-warning">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                      <span class="text-sm">Maintenance required for Phantom 4</span>
+                    </div>
+                    <div class="alert alert-info">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      <span class="text-sm">New flight report available</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Profile -->
+            <div class="dropdown dropdown-end">
+              <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full bg-primary text-primary-content flex items-center justify-center">
+                  <span class="text-lg">A</span>
+                </div>
+              </label>
+              <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                  <a class="justify-between">
+                    Profile
+                    <span class="badge">New</span>
+                  </a>
+                </li>
+                <li><a>Settings</a></li>
+                <li><a>Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page Content -->
+        <main class="flex-1 p-6">
+          <%= yield %>
+        </main>
       </div>
 
-      <div class="header-right">
-        <div class="header-search">
-          <span>$</span>
-          <input type="text" placeholder="search...">
-        </div>
+      <!-- Sidebar -->
+      <div class="drawer-side">
+        <label for="drawer-toggle" class="drawer-overlay"></label>
+        <aside class="bg-base-100 w-80 min-h-full shadow-xl">
+          <div class="sticky top-0">
+            <div class="flex flex-col h-full">
+              <!-- Navigation Menu -->
+              <ul class="menu p-4 space-y-2">
+                <!-- Main Section -->
+                <li class="menu-title">
+                  <span class="text-base-content/70">Main</span>
+                </li>
+                <li>
+                  <a href="<%= dashboard_path %>" class="<%= 'active' if current_page?(dashboard_path) %>">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Analytics
+                  </a>
+                </li>
 
-        <div class="header-icon-btn" title="Alerts">
-          <span>[!]</span>
-          <span class="notification-badge">3</span>
-        </div>
+                <!-- Control Section -->
+                <li class="menu-title mt-4">
+                  <span class="text-base-content/70">Control</span>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                    Drones
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                    Flights
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Operators
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                    Inspections
+                  </a>
+                </li>
 
-        <div class="header-icon-btn" title="User">
-          <span>[#]</span>
-        </div>
+                <!-- Data Section -->
+                <li class="menu-title mt-4">
+                  <span class="text-base-content/70">Data</span>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Documents
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Reports
+                  </a>
+                </li>
+
+                <!-- System Section -->
+                <li class="menu-title mt-4">
+                  <span class="text-base-content/70">System</span>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Maintenance
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    </svg>
+                    Settings
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
       </div>
-    </header>
-
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <nav class="sidebar-nav">
-        <div class="nav-section">
-          <div class="nav-section-title">MAIN</div>
-          <a href="<%= dashboard_path %>" class="nav-item <%= 'active' if current_page?(dashboard_path) %>">
-            <span class="nav-item-icon">[#]</span>
-            <span>DASHBOARD</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[%]</span>
-            <span>ANALYTICS</span>
-          </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">CONTROL</div>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[D]</span>
-            <span>DRONES</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[F]</span>
-            <span>FLIGHTS</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[U]</span>
-            <span>OPERATORS</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[I]</span>
-            <span>INSPECTIONS</span>
-          </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">DATA</div>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[*]</span>
-            <span>DOCUMENTS</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[R]</span>
-            <span>REPORTS</span>
-          </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">SYSTEM</div>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[M]</span>
-            <span>MAINTENANCE</span>
-          </a>
-          <a href="#" class="nav-item">
-            <span class="nav-item-icon">[S]</span>
-            <span>SETTINGS</span>
-          </a>
-        </div>
-      </nav>
-    </aside>
-
-    <!-- Sidebar Overlay -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-      <%= yield %>
-    </main>
-
-    <script>
-      function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        const mainContent = document.getElementById('mainContent');
-
-        if (window.innerWidth <= 768) {
-          sidebar.classList.toggle('mobile-open');
-          overlay.classList.toggle('active');
-        } else {
-          sidebar.classList.toggle('collapsed');
-          mainContent.classList.toggle('expanded');
-        }
-      }
-
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-          document.getElementById('sidebar').classList.remove('mobile-open');
-          document.getElementById('sidebarOverlay').classList.remove('active');
-        }
-      });
-    </script>
+    </div>
   </body>
 </html>
