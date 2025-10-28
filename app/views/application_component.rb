@@ -20,6 +20,8 @@ class ApplicationComponent < Phlex::HTML
     # Register value helpers for path methods
     register_value_helper :signup_path
     register_value_helper :login_path
+    register_value_helper :logout_path
+    register_value_helper :dashboard_path
     register_value_helper :components_path
     register_value_helper :spreadsheets_path
     register_value_helper :root_path
