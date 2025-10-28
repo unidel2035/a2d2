@@ -1,0 +1,343 @@
+# Prometheus Alert Rules for A2D2 Platform
+
+groups:
+  - name: application_alerts
+    interval: 30s
+    rules:
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(rails_http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          service: application
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is above 5% for the last 5 minutes"
+          dashboard: "http://grafana:3000/d/rails-application"
+
+      # High response time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(rails_http_request_duration_seconds_bucket[5m])) > 2
+        for: 10m
+        labels:
+          severity: warning
+          service: application
+        annotations:
+          summary: "High response time detected"
+          description: "P95 response time is above 2 seconds"
+          dashboard: "http://grafana:3000/d/rails-performance"
+
+      # High error rate for API
+      - alert: ApiHighErrorRate
+        expr: rate(rails_http_requests_total{status=~"5..", path=~"/api/.*"}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+          service: api
+        annotations:
+          summary: "API high error rate"
+          description: "API error rate is above 10%"
+
+      # Database query slowness
+      - alert: DatabaseSlowQueries
+        expr: histogram_quantile(0.95, rate(activerecord_db_total_duration_ms_bucket[5m])) > 500
+        for: 10m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "Slow database queries detected"
+          description: "P95 database query time exceeds 500ms"
+
+      # Background job queue backlog
+      - alert: JobQueueBacklog
+        expr: solid_queue_ready_count > 1000
+        for: 15m
+        labels:
+          severity: warning
+          service: jobs
+        annotations:
+          summary: "Background job queue backlog"
+          description: "{{ $value }} jobs waiting to be processed"
+
+      # Failed background jobs
+      - alert: FailedJobs
+        expr: rate(solid_queue_failed_count[1h]) > 10
+        for: 15m
+        labels:
+          severity: warning
+          service: jobs
+        annotations:
+          summary: "High background job failure rate"
+          description: "More than 10 jobs failed in the last hour"
+
+  - name: database_alerts
+    interval: 1m
+    rules:
+      # Database connection exhaustion
+      - alert: DatabaseConnectionExhaustion
+        expr: pg_stat_activity_count > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "Database connections running high"
+          description: "{{ $value }} connections to database (limit: 100)"
+
+      # Database max connections exceeded
+      - alert: DatabaseMaxConnections
+        expr: pg_stat_activity_count > 95
+        for: 2m
+        labels:
+          severity: critical
+          service: database
+        annotations:
+          summary: "Database approaching max connections"
+          description: "{{ $value }} connections to database (limit: 100)"
+
+      # Replication lag
+      - alert: ReplicationLag
+        expr: pg_replication_slot_confirmed_flush_lsn_bytes - pg_last_xlog_receive_location_bytes > 1000000000
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "PostgreSQL replication lag detected"
+          description: "Replication lag is {{ $value | humanize }}B"
+
+      # Replication slot unused
+      - alert: ReplicationSlotUnused
+        expr: pg_replication_slot_restart_lsn_bytes - pg_last_xlog_receive_location_bytes < 0
+        for: 10m
+        labels:
+          severity: critical
+          service: database
+        annotations:
+          summary: "PostgreSQL replication slot is not used"
+          description: "Replication slot may need maintenance"
+
+      # Cache hit ratio too low
+      - alert: LowCacheHitRatio
+        expr: rate(pg_stat_user_tables_idx_scan[5m]) / (rate(pg_stat_user_tables_seq_scan[5m]) + rate(pg_stat_user_tables_idx_scan[5m])) < 0.8
+        for: 15m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "Low database cache hit ratio"
+          description: "Cache hit ratio is {{ $value | humanizePercentage }}"
+
+  - name: cache_alerts
+    interval: 30s
+    rules:
+      # Redis memory usage
+      - alert: RedisHighMemory
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          service: cache
+        annotations:
+          summary: "Redis memory usage above 80%"
+          description: "Redis memory usage is {{ $value | humanizePercentage }}"
+
+      # Redis max memory exceeded
+      - alert: RedisMaxMemory
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.95
+        for: 5m
+        labels:
+          severity: critical
+          service: cache
+        annotations:
+          summary: "Redis max memory nearly reached"
+          description: "Redis memory usage is {{ $value | humanizePercentage }}"
+
+      # Redis evictions
+      - alert: RedisEvictions
+        expr: rate(redis_evicted_keys_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+          service: cache
+        annotations:
+          summary: "Redis evicting keys due to memory pressure"
+          description: "{{ $value }} keys evicted per second"
+
+  - name: infrastructure_alerts
+    interval: 1m
+    rules:
+      # Node down
+      - alert: NodeDown
+        expr: up{job="node"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: infrastructure
+        annotations:
+          summary: "Node {{ $labels.instance }} is down"
+          description: "Node has been unreachable for 2 minutes"
+
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: rate(node_cpu_seconds_total{mode="user"}[5m]) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          service: infrastructure
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value | humanizePercentage }}"
+
+      # Very high CPU usage
+      - alert: VeryHighCPUUsage
+        expr: rate(node_cpu_seconds_total{mode="user"}[5m]) > 0.95
+        for: 5m
+        labels:
+          severity: critical
+          service: infrastructure
+        annotations:
+          summary: "Very high CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value | humanizePercentage }}"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.85
+        for: 5m
+        labels:
+          severity: warning
+          service: infrastructure
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value | humanizePercentage }}"
+
+      # Very high memory usage
+      - alert: VeryHighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.95
+        for: 2m
+        labels:
+          severity: critical
+          service: infrastructure
+        annotations:
+          summary: "Very high memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value | humanizePercentage }}"
+
+      # Disk space low
+      - alert: DiskSpaceLow
+        expr: node_filesystem_avail_bytes{fstype!~"tmpfs"} / node_filesystem_size_bytes < 0.2
+        for: 5m
+        labels:
+          severity: warning
+          service: infrastructure
+        annotations:
+          summary: "Low disk space on {{ $labels.instance }}"
+          description: "Available disk space is {{ $value | humanizePercentage }} on {{ $labels.device }}"
+
+      # Disk space critical
+      - alert: DiskSpaceCritical
+        expr: node_filesystem_avail_bytes{fstype!~"tmpfs"} / node_filesystem_size_bytes < 0.1
+        for: 2m
+        labels:
+          severity: critical
+          service: infrastructure
+        annotations:
+          summary: "Critical disk space on {{ $labels.instance }}"
+          description: "Available disk space is {{ $value | humanizePercentage }} on {{ $labels.device }}"
+
+      # High network I/O
+      - alert: HighNetworkIO
+        expr: rate(node_network_transmit_bytes_total[5m]) > 100000000
+        for: 10m
+        labels:
+          severity: warning
+          service: infrastructure
+        annotations:
+          summary: "High network I/O on {{ $labels.instance }}"
+          description: "Network transmit rate is {{ $value | humanizeBytes }}/s"
+
+      # Inode usage high
+      - alert: INodeUsageHigh
+        expr: node_filesystem_files_free{fstype!~"tmpfs"} / node_filesystem_files < 0.2
+        for: 10m
+        labels:
+          severity: warning
+          service: infrastructure
+        annotations:
+          summary: "High inode usage on {{ $labels.instance }}"
+          description: "{{ $value | humanizePercentage }} of inodes are free"
+
+  - name: nginx_alerts
+    interval: 30s
+    rules:
+      # High 4xx rate
+      - alert: HighClientErrors
+        expr: rate(nginx_http_requests_total{status=~"4.."}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          service: web
+        annotations:
+          summary: "High client error rate detected"
+          description: "Client error rate is {{ $value | humanizePercentage }}"
+
+      # High upstream errors
+      - alert: HighUpstreamErrors
+        expr: rate(nginx_upstream_requests_total{upstream_status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          service: web
+        annotations:
+          summary: "High upstream error rate"
+          description: "Upstream error rate is {{ $value | humanizePercentage }}"
+
+  - name: ssl_alerts
+    interval: 1d
+    rules:
+      # SSL certificate expiration
+      - alert: SSLCertificateExpiringSoon
+        expr: (ssl_certificate_not_after_seconds - time()) / 86400 < 30
+        for: 1h
+        labels:
+          severity: warning
+          service: ssl
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "Certificate will expire in {{ $value | humanizeDuration }}"
+
+      # SSL certificate expired
+      - alert: SSLCertificateExpired
+        expr: ssl_certificate_not_after_seconds < time()
+        for: 1m
+        labels:
+          severity: critical
+          service: ssl
+        annotations:
+          summary: "SSL certificate has expired"
+          description: "Certificate expired {{ $value | humanizeDuration }} ago"
+
+  - name: deployment_alerts
+    interval: 5m
+    rules:
+      # Deploy failure detection
+      - alert: DeploymentFailure
+        expr: increase(deployment_total{status="failed"}[15m]) > 0
+        labels:
+          severity: critical
+          service: deployment
+        annotations:
+          summary: "Deployment failed"
+          description: "Recent deployment has failed"
+
+      # Deployment stuck
+      - alert: DeploymentStuck
+        expr: time() - deployment_timestamp_seconds > 3600
+        for: 30m
+        labels:
+          severity: warning
+          service: deployment
+        annotations:
+          summary: "Deployment appears stuck"
+          description: "Last deployment was {{ $value | humanizeDuration }} ago"
