@@ -3,6 +3,7 @@ class RegistrationsController < ApplicationController
 
   def new
     @user = User.new
+    render Registrations::NewView.new(user: @user)
   end
 
   def create
@@ -12,7 +13,7 @@ class RegistrationsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to components_path, notice: "Регистрация прошла успешно! Добро пожаловать, #{@user.name}!"
     else
-      render :new, status: :unprocessable_entity
+      render Registrations::NewView.new(user: @user), status: :unprocessable_entity
     end
   end
 
