@@ -21,17 +21,17 @@ module Home
       head do
         title { "A2D2 - Платформа автоматизации автоматизации" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
-        csrf_meta_tags
-        csp_meta_tag
+        helpers.csrf_meta_tags
+        helpers.csp_meta_tag
 
-        stylesheet_link_tag "application", data: { turbo_track: "reload" }
+        helpers.stylesheet_link_tag "application", data: { turbo_track: "reload" }
         script(src: "https://cdn.tailwindcss.com")
         link(
           href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
           rel: "stylesheet",
           type: "text/css"
         )
-        javascript_importmap_tags
+        helpers.javascript_importmap_tags
       end
     end
 
@@ -64,17 +64,17 @@ module Home
             end
 
             div(class: "flex flex-wrap gap-4 justify-center") do
-              Link href: signup_path, class: "btn btn-primary btn-lg gap-2" do
+              Link href: helpers.signup_path, class: "btn btn-primary btn-lg gap-2" do
                 render_icon(:lightning)
                 plain "Начать работу"
               end
 
-              Link href: components_path, class: "btn btn-outline btn-lg gap-2" do
+              Link href: helpers.components_path, class: "btn btn-outline btn-lg gap-2" do
                 render_icon(:grid)
                 plain "Компоненты дизайна"
               end
 
-              Link href: spreadsheets_path, class: "btn btn-secondary btn-lg gap-2" do
+              Link href: helpers.spreadsheets_path, class: "btn btn-secondary btn-lg gap-2" do
                 render_icon(:table)
                 plain "Табличный редактор"
               end
@@ -156,7 +156,7 @@ module Home
             "Присоединяйтесь к A2D2 и начните автоматизировать вашу автоматизацию уже сегодня"
           end
 
-          Link href: signup_path, class: "btn btn-lg bg-white text-primary hover:bg-base-100 border-0" do
+          Link href: helpers.signup_path, class: "btn btn-lg bg-white text-primary hover:bg-base-100 border-0" do
             plain "Создать аккаунт бесплатно"
             svg(
               xmlns: "http://www.w3.org/2000/svg",
