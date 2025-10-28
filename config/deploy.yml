@@ -1,0 +1,227 @@
+# Kamal deployment configuration for A2D2 Platform
+# https://kamal-deploy.org/
+
+service: a2d2
+image: ghcr.io/unidel2035/a2d2
+
+volumes:
+  - "storage:/rails/storage"
+  - "log:/rails/log"
+
+env:
+  clear:
+    RAILS_ENV: production
+    RAILS_LOG_TO_STDOUT: "1"
+    SOLID_QUEUE_PROCESS_ID: "<%= Socket.gethostname %>"
+  secret:
+    - RAILS_MASTER_KEY
+    - DATABASE_URL
+    - REDIS_URL
+
+healthcheck:
+  path: /health
+  interval: 5s
+  timeout: 3s
+  max_attempts: 5
+
+boot:
+  limit: 30
+  wait: 5
+
+registry:
+  server: ghcr.io
+  username:
+    - GHCR_USERNAME
+  password:
+    - GHCR_TOKEN
+
+roles:
+  web:
+    hosts:
+      - 1.2.3.4
+      - 1.2.3.5
+      - 1.2.3.6
+    options:
+      cpus: 2
+      memory: 512M
+      "cap-add": NET_ADMIN
+    env:
+      clear:
+        WEB_SERVER: puma
+    labels:
+      service: web
+
+  job:
+    hosts:
+      - 1.2.3.7
+    options:
+      cpus: 1
+      memory: 256M
+    env:
+      clear:
+        JOB_CONCURRENCY: "5"
+        SOLID_QUEUE_PROCESSES: solid-queue
+
+# Builder configuration
+builder:
+  args:
+    RUBY_VERSION: 3.3.6
+  secrets:
+    - RAILS_MASTER_KEY
+
+# SSH configuration
+ssh:
+  user: deploy
+  port: 22
+
+# Accessory services (external)
+accessories:
+  db:
+    image: postgres:14-alpine
+    host: 1.2.3.10
+    port: 5432
+    env:
+      clear:
+        POSTGRES_DB: a2d2_production
+        POSTGRES_USER: a2d2_user
+      secret:
+        - POSTGRES_PASSWORD
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+
+  redis:
+    image: redis:7-alpine
+    host: 1.2.3.11
+    port: 6379
+    env:
+      secret:
+        - REDIS_PASSWORD
+    volumes:
+      - "redis_data:/data"
+
+---
+
+# Development environment
+development:
+  service: a2d2-dev
+  image: a2d2:dev
+  registry:
+    server: localhost:3005
+  ssh:
+    port: 22
+
+---
+
+# Staging environment
+staging:
+  service: a2d2-staging
+  image: ghcr.io/unidel2035/a2d2
+  env:
+    clear:
+      RAILS_ENV: staging
+      RAILS_LOG_TO_STDOUT: "1"
+  roles:
+    web:
+      hosts:
+        - staging-web-1.internal
+      options:
+        cpus: 2
+        memory: 512M
+  ssh:
+    user: deploy
+    port: 22
+
+---
+
+# Production environment
+production:
+  service: a2d2
+  image: ghcr.io/unidel2035/a2d2
+  registry:
+    server: ghcr.io
+    username:
+      - GHCR_USERNAME
+    password:
+      - GHCR_TOKEN
+
+  env:
+    clear:
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: "1"
+      LOG_LEVEL: "info"
+    secret:
+      - RAILS_MASTER_KEY
+      - DATABASE_URL
+      - REDIS_URL
+      - SENDGRID_API_KEY
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+
+  roles:
+    web:
+      hosts:
+        - production-web-1.internal
+        - production-web-2.internal
+        - production-web-3.internal
+      options:
+        cpus: 4
+        memory: 1024M
+        "cap-add": NET_ADMIN
+      labels:
+        environment: production
+        service: web
+
+    job:
+      hosts:
+        - production-job-1.internal
+      options:
+        cpus: 2
+        memory: 512M
+      env:
+        clear:
+          JOB_CONCURRENCY: "10"
+          SOLID_QUEUE_PROCESSES: "solid-queue --max-threads=25"
+      labels:
+        environment: production
+        service: job
+
+  # Database configuration
+  accessories:
+    db:
+      image: postgres:14-alpine
+      host: production-db.internal
+      port: 5432
+      env:
+        clear:
+          POSTGRES_DB: a2d2_production
+          POSTGRES_USER: a2d2_user
+        secret:
+          - POSTGRES_PASSWORD
+
+    redis:
+      image: redis:7-alpine
+      host: production-redis.internal
+      port: 6379
+      env:
+        secret:
+          - REDIS_PASSWORD
+
+  # Health checks
+  healthcheck:
+    path: /health/ready
+    interval: 5s
+    timeout: 3s
+    max_attempts: 5
+
+  # Cleanup old images
+  prune:
+    images: true
+    keep: 3
+    keep_local: 1
+
+  # Logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
