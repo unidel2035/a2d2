@@ -60,25 +60,26 @@
 
       <!-- Quick Links -->
       <div class="flex flex-wrap gap-2 mb-8">
-        <a href="#buttons" class="btn btn-sm btn-outline">Кнопки</a>
-        <a href="#cards" class="btn btn-sm btn-outline">Карточки</a>
-        <a href="#forms" class="btn btn-sm btn-outline">Формы</a>
-        <a href="#alerts" class="btn btn-sm btn-outline">Оповещения</a>
-        <a href="#modals" class="btn btn-sm btn-outline">Модальные окна</a>
-        <a href="#tables" class="btn btn-sm btn-outline">Таблицы</a>
-        <a href="#badges" class="btn btn-sm btn-outline">Бейджи</a>
-        <a href="#stats" class="btn btn-sm btn-outline">Статистика</a>
+        <a href="#actions" class="btn btn-sm btn-outline">Действия</a>
+        <a href="#data-display" class="btn btn-sm btn-outline">Отображение данных</a>
+        <a href="#navigation" class="btn btn-sm btn-outline">Навигация</a>
+        <a href="#feedback" class="btn btn-sm btn-outline">Обратная связь</a>
+        <a href="#data-input" class="btn btn-sm btn-outline">Ввод данных</a>
+        <a href="#layout" class="btn btn-sm btn-outline">Макет</a>
+        <a href="#mockup" class="btn btn-sm btn-outline">Макеты устройств</a>
       </div>
 
-      <!-- Buttons Section -->
-      <section id="buttons" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Кнопки</h2>
+      <!-- ACTIONS SECTION -->
+      <section id="actions" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Действия (Actions)</h2>
 
+        <!-- Button -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Button (Кнопка)</h3>
             <div class="space-y-6">
               <div>
-                <h3 class="font-semibold mb-2">Основные стили:</h3>
+                <h4 class="font-semibold mb-2">Основные стили:</h4>
                 <div class="flex flex-wrap gap-2">
                   <button class="btn">Default</button>
                   <button class="btn btn-neutral">Neutral</button>
@@ -89,19 +90,18 @@
                   <button class="btn btn-link">Link</button>
                 </div>
               </div>
-
               <div>
-                <h3 class="font-semibold mb-2">Состояния:</h3>
+                <h4 class="font-semibold mb-2">Состояния:</h4>
                 <div class="flex flex-wrap gap-2">
                   <button class="btn btn-info">Info</button>
                   <button class="btn btn-success">Success</button>
                   <button class="btn btn-warning">Warning</button>
                   <button class="btn btn-error">Error</button>
+                  <button class="btn" disabled>Disabled</button>
                 </div>
               </div>
-
               <div>
-                <h3 class="font-semibold mb-2">Размеры:</h3>
+                <h4 class="font-semibold mb-2">Размеры:</h4>
                 <div class="flex flex-wrap gap-2 items-center">
                   <button class="btn btn-xs">Tiny</button>
                   <button class="btn btn-sm">Small</button>
@@ -109,71 +109,266 @@
                   <button class="btn btn-lg">Large</button>
                 </div>
               </div>
-
               <div>
-                <h3 class="font-semibold mb-2">Варианты:</h3>
+                <h4 class="font-semibold mb-2">Варианты:</h4>
                 <div class="flex flex-wrap gap-2">
                   <button class="btn btn-outline">Outline</button>
                   <button class="btn btn-outline btn-primary">Outline Primary</button>
                   <button class="btn btn-wide">Wide</button>
                   <button class="btn btn-block">Block</button>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold mb-2">С иконками:</h3>
-                <div class="flex flex-wrap gap-2">
-                  <button class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                    Button
+                  <button class="btn btn-square">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                   </button>
-                  <button class="btn btn-secondary">
-                    Button
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
+                  <button class="btn btn-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                   </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Dropdown -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Dropdown (Выпадающее меню)</h3>
+            <div class="flex flex-wrap gap-4">
+              <div class="dropdown">
+                <div tabindex="0" role="button" class="btn">Нажмите</div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                  <li><a>Пункт 1</a></li>
+                  <li><a>Пункт 2</a></li>
+                </ul>
+              </div>
+              <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn">Dropdown End</div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                  <li><a>Пункт 1</a></li>
+                  <li><a>Пункт 2</a></li>
+                </ul>
+              </div>
+              <div class="dropdown dropdown-top">
+                <div tabindex="0" role="button" class="btn">Dropdown Top</div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 bottom-full mb-1">
+                  <li><a>Пункт 1</a></li>
+                  <li><a>Пункт 2</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAB / Speed Dial -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">FAB / Speed Dial (Плавающая кнопка)</h3>
+            <div class="relative h-64 bg-base-200 rounded-lg">
+              <button class="btn btn-circle btn-primary btn-lg absolute bottom-4 right-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Modal (Модальное окно)</h3>
+            <div class="flex flex-wrap gap-2">
+              <button class="btn btn-primary" onclick="modal_basic.showModal()">Простое модальное окно</button>
+              <button class="btn btn-secondary" onclick="modal_actions.showModal()">С действиями</button>
+              <button class="btn btn-accent" onclick="modal_responsive.showModal()">Адаптивное</button>
+            </div>
+            <dialog id="modal_basic" class="modal">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg">Привет!</h3>
+                <p class="py-4">Это простое модальное окно.</p>
+                <div class="modal-action">
+                  <form method="dialog"><button class="btn">Закрыть</button></form>
+                </div>
+              </div>
+            </dialog>
+            <dialog id="modal_actions" class="modal">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg">Подтвердите действие</h3>
+                <p class="py-4">Вы уверены?</p>
+                <div class="modal-action">
+                  <form method="dialog">
+                    <button class="btn btn-ghost">Отмена</button>
+                    <button class="btn btn-primary">Подтвердить</button>
+                  </form>
+                </div>
+              </div>
+              <form method="dialog" class="modal-backdrop"><button>close</button></form>
+            </dialog>
+            <dialog id="modal_responsive" class="modal">
+              <div class="modal-box w-11/12 max-w-5xl">
+                <h3 class="font-bold text-lg">Адаптивное модальное окно</h3>
+                <p class="py-4">Это большое адаптивное модальное окно.</p>
+                <div class="modal-action">
+                  <form method="dialog"><button class="btn">Закрыть</button></form>
+                </div>
+              </div>
+            </dialog>
+          </div>
+        </div>
+
+        <!-- Swap -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Swap (Переключатель анимации)</h3>
+            <div class="flex flex-wrap gap-4">
+              <label class="swap swap-rotate">
+                <input type="checkbox" />
+                <svg class="swap-on fill-current w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+                <svg class="swap-off fill-current w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
+              </label>
+              <label class="swap swap-flip text-9xl">
+                <input type="checkbox" />
+                <div class="swap-on">😈</div>
+                <div class="swap-off">😇</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme Controller -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Theme Controller (Контроллер темы)</h3>
+            <div class="flex flex-wrap gap-2">
+              <input type="checkbox" value="dark" class="toggle theme-controller" />
+              <span class="label-text">Переключить тему</span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- Cards Section -->
-      <section id="cards" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Карточки</h2>
+      <!-- DATA DISPLAY SECTION -->
+      <section id="data-display" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Отображение данных (Data Display)</h2>
 
+        <!-- Accordion -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Accordion (Аккордеон)</h3>
+            <div class="join join-vertical w-full">
+              <div class="collapse collapse-arrow join-item border border-base-300">
+                <input type="radio" name="my-accordion" checked="checked" />
+                <div class="collapse-title text-xl font-medium">Раздел 1</div>
+                <div class="collapse-content"><p>Содержимое первого раздела</p></div>
+              </div>
+              <div class="collapse collapse-arrow join-item border border-base-300">
+                <input type="radio" name="my-accordion" />
+                <div class="collapse-title text-xl font-medium">Раздел 2</div>
+                <div class="collapse-content"><p>Содержимое второго раздела</p></div>
+              </div>
+              <div class="collapse collapse-arrow join-item border border-base-300">
+                <input type="radio" name="my-accordion" />
+                <div class="collapse-title text-xl font-medium">Раздел 3</div>
+                <div class="collapse-content"><p>Содержимое третьего раздела</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Avatar (Аватар)</h3>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold mb-2">Размеры:</h4>
+                <div class="flex flex-wrap gap-2 items-center">
+                  <div class="avatar"><div class="w-8 rounded"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full">A</div></div></div>
+                  <div class="avatar"><div class="w-12 rounded"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full">B</div></div></div>
+                  <div class="avatar"><div class="w-16 rounded"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full">C</div></div></div>
+                  <div class="avatar"><div class="w-24 rounded"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full">D</div></div></div>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Формы:</h4>
+                <div class="flex flex-wrap gap-2 items-center">
+                  <div class="avatar"><div class="w-16 rounded"><div class="bg-primary text-primary-content flex items-center justify-center w-full h-full">R</div></div></div>
+                  <div class="avatar"><div class="w-16 rounded-full"><div class="bg-secondary text-secondary-content flex items-center justify-center w-full h-full">C</div></div></div>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Группа аватаров:</h4>
+                <div class="avatar-group -space-x-6 rtl:space-x-reverse">
+                  <div class="avatar"><div class="w-12"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full rounded-full">1</div></div></div>
+                  <div class="avatar"><div class="w-12"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full rounded-full">2</div></div></div>
+                  <div class="avatar"><div class="w-12"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full rounded-full">3</div></div></div>
+                  <div class="avatar placeholder"><div class="w-12 bg-neutral text-neutral-content rounded-full"><span>+99</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Badge (Бейдж)</h3>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold mb-2">Цвета:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge">Default</span>
+                  <span class="badge badge-neutral">Neutral</span>
+                  <span class="badge badge-primary">Primary</span>
+                  <span class="badge badge-secondary">Secondary</span>
+                  <span class="badge badge-accent">Accent</span>
+                  <span class="badge badge-ghost">Ghost</span>
+                  <span class="badge badge-info">Info</span>
+                  <span class="badge badge-success">Success</span>
+                  <span class="badge badge-warning">Warning</span>
+                  <span class="badge badge-error">Error</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Размеры:</h4>
+                <div class="flex flex-wrap gap-2 items-center">
+                  <span class="badge badge-xs">xs</span>
+                  <span class="badge badge-sm">sm</span>
+                  <span class="badge badge-md">md</span>
+                  <span class="badge badge-lg">lg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Card (Карточка)</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div class="card bg-base-200 shadow-md">
                 <figure class="bg-primary/20 h-32"></figure>
                 <div class="card-body">
-                  <h3 class="card-title">Карточка с изображением</h3>
-                  <p>Описание карточки с placeholder изображением.</p>
+                  <h4 class="card-title">С изображением</h4>
+                  <p>Карточка с placeholder изображением.</p>
                   <div class="card-actions justify-end">
                     <button class="btn btn-primary btn-sm">Действие</button>
                   </div>
                 </div>
               </div>
-
               <div class="card bg-base-200 shadow-md">
                 <div class="card-body">
-                  <h3 class="card-title">Простая карточка</h3>
-                  <p>Карточка без изображения с действиями внизу.</p>
+                  <h4 class="card-title">Простая</h4>
+                  <p>Карточка без изображения.</p>
                   <div class="card-actions justify-end">
                     <button class="btn btn-ghost btn-sm">Отмена</button>
                     <button class="btn btn-primary btn-sm">OK</button>
                   </div>
                 </div>
               </div>
-
               <div class="card bg-primary text-primary-content shadow-md">
                 <div class="card-body">
-                  <h3 class="card-title">Цветная карточка</h3>
+                  <h4 class="card-title">Цветная</h4>
                   <p>Карточка с цветным фоном.</p>
                   <div class="card-actions justify-end">
                     <button class="btn btn-sm">Подробнее</button>
@@ -183,429 +378,800 @@
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Forms Section -->
-      <section id="forms" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
+        <!-- Carousel -->
+        <div class="card bg-base-100 shadow-xl mb-8">
           <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Элементы форм</h2>
+            <h3 class="card-title text-xl mb-4">Carousel (Карусель)</h3>
+            <div class="carousel rounded-box w-full">
+              <div class="carousel-item w-full"><div class="bg-primary h-64 w-full flex items-center justify-center text-primary-content text-2xl">Слайд 1</div></div>
+              <div class="carousel-item w-full"><div class="bg-secondary h-64 w-full flex items-center justify-center text-secondary-content text-2xl">Слайд 2</div></div>
+              <div class="carousel-item w-full"><div class="bg-accent h-64 w-full flex items-center justify-center text-accent-content text-2xl">Слайд 3</div></div>
+            </div>
+          </div>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="space-y-4">
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Текстовое поле</span></label>
-                  <input type="text" placeholder="Введите текст" class="input input-bordered" />
-                </div>
-
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Email</span></label>
-                  <input type="email" placeholder="email@example.com" class="input input-bordered input-primary" />
-                </div>
-
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Пароль</span></label>
-                  <input type="password" placeholder="Пароль" class="input input-bordered input-secondary" />
-                </div>
-
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Выпадающий список</span></label>
-                  <select class="select select-bordered">
-                    <option disabled selected>Выберите опцию</option>
-                    <option>Опция 1</option>
-                    <option>Опция 2</option>
-                    <option>Опция 3</option>
-                  </select>
-                </div>
+        <!-- Chat Bubble -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Chat Bubble (Чат)</h3>
+            <div class="space-y-2">
+              <div class="chat chat-start">
+                <div class="chat-bubble">Привет! Как дела?</div>
               </div>
-
-              <div class="space-y-4">
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Текстовая область</span></label>
-                  <textarea class="textarea textarea-bordered" placeholder="Введите текст"></textarea>
-                </div>
-
-                <div class="form-control">
-                  <label class="label cursor-pointer justify-start gap-2">
-                    <input type="checkbox" checked class="checkbox checkbox-primary" />
-                    <span class="label-text">Чекбокс Primary</span>
-                  </label>
-                </div>
-
-                <div class="form-control">
-                  <label class="label cursor-pointer justify-start gap-2">
-                    <input type="radio" name="radio" class="radio radio-secondary" checked />
-                    <span class="label-text">Радио кнопка 1</span>
-                  </label>
-                  <label class="label cursor-pointer justify-start gap-2">
-                    <input type="radio" name="radio" class="radio radio-secondary" />
-                    <span class="label-text">Радио кнопка 2</span>
-                  </label>
-                </div>
-
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Переключатель</span></label>
-                  <input type="checkbox" class="toggle toggle-primary" checked />
-                </div>
-
-                <div class="form-control">
-                  <label class="label"><span class="label-text">Диапазон</span></label>
-                  <input type="range" min="0" max="100" value="40" class="range range-primary" />
-                </div>
+              <div class="chat chat-end">
+                <div class="chat-bubble chat-bubble-primary">Отлично, спасибо!</div>
+              </div>
+              <div class="chat chat-start">
+                <div class="chat-image avatar"><div class="w-10 rounded-full"><div class="bg-neutral text-neutral-content flex items-center justify-center w-full h-full">A</div></div></div>
+                <div class="chat-bubble">С аватаром</div>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Alerts Section -->
-      <section id="alerts" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
+        <!-- Collapse -->
+        <div class="card bg-base-100 shadow-xl mb-8">
           <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Оповещения</h2>
-
-            <div class="space-y-4">
-              <div class="alert alert-info">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>Информационное сообщение</span>
+            <h3 class="card-title text-xl mb-4">Collapse (Сворачиваемый блок)</h3>
+            <div class="space-y-2">
+              <div class="collapse collapse-arrow bg-base-200">
+                <input type="checkbox" />
+                <div class="collapse-title font-medium">Нажмите чтобы развернуть</div>
+                <div class="collapse-content"><p>Скрытое содержимое</p></div>
               </div>
-
-              <div class="alert alert-success">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Операция выполнена успешно!</span>
-              </div>
-
-              <div class="alert alert-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <span>Предупреждение: требуется внимание!</span>
-              </div>
-
-              <div class="alert alert-error">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Ошибка! Операция не выполнена.</span>
+              <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" />
+                <div class="collapse-title font-medium">С иконкой плюс</div>
+                <div class="collapse-content"><p>Скрытое содержимое</p></div>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Modals Section -->
-      <section id="modals" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
+        <!-- Countdown -->
+        <div class="card bg-base-100 shadow-xl mb-8">
           <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Модальные окна</h2>
+            <h3 class="card-title text-xl mb-4">Countdown (Обратный отсчет)</h3>
+            <div class="flex gap-5">
+              <div><span class="countdown font-mono text-4xl"><span style="--value:15;"></span></span>дней</div>
+              <div><span class="countdown font-mono text-4xl"><span style="--value:10;"></span></span>часов</div>
+              <div><span class="countdown font-mono text-4xl"><span style="--value:24;"></span></span>мин</div>
+              <div><span class="countdown font-mono text-4xl"><span style="--value:37;"></span></span>сек</div>
+            </div>
+          </div>
+        </div>
 
+        <!-- Diff -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Diff (Сравнение)</h3>
+            <div class="diff aspect-[16/9]">
+              <div class="diff-item-1"><div class="bg-primary text-primary-content grid place-content-center text-5xl font-black">До</div></div>
+              <div class="diff-item-2"><div class="bg-secondary text-secondary-content grid place-content-center text-5xl font-black">После</div></div>
+              <div class="diff-resizer"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kbd -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Kbd (Клавиши)</h3>
             <div class="flex flex-wrap gap-2">
-              <button class="btn btn-primary" onclick="modal_1.showModal()">Открыть модальное окно</button>
-              <button class="btn btn-secondary" onclick="modal_2.showModal()">С действиями</button>
+              <kbd class="kbd">ctrl</kbd>
+              <span>+</span>
+              <kbd class="kbd">shift</kbd>
+              <span>+</span>
+              <kbd class="kbd">del</kbd>
             </div>
-
-            <!-- Modal 1 -->
-            <dialog id="modal_1" class="modal">
-              <div class="modal-box">
-                <h3 class="font-bold text-lg">Привет!</h3>
-                <p class="py-4">Это простое модальное окно. Нажмите ESC или кнопку ниже, чтобы закрыть.</p>
-                <div class="modal-action">
-                  <form method="dialog">
-                    <button class="btn">Закрыть</button>
-                  </form>
-                </div>
-              </div>
-            </dialog>
-
-            <!-- Modal 2 -->
-            <dialog id="modal_2" class="modal">
-              <div class="modal-box">
-                <h3 class="font-bold text-lg">Подтвердите действие</h3>
-                <p class="py-4">Вы уверены, что хотите продолжить?</p>
-                <div class="modal-action">
-                  <form method="dialog">
-                    <button class="btn btn-ghost">Отмена</button>
-                    <button class="btn btn-primary">Подтвердить</button>
-                  </form>
-                </div>
-              </div>
-              <form method="dialog" class="modal-backdrop">
-                <button>close</button>
-              </form>
-            </dialog>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <kbd class="kbd kbd-sm">A</kbd>
+              <kbd class="kbd kbd-md">B</kbd>
+              <kbd class="kbd kbd-lg">C</kbd>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- Tables Section -->
-      <section id="tables" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
+        <!-- Stat -->
+        <div class="card bg-base-100 shadow-xl mb-8">
           <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Таблицы</h2>
+            <h3 class="card-title text-xl mb-4">Stat (Статистика)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-figure text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                  </div>
+                  <div class="stat-title">Всего лайков</div>
+                  <div class="stat-value text-primary">25.6K</div>
+                  <div class="stat-desc">21% больше</div>
+                </div>
+              </div>
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-figure text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                  </div>
+                  <div class="stat-title">Просмотров</div>
+                  <div class="stat-value text-secondary">2.6M</div>
+                  <div class="stat-desc">12% больше</div>
+                </div>
+              </div>
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-title">Новые пользователи</div>
+                  <div class="stat-value">1,200</div>
+                  <div class="stat-desc">90 сегодня</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- Table -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Table (Таблица)</h3>
             <div class="overflow-x-auto">
               <table class="table table-zebra">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Название</th>
-                    <th>Статус</th>
-                    <th>Прогресс</th>
-                    <th>Действия</th>
-                  </tr>
-                </thead>
+                <thead><tr><th></th><th>Название</th><th>Статус</th><th>Прогресс</th></tr></thead>
                 <tbody>
-                  <tr>
-                    <th>1</th>
-                    <td>Проект Alpha</td>
-                    <td><span class="badge badge-success">Активен</span></td>
-                    <td>
-                      <progress class="progress progress-success w-20" value="70" max="100"></progress>
-                    </td>
-                    <td>
-                      <button class="btn btn-ghost btn-xs">Детали</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>2</th>
-                    <td>Проект Beta</td>
-                    <td><span class="badge badge-warning">В процессе</span></td>
-                    <td>
-                      <progress class="progress progress-warning w-20" value="40" max="100"></progress>
-                    </td>
-                    <td>
-                      <button class="btn btn-ghost btn-xs">Детали</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>3</th>
-                    <td>Проект Gamma</td>
-                    <td><span class="badge badge-error">Остановлен</span></td>
-                    <td>
-                      <progress class="progress progress-error w-20" value="10" max="100"></progress>
-                    </td>
-                    <td>
-                      <button class="btn btn-ghost btn-xs">Детали</button>
-                    </td>
-                  </tr>
+                  <tr><th>1</th><td>Проект Alpha</td><td><span class="badge badge-success">Активен</span></td><td><progress class="progress progress-success w-20" value="70" max="100"></progress></td></tr>
+                  <tr><th>2</th><td>Проект Beta</td><td><span class="badge badge-warning">В процессе</span></td><td><progress class="progress progress-warning w-20" value="40" max="100"></progress></td></tr>
+                  <tr><th>3</th><td>Проект Gamma</td><td><span class="badge badge-error">Остановлен</span></td><td><progress class="progress progress-error w-20" value="10" max="100"></progress></td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
+
+        <!-- Timeline -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Timeline (Хронология)</h3>
+            <ul class="timeline timeline-vertical">
+              <li>
+                <div class="timeline-start">2024</div>
+                <div class="timeline-middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg></div>
+                <div class="timeline-end timeline-box">Первый релиз</div>
+                <hr/>
+              </li>
+              <li>
+                <hr/>
+                <div class="timeline-start">Март</div>
+                <div class="timeline-middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg></div>
+                <div class="timeline-end timeline-box">Обновление v2</div>
+                <hr/>
+              </li>
+              <li>
+                <hr/>
+                <div class="timeline-start">Июнь</div>
+                <div class="timeline-middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg></div>
+                <div class="timeline-end timeline-box">Новые функции</div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <!-- Badges Section -->
-      <section id="badges" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Бейджи и Метки</h2>
+      <!-- NAVIGATION SECTION -->
+      <section id="navigation" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Навигация (Navigation)</h2>
 
+        <!-- Breadcrumbs -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Breadcrumbs (Хлебные крошки)</h3>
+            <div class="text-sm breadcrumbs">
+              <ul>
+                <li><a>Главная</a></li>
+                <li><a>Документы</a></li>
+                <li>Детали</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Link -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Link (Ссылка)</h3>
+            <div class="flex flex-wrap gap-2">
+              <a class="link">Простая ссылка</a>
+              <a class="link link-primary">Primary</a>
+              <a class="link link-secondary">Secondary</a>
+              <a class="link link-accent">Accent</a>
+              <a class="link link-hover">Hover</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Menu (Меню)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <ul class="menu bg-base-200 rounded-box">
+                <li><a>Пункт 1</a></li>
+                <li><a>Пункт 2</a></li>
+                <li><a>Пункт 3</a></li>
+              </ul>
+              <ul class="menu bg-base-200 rounded-box">
+                <li class="menu-title"><span>Категория</span></li>
+                <li><a>Подпункт 1</a></li>
+                <li><a>Подпункт 2</a></li>
+                <li class="disabled"><a>Отключено</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navbar -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Navbar (Навигационная панель)</h3>
+            <div class="navbar bg-base-300 rounded-box">
+              <div class="flex-1"><a class="btn btn-ghost text-xl">daisyUI</a></div>
+              <div class="flex-none">
+                <ul class="menu menu-horizontal px-1">
+                  <li><a>Ссылка</a></li>
+                  <li>
+                    <details>
+                      <summary>Родитель</summary>
+                      <ul class="bg-base-100 rounded-t-none p-2">
+                        <li><a>Ссылка 1</a></li>
+                        <li><a>Ссылка 2</a></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Pagination (Пагинация)</h3>
+            <div class="join">
+              <button class="join-item btn">«</button>
+              <button class="join-item btn">Страница 22</button>
+              <button class="join-item btn">»</button>
+            </div>
+            <div class="join mt-4">
+              <button class="join-item btn">1</button>
+              <button class="join-item btn btn-active">2</button>
+              <button class="join-item btn">3</button>
+              <button class="join-item btn">4</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Steps (Шаги)</h3>
+            <ul class="steps">
+              <li class="step step-primary">Регистрация</li>
+              <li class="step step-primary">Выбор плана</li>
+              <li class="step">Оплата</li>
+              <li class="step">Завершение</li>
+            </ul>
+            <ul class="steps steps-vertical mt-4">
+              <li class="step step-primary">Шаг 1</li>
+              <li class="step step-primary">Шаг 2</li>
+              <li class="step">Шаг 3</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Tabs (Вкладки)</h3>
+            <div role="tablist" class="tabs tabs-boxed">
+              <a role="tab" class="tab">Tab 1</a>
+              <a role="tab" class="tab tab-active">Tab 2</a>
+              <a role="tab" class="tab">Tab 3</a>
+            </div>
+            <div role="tablist" class="tabs tabs-bordered mt-4">
+              <a role="tab" class="tab">Tab 1</a>
+              <a role="tab" class="tab tab-active">Tab 2</a>
+              <a role="tab" class="tab">Tab 3</a>
+            </div>
+            <div role="tablist" class="tabs tabs-lifted mt-4">
+              <a role="tab" class="tab">Tab 1</a>
+              <a role="tab" class="tab tab-active">Tab 2</a>
+              <a role="tab" class="tab">Tab 3</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEEDBACK SECTION -->
+      <section id="feedback" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Обратная связь (Feedback)</h2>
+
+        <!-- Alert -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Alert (Оповещение)</h3>
+            <div class="space-y-4">
+              <div class="alert alert-info">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>Информационное сообщение</span>
+              </div>
+              <div class="alert alert-success">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>Операция выполнена успешно!</span>
+              </div>
+              <div class="alert alert-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <span>Предупреждение!</span>
+              </div>
+              <div class="alert alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>Ошибка!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Loading (Загрузка)</h3>
             <div class="space-y-4">
               <div>
-                <h3 class="font-semibold mb-2">Цвета:</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="badge">Default</span>
-                  <span class="badge badge-neutral">Neutral</span>
-                  <span class="badge badge-primary">Primary</span>
-                  <span class="badge badge-secondary">Secondary</span>
-                  <span class="badge badge-accent">Accent</span>
-                  <span class="badge badge-ghost">Ghost</span>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold mb-2">Размеры:</h3>
-                <div class="flex flex-wrap gap-2 items-center">
-                  <span class="badge badge-xs">Tiny</span>
-                  <span class="badge badge-sm">Small</span>
-                  <span class="badge badge-md">Medium</span>
-                  <span class="badge badge-lg">Large</span>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold mb-2">С иконками:</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="badge badge-info gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Info
-                  </span>
-                  <span class="badge badge-success gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Success
-                  </span>
-                  <span class="badge badge-warning gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Warning
-                  </span>
-                  <span class="badge badge-error gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Error
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Stats Section -->
-      <section id="stats" class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Статистические блоки</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-figure text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                    </svg>
-                  </div>
-                  <div class="stat-title">Всего лайков</div>
-                  <div class="stat-value text-primary">25.6K</div>
-                  <div class="stat-desc">↗︎ 21% больше</div>
-                </div>
-              </div>
-
-              <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-figure text-secondary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                  </div>
-                  <div class="stat-title">Просмотров страниц</div>
-                  <div class="stat-value text-secondary">2.6M</div>
-                  <div class="stat-desc">↗︎ 12% больше</div>
-                </div>
-              </div>
-
-              <div class="stats shadow">
-                <div class="stat">
-                  <div class="stat-figure text-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                    </svg>
-                  </div>
-                  <div class="stat-title">Новые пользователи</div>
-                  <div class="stat-value text-accent">1,200</div>
-                  <div class="stat-desc">↗︎ 90 сегодня</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Additional Components -->
-      <section class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Дополнительные компоненты</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Progress bars -->
-              <div>
-                <h3 class="font-semibold mb-2">Индикаторы прогресса:</h3>
-                <div class="space-y-2">
-                  <progress class="progress progress-primary w-full" value="0" max="100"></progress>
-                  <progress class="progress progress-secondary w-full" value="25" max="100"></progress>
-                  <progress class="progress progress-accent w-full" value="50" max="100"></progress>
-                  <progress class="progress progress-success w-full" value="75" max="100"></progress>
-                  <progress class="progress progress-info w-full" value="100" max="100"></progress>
-                </div>
-              </div>
-
-              <!-- Loading -->
-              <div>
-                <h3 class="font-semibold mb-2">Загрузка:</h3>
+                <h4 class="font-semibold mb-2">Spinner:</h4>
                 <div class="flex flex-wrap gap-4">
                   <span class="loading loading-spinner loading-xs"></span>
                   <span class="loading loading-spinner loading-sm"></span>
                   <span class="loading loading-spinner loading-md"></span>
                   <span class="loading loading-spinner loading-lg"></span>
                 </div>
-                <div class="flex flex-wrap gap-4 mt-4">
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Dots:</h4>
+                <div class="flex flex-wrap gap-4">
                   <span class="loading loading-dots loading-xs"></span>
                   <span class="loading loading-dots loading-sm"></span>
                   <span class="loading loading-dots loading-md"></span>
                   <span class="loading loading-dots loading-lg"></span>
                 </div>
               </div>
-
-              <!-- Breadcrumbs -->
               <div>
-                <h3 class="font-semibold mb-2">Хлебные крошки:</h3>
-                <div class="text-sm breadcrumbs">
-                  <ul>
-                    <li><a>Главная</a></li>
-                    <li><a>Документы</a></li>
-                    <li>Детали</li>
-                  </ul>
+                <h4 class="font-semibold mb-2">Ring:</h4>
+                <div class="flex flex-wrap gap-4">
+                  <span class="loading loading-ring loading-xs"></span>
+                  <span class="loading loading-ring loading-sm"></span>
+                  <span class="loading loading-ring loading-md"></span>
+                  <span class="loading loading-ring loading-lg"></span>
                 </div>
               </div>
-
-              <!-- Steps -->
               <div>
-                <h3 class="font-semibold mb-2">Шаги:</h3>
-                <ul class="steps">
-                  <li class="step step-primary">Регистрация</li>
-                  <li class="step step-primary">Выбор плана</li>
-                  <li class="step">Оплата</li>
-                  <li class="step">Завершение</li>
-                </ul>
+                <h4 class="font-semibold mb-2">Ball:</h4>
+                <div class="flex flex-wrap gap-4">
+                  <span class="loading loading-ball loading-xs"></span>
+                  <span class="loading loading-ball loading-sm"></span>
+                  <span class="loading loading-ball loading-md"></span>
+                  <span class="loading loading-ball loading-lg"></span>
+                </div>
               </div>
+              <div>
+                <h4 class="font-semibold mb-2">Bars:</h4>
+                <div class="flex flex-wrap gap-4">
+                  <span class="loading loading-bars loading-xs"></span>
+                  <span class="loading loading-bars loading-sm"></span>
+                  <span class="loading loading-bars loading-md"></span>
+                  <span class="loading loading-bars loading-lg"></span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Infinity:</h4>
+                <div class="flex flex-wrap gap-4">
+                  <span class="loading loading-infinity loading-xs"></span>
+                  <span class="loading loading-infinity loading-sm"></span>
+                  <span class="loading loading-infinity loading-md"></span>
+                  <span class="loading loading-infinity loading-lg"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Progress (Прогресс)</h3>
+            <div class="space-y-2">
+              <progress class="progress" value="0" max="100"></progress>
+              <progress class="progress progress-primary" value="25" max="100"></progress>
+              <progress class="progress progress-secondary" value="50" max="100"></progress>
+              <progress class="progress progress-accent" value="75" max="100"></progress>
+              <progress class="progress progress-success" value="100" max="100"></progress>
+            </div>
+          </div>
+        </div>
+
+        <!-- Radial Progress -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Radial Progress (Круговой прогресс)</h3>
+            <div class="flex flex-wrap gap-4 items-center">
+              <div class="radial-progress" style="--value:0;" role="progressbar">0%</div>
+              <div class="radial-progress text-primary" style="--value:25;" role="progressbar">25%</div>
+              <div class="radial-progress text-secondary" style="--value:50;" role="progressbar">50%</div>
+              <div class="radial-progress text-accent" style="--value:75;" role="progressbar">75%</div>
+              <div class="radial-progress text-success" style="--value:100;" role="progressbar">100%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Skeleton (Скелетон)</h3>
+            <div class="flex flex-col gap-4">
+              <div class="skeleton h-32 w-full"></div>
+              <div class="skeleton h-4 w-28"></div>
+              <div class="skeleton h-4 w-full"></div>
+              <div class="skeleton h-4 w-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Toast (Всплывающее уведомление)</h3>
+            <div class="toast toast-top toast-end">
+              <div class="alert alert-info"><span>Новое сообщение</span></div>
+            </div>
+            <p class="text-sm text-base-content/70">Toast отображается в правом верхнем углу экрана</p>
+          </div>
+        </div>
+
+        <!-- Tooltip -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Tooltip (Подсказка)</h3>
+            <div class="flex flex-wrap gap-2">
+              <div class="tooltip" data-tip="Подсказка сверху"><button class="btn">Сверху</button></div>
+              <div class="tooltip tooltip-bottom" data-tip="Подсказка снизу"><button class="btn">Снизу</button></div>
+              <div class="tooltip tooltip-left" data-tip="Подсказка слева"><button class="btn">Слева</button></div>
+              <div class="tooltip tooltip-right" data-tip="Подсказка справа"><button class="btn">Справа</button></div>
+              <div class="tooltip tooltip-primary" data-tip="Primary"><button class="btn btn-primary">Primary</button></div>
+              <div class="tooltip tooltip-secondary" data-tip="Secondary"><button class="btn btn-secondary">Secondary</button></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Color Palette -->
-      <section class="mb-12">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4">Цветовая палитра</h2>
+      <!-- DATA INPUT SECTION -->
+      <section id="data-input" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Ввод данных (Data Input)</h2>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="p-4 bg-primary text-primary-content rounded-lg text-center">
-                <div class="font-bold">Primary</div>
+        <!-- Checkbox -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Checkbox (Чекбокс)</h3>
+            <div class="flex flex-wrap gap-4">
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="checkbox" checked class="checkbox" /><span class="label-text">Default</span></label></div>
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="checkbox" checked class="checkbox checkbox-primary" /><span class="label-text">Primary</span></label></div>
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="checkbox" checked class="checkbox checkbox-secondary" /><span class="label-text">Secondary</span></label></div>
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="checkbox" checked class="checkbox checkbox-accent" /><span class="label-text">Accent</span></label></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- File Input -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">File Input (Загрузка файла)</h3>
+            <div class="space-y-4">
+              <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
+              <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" />
+              <input type="file" class="file-input file-input-bordered file-input-secondary w-full max-w-xs" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Radio -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Radio (Радио кнопка)</h3>
+            <div class="flex flex-wrap gap-4">
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="radio" name="radio-demo" class="radio" checked /><span class="label-text">Опция 1</span></label></div>
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="radio" name="radio-demo" class="radio" /><span class="label-text">Опция 2</span></label></div>
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="radio" name="radio-demo2" class="radio radio-primary" checked /><span class="label-text">Primary</span></label></div>
+              <div class="form-control"><label class="label cursor-pointer gap-2"><input type="radio" name="radio-demo2" class="radio radio-secondary" /><span class="label-text">Secondary</span></label></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Range Slider -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Range Slider (Слайдер)</h3>
+            <div class="space-y-4">
+              <input type="range" min="0" max="100" value="25" class="range" />
+              <input type="range" min="0" max="100" value="40" class="range range-primary" />
+              <input type="range" min="0" max="100" value="50" class="range range-secondary" />
+              <input type="range" min="0" max="100" value="60" class="range range-accent" />
+              <input type="range" min="0" max="100" value="75" class="range range-success" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Rating (Рейтинг)</h3>
+            <div class="space-y-4">
+              <div class="rating">
+                <input type="radio" name="rating-1" class="mask mask-star" />
+                <input type="radio" name="rating-1" class="mask mask-star" checked />
+                <input type="radio" name="rating-1" class="mask mask-star" />
+                <input type="radio" name="rating-1" class="mask mask-star" />
+                <input type="radio" name="rating-1" class="mask mask-star" />
               </div>
-              <div class="p-4 bg-secondary text-secondary-content rounded-lg text-center">
-                <div class="font-bold">Secondary</div>
+              <div class="rating rating-lg">
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
               </div>
-              <div class="p-4 bg-accent text-accent-content rounded-lg text-center">
-                <div class="font-bold">Accent</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Select -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Select (Выпадающий список)</h3>
+            <div class="space-y-4">
+              <select class="select select-bordered w-full max-w-xs">
+                <option disabled selected>Выберите</option>
+                <option>Опция 1</option>
+                <option>Опция 2</option>
+              </select>
+              <select class="select select-primary w-full max-w-xs">
+                <option disabled selected>Primary</option>
+                <option>Опция 1</option>
+                <option>Опция 2</option>
+              </select>
+              <select class="select select-secondary w-full max-w-xs">
+                <option disabled selected>Secondary</option>
+                <option>Опция 1</option>
+                <option>Опция 2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Input -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Text Input (Текстовое поле)</h3>
+            <div class="space-y-4">
+              <input type="text" placeholder="Текст" class="input input-bordered w-full max-w-xs" />
+              <input type="text" placeholder="Primary" class="input input-bordered input-primary w-full max-w-xs" />
+              <input type="text" placeholder="Secondary" class="input input-bordered input-secondary w-full max-w-xs" />
+              <input type="text" placeholder="Accent" class="input input-bordered input-accent w-full max-w-xs" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Textarea (Текстовая область)</h3>
+            <div class="space-y-4">
+              <textarea class="textarea textarea-bordered w-full" placeholder="Текст"></textarea>
+              <textarea class="textarea textarea-bordered textarea-primary w-full" placeholder="Primary"></textarea>
+              <textarea class="textarea textarea-bordered textarea-secondary w-full" placeholder="Secondary"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toggle -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Toggle (Переключатель)</h3>
+            <div class="flex flex-wrap gap-4">
+              <input type="checkbox" class="toggle" checked />
+              <input type="checkbox" class="toggle toggle-primary" checked />
+              <input type="checkbox" class="toggle toggle-secondary" checked />
+              <input type="checkbox" class="toggle toggle-accent" checked />
+              <input type="checkbox" class="toggle toggle-success" checked />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAYOUT SECTION -->
+      <section id="layout" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Макет (Layout)</h2>
+
+        <!-- Divider -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Divider (Разделитель)</h3>
+            <div class="flex flex-col w-full">
+              <div class="grid h-20 card bg-base-300 rounded-box place-items-center">Содержимое 1</div>
+              <div class="divider">ИЛИ</div>
+              <div class="grid h-20 card bg-base-300 rounded-box place-items-center">Содержимое 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drawer Sidebar -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Drawer Sidebar (Боковая панель)</h3>
+            <div class="drawer h-64">
+              <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+              <div class="drawer-content">
+                <label for="my-drawer" class="btn btn-primary drawer-button">Открыть меню</label>
               </div>
-              <div class="p-4 bg-neutral text-neutral-content rounded-lg text-center">
-                <div class="font-bold">Neutral</div>
+              <div class="drawer-side">
+                <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+                <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                  <li><a>Пункт меню 1</a></li>
+                  <li><a>Пункт меню 2</a></li>
+                </ul>
               </div>
-              <div class="p-4 bg-info text-info-content rounded-lg text-center">
-                <div class="font-bold">Info</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Footer (Подвал)</h3>
+            <footer class="footer p-10 bg-base-200 text-base-content rounded-box">
+              <nav>
+                <h6 class="footer-title">Сервисы</h6>
+                <a class="link link-hover">Брендинг</a>
+                <a class="link link-hover">Дизайн</a>
+              </nav>
+              <nav>
+                <h6 class="footer-title">Компания</h6>
+                <a class="link link-hover">О нас</a>
+                <a class="link link-hover">Контакты</a>
+              </nav>
+            </footer>
+          </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Hero (Героический блок)</h3>
+            <div class="hero min-h-64 bg-base-200 rounded-box">
+              <div class="hero-content text-center">
+                <div class="max-w-md">
+                  <h1 class="text-5xl font-bold">Привет!</h1>
+                  <p class="py-6">Добро пожаловать на нашу страницу</p>
+                  <button class="btn btn-primary">Начать</button>
+                </div>
               </div>
-              <div class="p-4 bg-success text-success-content rounded-lg text-center">
-                <div class="font-bold">Success</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicator -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Indicator (Индикатор)</h3>
+            <div class="flex gap-4 flex-wrap">
+              <div class="indicator">
+                <span class="indicator-item badge badge-secondary">99+</span>
+                <button class="btn">Inbox</button>
               </div>
-              <div class="p-4 bg-warning text-warning-content rounded-lg text-center">
-                <div class="font-bold">Warning</div>
+              <div class="indicator">
+                <span class="indicator-item badge badge-primary">new</span>
+                <button class="btn">Notifications</button>
               </div>
-              <div class="p-4 bg-error text-error-content rounded-lg text-center">
-                <div class="font-bold">Error</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Join -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Join (Соединение элементов)</h3>
+            <div class="join">
+              <button class="btn join-item">Button</button>
+              <button class="btn join-item">Button</button>
+              <button class="btn join-item">Button</button>
+            </div>
+            <div class="join mt-4">
+              <input class="input input-bordered join-item" placeholder="Email"/>
+              <button class="btn join-item">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mask -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Mask (Маска)</h3>
+            <div class="flex gap-4 flex-wrap">
+              <div class="mask mask-squircle bg-primary w-12 h-12"></div>
+              <div class="mask mask-decagon bg-secondary w-12 h-12"></div>
+              <div class="mask mask-diamond bg-accent w-12 h-12"></div>
+              <div class="mask mask-heart bg-error w-12 h-12"></div>
+              <div class="mask mask-hexagon bg-info w-12 h-12"></div>
+              <div class="mask mask-star bg-warning w-12 h-12"></div>
+              <div class="mask mask-triangle bg-success w-12 h-12"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stack -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Stack (Стек)</h3>
+            <div class="stack">
+              <div class="card shadow-md bg-primary text-primary-content"><div class="card-body">1</div></div>
+              <div class="card shadow-md bg-primary text-primary-content"><div class="card-body">2</div></div>
+              <div class="card shadow-md bg-primary text-primary-content"><div class="card-body">3</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOCKUP SECTION -->
+      <section id="mockup" class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-primary">Макеты устройств (Mockup)</h2>
+
+        <!-- Browser Mockup -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Browser Mockup (Макет браузера)</h3>
+            <div class="mockup-browser border border-base-300">
+              <div class="mockup-browser-toolbar"><div class="input border border-base-300">https://daisyui.com</div></div>
+              <div class="flex justify-center px-4 py-16 border-t border-base-300 bg-base-200">Содержимое сайта</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Mockup -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Code Mockup (Макет кода)</h3>
+            <div class="mockup-code">
+              <pre data-prefix="$"><code>npm install daisyui</code></pre>
+              <pre data-prefix=">" class="text-warning"><code>installing...</code></pre>
+              <pre data-prefix=">" class="text-success"><code>Done!</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Mockup -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Phone Mockup (Макет телефона)</h3>
+            <div class="mockup-phone">
+              <div class="camera"></div>
+              <div class="display">
+                <div class="artboard artboard-demo phone-1 bg-base-200">Мобильный интерфейс</div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Window Mockup -->
+        <div class="card bg-base-100 shadow-xl mb-8">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">Window Mockup (Макет окна)</h3>
+            <div class="mockup-window border border-base-300">
+              <div class="flex justify-center px-4 py-16 border-t border-base-300 bg-base-200">Содержимое окна</div>
             </div>
           </div>
         </div>
