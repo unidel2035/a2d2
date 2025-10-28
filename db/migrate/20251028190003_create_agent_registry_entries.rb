@@ -6,8 +6,8 @@ class CreateAgentRegistryEntries < ActiveRecord::Migration[8.1]
       t.datetime :registered_at, null: false
       t.datetime :last_health_check
       t.integer :consecutive_failures, default: 0
-      t.json :health_check_data, default: {}
-      t.json :performance_metrics, default: {}
+      t.text :health_check_data
+      t.text :performance_metrics
       t.boolean :active, default: true
 
       t.timestamps

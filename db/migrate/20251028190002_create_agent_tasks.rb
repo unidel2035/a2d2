@@ -4,9 +4,9 @@ class CreateAgentTasks < ActiveRecord::Migration[8.1]
       t.string :task_type, null: false
       t.string :status, default: 'pending', null: false
       t.integer :priority, default: 0, null: false
-      t.json :payload, default: {}
-      t.json :result, default: {}
-      t.json :metadata, default: {}
+      t.text :payload
+      t.text :result
+      t.text :metadata
       t.references :agent, foreign_key: true
       t.integer :parent_task_id
       t.datetime :deadline

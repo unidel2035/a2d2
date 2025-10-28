@@ -4,10 +4,10 @@ class CreateAgents < ActiveRecord::Migration[8.1]
       t.string :name, null: false
       t.string :agent_type, null: false
       t.string :status, default: 'inactive', null: false
-      t.json :capabilities, default: []
+      t.text :capabilities
       t.string :version
       t.string :endpoint
-      t.json :metadata, default: {}
+      t.text :metadata
       t.datetime :last_heartbeat
       t.integer :priority, default: 0
       t.float :health_score, default: 100.0

@@ -1,4 +1,7 @@
 class MemoryStore < ApplicationRecord
+  # JSON serialization for SQLite compatibility
+  serialize :metadata, coder: JSON
+
   # Associations
   belongs_to :agent
 

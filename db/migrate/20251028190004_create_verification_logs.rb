@@ -6,8 +6,8 @@ class CreateVerificationLogs < ActiveRecord::Migration[8.1]
       t.string :verification_type, null: false
       t.string :status, null: false
       t.float :quality_score
-      t.json :verification_data, default: {}
-      t.json :issues_found, default: []
+      t.text :verification_data
+      t.text :issues_found
       t.text :notes
       t.boolean :auto_reassigned, default: false
       t.integer :reassigned_to_task_id

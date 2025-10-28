@@ -5,7 +5,7 @@ class CreateMemoryStores < ActiveRecord::Migration[8.1]
       t.string :memory_type, null: false  # 'context', 'long_term', 'shared'
       t.string :key, null: false
       t.text :value
-      t.json :metadata, default: {}
+      t.text :metadata
       t.datetime :expires_at
       t.integer :access_count, default: 0
       t.datetime :last_accessed_at

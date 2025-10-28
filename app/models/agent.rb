@@ -1,4 +1,8 @@
 class Agent < ApplicationRecord
+  # JSON serialization for SQLite compatibility
+  serialize :capabilities, coder: JSON
+  serialize :metadata, coder: JSON
+
   # Associations
   has_many :agent_tasks, dependent: :nullify
   has_one :agent_registry_entry, dependent: :destroy
@@ -17,7 +21,10 @@ class Agent < ApplicationRecord
   scope :busy, -> { where(status: 'busy') }
   scope :failed, -> { where(status: 'failed') }
   scope :by_type, ->(type) { where(agent_type: type) }
-  scope :with_capability, ->(capability) { where("json_contains(capabilities, ?)", [capability].to_json) }
+  scope :with_capability, ->(capability) {
+    # SQLite-compatible capability search using JSON serialization
+    all.select { |agent| agent.has_capability?(capability) }
+  }
   scope :healthy, -> { where('health_score >= ?', 70) }
   scope :recently_active, -> { where('last_heartbeat > ?', 5.minutes.ago) }
 

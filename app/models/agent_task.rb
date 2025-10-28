@@ -1,4 +1,9 @@
 class AgentTask < ApplicationRecord
+  # JSON serialization for SQLite compatibility
+  serialize :payload, coder: JSON
+  serialize :result, coder: JSON
+  serialize :metadata, coder: JSON
+
   # Associations
   belongs_to :agent, optional: true
   belongs_to :parent_task, class_name: 'AgentTask', optional: true

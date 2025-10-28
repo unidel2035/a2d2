@@ -1,4 +1,8 @@
 class AgentRegistryEntry < ApplicationRecord
+  # JSON serialization for SQLite compatibility
+  serialize :health_check_data, coder: JSON
+  serialize :performance_metrics, coder: JSON
+
   # Associations
   belongs_to :agent
 

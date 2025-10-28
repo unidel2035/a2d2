@@ -1,4 +1,8 @@
 class VerificationLog < ApplicationRecord
+  # JSON serialization for SQLite compatibility
+  serialize :verification_data, coder: JSON
+  serialize :issues_found, coder: JSON
+
   # Associations
   belongs_to :agent_task
   belongs_to :agent, optional: true
