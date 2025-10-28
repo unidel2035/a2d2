@@ -1,6 +1,12 @@
 # Crop - Agricultural product cultivation tracking
 class Crop < ApplicationRecord
   belongs_to :farm
+  has_many :remote_sensing_data, dependent: :destroy
+  has_many :adaptive_agrotechnologies, dependent: :destroy
+  has_many :decision_supports, dependent: :destroy
+  has_many :plant_production_models, dependent: :destroy
+  has_many :simulation_results, dependent: :destroy
+  has_many :risk_assessments, dependent: :destroy
 
   STATUSES = %w[planning planted growing harvesting harvested].freeze
 
