@@ -20,10 +20,10 @@ module Registrations
       head do
         title { "Регистрация - A2D2" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
-        helpers.csrf_meta_tags
-        helpers.csp_meta_tag
+        csrf_meta_tags
+        csp_meta_tag
 
-        helpers.stylesheet_link_tag "application", data: { turbo_track: "reload" }
+        stylesheet_link_tag "application", data: { turbo_track: "reload" }
         script(src: "https://cdn.tailwindcss.com")
         link(
           href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
@@ -45,7 +45,7 @@ module Registrations
 
     def render_logo
       div(class: "text-center mb-8") do
-        Link href: helpers.root_path, class: "inline-block" do
+        Link href: root_path, class: "inline-block" do
           h1(class: "text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2") do
             "A2D2"
           end
@@ -67,7 +67,7 @@ module Registrations
           div(class: "text-center") do
             p(class: "text-base-content/70") do
               plain "Уже есть аккаунт? "
-              Link(href: helpers.login_path, class: "link link-primary font-semibold") do
+              Link(href: login_path, class: "link link-primary font-semibold") do
                 "Войти"
               end
             end
@@ -103,9 +103,9 @@ module Registrations
     end
 
     def render_registration_form
-      form(action: helpers.signup_path, method: "post", class: "space-y-4") do
+      form(action: signup_path, method: "post", class: "space-y-4") do
         # CSRF token
-        input(type: "hidden", name: "authenticity_token", value: helpers.form_authenticity_token)
+        input(type: "hidden", name: "authenticity_token", value: form_authenticity_token)
 
         # Name field
         FormControl do
@@ -177,7 +177,7 @@ module Registrations
 
     def render_back_link
       div(class: "text-center mt-6") do
-        Link(href: helpers.root_path, class: "link link-neutral") do
+        Link(href: root_path, class: "link link-neutral") do
           svg(
             xmlns: "http://www.w3.org/2000/svg",
             class: "h-5 w-5 inline-block mr-1",
