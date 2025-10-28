@@ -6,7 +6,7 @@ module Registrations
       @user = user
     end
 
-    def template
+    def view_template
       doctype
       html(data_theme: "light") do
         render_head

@@ -2,7 +2,7 @@
 
 module Components
   class FooterComponent < ApplicationComponent
-    def template
+    def view_template
       Footer class: "footer-center p-10 bg-base-200 text-base-content" do
         div do
           p(class: "font-bold text-xl") do
