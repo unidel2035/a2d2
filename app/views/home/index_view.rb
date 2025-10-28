@@ -47,8 +47,8 @@ module Home
     end
 
     def render_hero_section
-      Hero class: "min-h-screen bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10" do |hero|
-        hero.content class: "text-center" do
+      div class: "min-h-screen bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10" do
+        div  class: "text-center" do
           div(class: "max-w-4xl") do
             h1(class: "text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent") do
               "A2D2"
@@ -142,9 +142,9 @@ module Home
     end
 
     def render_stat(value, title, color)
-      Stat class: "bg-base-100 rounded-box shadow-lg" do |stat|
-        stat.value(class: "text-#{color}") { value }
-        stat.title { title }
+      div class: "bg-base-100 rounded-box shadow-lg" do
+        div(class: "text-#{color}") { value }
+        div { title }
       end
     end
 

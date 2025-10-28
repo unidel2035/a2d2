@@ -45,9 +45,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
     t.datetime "created_at", null: false
     t.datetime "deadline_at"
     t.text "error_message"
-    t.text "input_data"
-    t.text "metadata"
-    t.text "output_data"
+    t.json "input_data"
+    t.json "metadata", default: {}
+    t.json "output_data"
     t.integer "priority", default: 5
     t.datetime "scheduled_at"
     t.datetime "started_at"
@@ -62,8 +62,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
   end
 
   create_table "agents", force: :cascade do |t|
-    t.text "capabilities"
-    t.text "configuration"
+    t.json "capabilities", default: {}
+    t.json "configuration", default: {}
     t.datetime "created_at", null: false
     t.text "description"
     t.datetime "last_heartbeat_at"
@@ -205,8 +205,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
     t.string "model", null: false
     t.integer "prompt_tokens"
     t.string "provider", null: false
-    t.text "request_data"
-    t.text "response_data"
+    t.json "request_data"
+    t.json "response_data"
     t.integer "response_time_ms"
     t.string "status"
     t.integer "total_tokens"
@@ -460,6 +460,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
+    t.string "encrypted_password"
     t.string "first_name"
     t.string "last_name"
     t.date "license_expiry"
@@ -472,6 +473,69 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["license_number"], name: "index_users_on_license_number"
     t.index ["role"], name: "index_users_on_role"
+  end
+
+  create_table "workflow_connections", force: :cascade do |t|
+    t.string "connection_type", default: "main"
+    t.datetime "created_at", null: false
+    t.integer "source_node_id", null: false
+    t.integer "source_output_index", default: 0
+    t.integer "target_input_index", default: 0
+    t.integer "target_node_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "workflow_id", null: false
+    t.index ["source_node_id", "target_node_id"], name: "idx_on_source_node_id_target_node_id_5e8435729f"
+    t.index ["source_node_id"], name: "index_workflow_connections_on_source_node_id"
+    t.index ["target_node_id"], name: "index_workflow_connections_on_target_node_id"
+    t.index ["workflow_id"], name: "index_workflow_connections_on_workflow_id"
+  end
+
+  create_table "workflow_executions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "data"
+    t.text "error_message"
+    t.datetime "finished_at"
+    t.string "mode"
+    t.datetime "started_at"
+    t.string "status", default: "new", null: false
+    t.datetime "stopped_at"
+    t.datetime "updated_at", null: false
+    t.integer "workflow_id", null: false
+    t.index ["started_at"], name: "index_workflow_executions_on_started_at"
+    t.index ["status"], name: "index_workflow_executions_on_status"
+    t.index ["workflow_id", "status"], name: "index_workflow_executions_on_workflow_id_and_status"
+    t.index ["workflow_id"], name: "index_workflow_executions_on_workflow_id"
+  end
+
+  create_table "workflow_nodes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "credentials"
+    t.string "name", null: false
+    t.string "node_type", null: false
+    t.text "parameters"
+    t.text "position"
+    t.integer "type_version", default: 1
+    t.datetime "updated_at", null: false
+    t.integer "workflow_id", null: false
+    t.index ["node_type"], name: "index_workflow_nodes_on_node_type"
+    t.index ["workflow_id", "name"], name: "index_workflow_nodes_on_workflow_id_and_name"
+    t.index ["workflow_id"], name: "index_workflow_nodes_on_workflow_id"
+  end
+
+  create_table "workflows", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "project_id"
+    t.text "settings"
+    t.text "static_data"
+    t.string "status", default: "inactive", null: false
+    t.text "tags"
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["name"], name: "index_workflows_on_name"
+    t.index ["project_id"], name: "index_workflows_on_project_id"
+    t.index ["status"], name: "index_workflows_on_status"
+    t.index ["user_id"], name: "index_workflows_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -500,4 +564,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
   add_foreign_key "tasks", "users", column: "operator_id"
   add_foreign_key "telemetry_data", "robots"
   add_foreign_key "telemetry_data", "tasks"
+  add_foreign_key "workflow_connections", "workflow_nodes", column: "source_node_id"
+  add_foreign_key "workflow_connections", "workflow_nodes", column: "target_node_id"
+  add_foreign_key "workflow_connections", "workflows"
+  add_foreign_key "workflow_executions", "workflows"
+  add_foreign_key "workflow_nodes", "workflows"
+  add_foreign_key "workflows", "users"
 end

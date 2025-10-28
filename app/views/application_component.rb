@@ -1,13 +1,31 @@
-# frozen_string_literal: true
-
 class ApplicationComponent < Phlex::HTML
-  # Include PhlexyUI to enable short-form component syntax
-  # This allows us to use Button, Card, etc. instead of PhlexyUI::Button
-  include PhlexyUI
+  # Используем Button и Card из гема phlexy_ui
+  def Button(*args, &block)
+    PhlexyUI::Button.new(*args, &block)
+  end
 
-  # Helper method to generate Rails URL helpers
-  # This is needed because Phlex components don't have access to Rails helpers by default
-  if defined?(Rails)
-    include Rails.application.routes.url_helpers
+  def Card(*args, &block)
+    PhlexyUI::Card.new(*args, &block)
+  end
+
+  # Используем наши кастомные компоненты
+  def Hero(*args, &block)
+    PhlexyUI::Hero.new(*args, &block)
+  end
+
+  def Stat(*args, &block)
+    PhlexyUI::Stat.new(*args, &block)
+  end
+
+  def Divider(*args, &block)
+    PhlexyUI::Divider.new(*args, &block)
+  end
+
+  def Navbar(*args, &block)
+    PhlexyUI::Navbar.new(*args, &block)
+  end
+
+  def Link(*args, &block)
+    PhlexyUI::Link.new(*args, &block)
   end
 end
