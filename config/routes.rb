@@ -41,6 +41,38 @@ Rails.application.routes.draw do
     end
   end
 
+  # N8n-compatible Workflow API routes
+  resources :workflows do
+    member do
+      post :execute
+      post :activate
+      post :deactivate
+    end
+
+    collection do
+      get :templates
+      post :from_template
+    end
+  end
+
+  # Workflow executions
+  resources :workflow_executions, only: [:index, :show] do
+    member do
+      post :cancel
+    end
+  end
+
+  # N8n integration endpoints
+  namespace :api do
+    namespace :v1 do
+      namespace :n8n do
+        post 'import', to: 'integration#import'
+        get 'export/:id', to: 'integration#export'
+        post 'validate', to: 'integration#validate'
+      end
+    end
+  end
+
   # Defines the root path route ("/")
   root "home#index"
 end
