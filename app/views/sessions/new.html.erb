@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html data-theme="light">
+  <head>
+    <title>Вход - A2D2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class="bg-gradient-to-br from-primary/10 to-secondary/10 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <!-- Logo and Title -->
+      <div class="text-center mb-8">
+        <%= link_to root_path, class: "inline-block" do %>
+          <h1 class="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">A2D2</h1>
+        <% end %>
+        <p class="text-lg text-base-content/70">Войдите в систему</p>
+      </div>
+
+      <!-- Login Card -->
+      <div class="card bg-base-100 shadow-2xl">
+        <div class="card-body">
+          <h2 class="card-title text-2xl mb-6 justify-center">Вход</h2>
+
+          <% if flash[:alert] %>
+            <div class="alert alert-error">
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span><%= flash[:alert] %></span>
+            </div>
+          <% end %>
+
+          <%= form_with url: login_path, class: "space-y-4" do |form| %>
+            <!-- Email Field -->
+            <div class="form-control">
+              <%= form.label :email, "Email", class: "label" %>
+              <%= form.email_field :email, class: "input input-bordered w-full", placeholder: "your@email.com", autofocus: true, required: true %>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-control">
+              <%= form.label :password, "Пароль", class: "label" %>
+              <%= form.password_field :password, class: "input input-bordered w-full", placeholder: "Введите пароль", required: true %>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="form-control">
+              <label class="label cursor-pointer justify-start gap-2">
+                <%= form.check_box :remember_me, class: "checkbox checkbox-primary" %>
+                <span class="label-text">Запомнить меня</span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-control mt-6">
+              <%= form.submit "Войти", class: "btn btn-primary btn-block btn-lg" %>
+            </div>
+          <% end %>
+
+          <!-- Divider -->
+          <div class="divider">или</div>
+
+          <!-- Registration Link -->
+          <div class="text-center">
+            <p class="text-base-content/70">
+              Нет аккаунта?
+              <%= link_to "Зарегистрироваться", signup_path, class: "link link-primary font-semibold" %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back to Home -->
+      <div class="text-center mt-6">
+        <%= link_to root_path, class: "link link-neutral" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Вернуться на главную
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
+  # Authentication routes
+  get "signup", to: "registrations#new", as: "signup"
+  post "signup", to: "registrations#create"
+  get "login", to: "sessions#new", as: "login"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy", as: "logout"
+
+  # Components showcase
+  get "components", to: "components#index", as: "components"
+
+  # Dashboard
   get "dashboard", to: "dashboard#index", as: "dashboard"
   get "home/index"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
