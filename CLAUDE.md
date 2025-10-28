@@ -5,11 +5,3 @@ Your forked repository: konard/a2d2
 Original repository (upstream): unidel2035/a2d2
 
 Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-21-649d2d57
-Your prepared working directory: /tmp/gh-issue-solver-1761678374179
-
-Proceed.
