@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   # Enums for ROB-007: Operator management
-  enum role: {
+  enum :role, {
     viewer: 0,
     operator: 1,
     technician: 2,

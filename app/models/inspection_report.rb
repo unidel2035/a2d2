@@ -1,6 +1,6 @@
 class InspectionReport < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     draft: 0,
     completed: 1,
     approved: 2

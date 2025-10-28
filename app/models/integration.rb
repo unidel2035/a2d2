@@ -1,6 +1,6 @@
 class Integration < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     inactive: 0,
     active: 1,
     error: 2

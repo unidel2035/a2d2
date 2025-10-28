@@ -1,6 +1,6 @@
 class IntegrationLog < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     success: 0,
     failed: 1,
     pending: 2

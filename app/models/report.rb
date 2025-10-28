@@ -1,6 +1,6 @@
 class Report < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     inactive: 0,
     active: 1,
     generating: 2,

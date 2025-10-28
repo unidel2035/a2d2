@@ -1,12 +1,12 @@
 class MaintenanceRecord < ApplicationRecord
   # Enums
-  enum maintenance_type: {
+  enum :maintenance_type, {
     routine: 0,
     repair: 1,
     component_replacement: 2
   }
 
-  enum status: {
+  enum :status, {
     scheduled: 0,
     in_progress: 1,
     completed: 2,

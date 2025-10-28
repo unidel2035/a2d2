@@ -1,6 +1,6 @@
 class Document < ApplicationRecord
   # Enums
-  enum category: {
+  enum :category, {
     passport: 0,
     certificate: 1,
     manual: 2,
@@ -10,7 +10,7 @@ class Document < ApplicationRecord
     other: 99
   }
 
-  enum status: {
+  enum :status, {
     draft: 0,
     processing: 1,
     active: 2,
