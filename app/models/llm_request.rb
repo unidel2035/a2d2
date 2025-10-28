@@ -1,6 +1,10 @@
 class LlmRequest < ApplicationRecord
   belongs_to :agent_task, optional: true
 
+  # Serialize JSON fields for SQLite compatibility
+  serialize :request_data, coder: JSON
+  serialize :response_data, coder: JSON
+
   # Validations
   validates :provider, presence: true
   validates :model, presence: true

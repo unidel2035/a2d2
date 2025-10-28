@@ -1,6 +1,10 @@
 class Agent < ApplicationRecord
   has_many :agent_tasks, dependent: :destroy
 
+  # Serialize JSON fields for SQLite compatibility
+  serialize :capabilities, coder: JSON
+  serialize :configuration, coder: JSON
+
   # Validations
   validates :name, presence: true
   validates :type, presence: true
