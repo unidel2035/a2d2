@@ -11,8 +11,8 @@ class CreateLlmRequests < ActiveRecord::Migration[8.1]
       t.integer :response_time_ms
       t.string :status # success, error, rate_limited
       t.text :error_message
-      t.jsonb :request_data
-      t.jsonb :response_data
+      t.text :request_data
+      t.text :response_data
 
       t.timestamps
     end

@@ -5,8 +5,8 @@ class CreateAgents < ActiveRecord::Migration[8.1]
       t.string :type, null: false # STI for different agent types
       t.string :status, default: "idle" # idle, busy, error, offline
       t.text :description
-      t.jsonb :capabilities, default: {}
-      t.jsonb :configuration, default: {}
+      t.text :capabilities
+      t.text :configuration
       t.datetime :last_heartbeat_at
       t.string :version
 

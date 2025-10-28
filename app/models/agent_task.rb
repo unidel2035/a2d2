@@ -2,6 +2,11 @@ class AgentTask < ApplicationRecord
   belongs_to :agent, optional: true
   has_many :llm_requests, dependent: :destroy
 
+  # Serialize JSON fields for SQLite compatibility
+  serialize :input_data, coder: JSON
+  serialize :output_data, coder: JSON
+  serialize :metadata, coder: JSON
+
   # Validations
   validates :task_type, presence: true
   validates :status, inclusion: { in: %w[pending processing completed failed] }
