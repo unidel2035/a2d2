@@ -1,6 +1,6 @@
 class Robot < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     active: 0,
     maintenance: 1,
     repair: 2,

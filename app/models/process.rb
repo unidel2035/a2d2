@@ -1,6 +1,6 @@
 class Process < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     draft: 0,
     active: 1,
     inactive: 2

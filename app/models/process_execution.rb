@@ -1,6 +1,6 @@
 class ProcessExecution < ApplicationRecord
   # Enums
-  enum status: {
+  enum :status, {
     pending: 0,
     running: 1,
     completed: 2,
