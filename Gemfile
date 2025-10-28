@@ -101,4 +101,17 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # Test coverage reporting
+  gem "simplecov", require: false
+  gem "simplecov-html", require: false
+
+  # Factory for test data
+  gem "factory_bot_rails"
+
+  # Additional testing tools
+  gem "webmock" # Mock HTTP requests
+  gem "vcr" # Record HTTP interactions
+  gem "shoulda-matchers" # Additional matchers for tests
+  gem "faker" # Generate fake data for tests
 end
