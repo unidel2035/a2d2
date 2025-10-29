@@ -335,16 +335,37 @@ POST   /api/v1/tasks/:id/telemetry  # Загрузка телеметрии
 
 #### 5.1.3 Аутентификация
 ```
-POST   /api/v1/auth/login       # Вход
-POST   /api/v1/auth/logout      # Выход
+POST   /api/v1/auth/login       # Вход (получение JWT токена)
+POST   /api/v1/auth/logout      # Выход (инвалидация токена)
 POST   /api/v1/auth/refresh     # Обновление токена
 ```
+
+**Параметры login:**
+- `email`: Email пользователя
+- `password`: Пароль пользователя
+
+**Ответ login:**
+```json
+{
+  "access_token": "JWT токен (24 часа)",
+  "refresh_token": "Refresh токен (7 дней)",
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "user": { "id": 1, "email": "user@example.com", "name": "Имя", "role": "admin" }
+}
+```
+
+**Параметры refresh:**
+- `refresh_token`: Refresh токен для получения нового access токена
+
+**Подробная документация:** См. [docs/API_AUTH.md](docs/API_AUTH.md)
 
 ### 5.2 Формат данных
 - Формат обмена: JSON
 - Encoding: UTF-8
-- Аутентификация: JWT токены
+- Аутентификация: JWT токены (Bearer)
 - Валидация: JSON Schema
+- Token Blacklist: Инвалидированные токены хранятся в БД
 
 ### 5.3 Пример запроса
 ```json

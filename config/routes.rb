@@ -26,6 +26,13 @@ Rails.application.routes.draw do
   # Agent orchestration routes
   namespace :api do
     namespace :v1 do
+      # Authentication endpoints
+      namespace :auth do
+        post :login
+        post :logout
+        post :refresh
+      end
+
       resources :agents do
         member do
           post :activate
