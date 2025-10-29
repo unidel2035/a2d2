@@ -7,7 +7,7 @@ module Components
       @current_user = current_user
     end
 
-    def template
+    def view_template
       doctype
       html(data_theme: "light") do
         render_head
@@ -21,17 +21,17 @@ module Components
       head do
         title { "Компоненты дизайна - A2D2" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
-        csrf_meta_tags
-        csp_meta_tag
+        helpers.csrf_meta_tags
+        helpers.csp_meta_tag
 
-        stylesheet_link_tag "application", data: { turbo_track: "reload" }
+        helpers.stylesheet_link_tag "application", data: { turbo_track: "reload" }
         script(src: "https://cdn.tailwindcss.com")
         link(
           href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
           rel: "stylesheet",
           type: "text/css"
         )
-        javascript_importmap_tags
+        helpers.javascript_importmap_tags
       end
     end
 
@@ -563,7 +563,7 @@ module Components
 
     def render_back_link
       div(class: "text-center") do
-        Link href: root_path, class: "btn btn-outline btn-lg" do
+        Link href: helpers.root_path, class: "btn btn-outline btn-lg" do
           svg(
             xmlns: "http://www.w3.org/2000/svg",
             class: "h-6 w-6",

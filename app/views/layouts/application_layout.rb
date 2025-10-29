@@ -8,7 +8,7 @@ module Layouts
       @title = title
     end
 
-    def template(&block)
+    def view_template(&block)
       doctype
 
       html(data_theme: "light") do

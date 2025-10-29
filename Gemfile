@@ -20,6 +20,16 @@ gem "jbuilder"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
+# Authentication and Authorization - AUTH-001 to AUTH-006
+gem "devise", "~> 4.9"
+gem "devise-two-factor", "~> 5.0"
+gem "pundit", "~> 2.3"
+gem "rqrcode", "~> 2.0" # For QR code generation in MFA
+
+# Rate limiting and security - INFRA-001, SEC-001
+gem "rack-attack", "~> 6.7"
+gem "secure_headers", "~> 6.5"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -55,8 +65,28 @@ gem "prawn-table"
 gem "caxlsx"
 gem "caxlsx_rails"
 
-# GraphQL client for integrations
+# GraphQL client and API
 gem "graphql-client"
+gem "graphql", "~> 2.0" # BUS-003: GraphQL API
+
+# Full-text search - DOC-006
+gem "pg_search"
+
+# PDF processing - DOC-002, DOC-003
+gem "pdf-reader"
+
+# OCR support - DOC-003 (Tesseract)
+# Note: Requires tesseract-ocr to be installed on the system
+# gem "rtesseract" # Uncomment when tesseract is available
+
+# XML/KML generation - ROB-005
+gem "builder"
+
+# Schedule management - ANL-005
+gem "whenever", require: false
+
+# Data validation
+gem "dry-validation"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -81,4 +111,17 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # Test coverage reporting
+  gem "simplecov", require: false
+  gem "simplecov-html", require: false
+
+  # Factory for test data
+  gem "factory_bot_rails"
+
+  # Additional testing tools
+  gem "webmock" # Mock HTTP requests
+  gem "vcr" # Record HTTP interactions
+  gem "shoulda-matchers" # Additional matchers for tests
+  gem "faker" # Generate fake data for tests
 end

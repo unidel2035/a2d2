@@ -8,7 +8,7 @@ module Components
       @show_dashboard = show_dashboard
     end
 
-    def template
+    def view_template
       Navbar :base_100, class: "shadow-lg sticky top-0 z-50" do |navbar|
         # Navbar start
         div(class: "navbar-start") do

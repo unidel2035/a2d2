@@ -81,6 +81,73 @@ Rails.application.routes.draw do
     end
   end
 
+  # N8n-compatible Workflow API routes
+  resources :workflows do
+    member do
+      post :execute
+      post :activate
+      post :deactivate
+    end
+
+    collection do
+      get :templates
+      post :from_template
+    end
+  end
+
+  # Workflow executions
+  resources :workflow_executions, only: [:index, :show] do
+    member do
+      post :cancel
+    end
+  end
+
+  # N8n integration endpoints
+  namespace :api do
+    namespace :v1 do
+      namespace :n8n do
+        post 'import', to: 'integration#import'
+        get 'export/:id', to: 'integration#export'
+        post 'validate', to: 'integration#validate'
+      end
+    end
+  end
+
+  # Agricultural Platform "Kod Urozhaya" (Harvest Code) routes
+  get 'agro', to: 'agro_platform#index', as: 'agro_platform'
+  get 'agro/ecosystem', to: 'agro_platform#ecosystem', as: 'agro_platform_ecosystem'
+  get 'agro/monitoring', to: 'agro_platform#monitoring', as: 'agro_platform_monitoring'
+
+  # Agricultural Agents
+  resources :agro_agents do
+    member do
+      post :heartbeat
+    end
+  end
+
+  # Agricultural Tasks
+  resources :agro_tasks, only: [:index, :show, :new, :create] do
+    member do
+      post :retry
+    end
+  end
+
+  # Farms
+  resources :farms
+
+  # Market Offers (Supply/Demand)
+  resources :market_offers do
+    collection do
+      post :match
+    end
+  end
+
+  # Smart Contracts
+  resources :smart_contracts, only: [:index, :show]
+
+  # Agent Coordinations
+  resources :agent_coordinations, only: [:index, :show]
+
   # Defines the root path route ("/")
   root "home#index"
 end
