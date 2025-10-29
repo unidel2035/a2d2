@@ -1,0 +1,30 @@
+scheduled_one:
+  robot: one
+  technician: technician
+  scheduled_date: <%= 1.week.from_now.to_date %>
+  maintenance_type: routine
+  status: scheduled
+  operation_hours_at_maintenance: 120.5
+  created_at: <%= 1.day.ago %>
+
+overdue:
+  robot: two
+  technician: technician
+  scheduled_date: <%= 3.days.ago.to_date %>
+  maintenance_type: repair
+  status: scheduled
+  operation_hours_at_maintenance: 250.0
+  created_at: <%= 1.week.ago %>
+
+completed:
+  robot: one
+  technician: technician
+  scheduled_date: <%= 1.month.ago.to_date %>
+  maintenance_type: routine
+  status: completed
+  completed_date: <%= 1.month.ago.to_date %>
+  operation_hours_at_maintenance: 80.0
+  cost: 5000.0
+  description: Routine maintenance completed successfully
+  replaced_components: ["filter", "battery"]
+  created_at: <%= 2.months.ago %>

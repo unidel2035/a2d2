@@ -94,4 +94,86 @@ class DocumentTest < ActiveSupport::TestCase
   test "should belong to user who uploaded" do
     assert_equal @user, @document.user
   end
+
+  # Тесты поиска согласно issue #150
+  test "should search documents by title" do
+    doc1 = Document.create!(
+      title: "Robot Manual",
+      content_text: "Instructions",
+      category: :manual,
+      user: @user,
+      robot: @robot,
+      status: :active
+    )
+    doc2 = Document.create!(
+      title: "User Guide",
+      content_text: "How to use",
+      category: :manual,
+      user: @user,
+      robot: @robot,
+      status: :active
+    )
+
+    results = Document.search("Robot")
+    assert_includes results, doc1
+    assert_not_includes results, doc2
+  end
+
+  test "should search documents by content" do
+    doc1 = Document.create!(
+      title: "Manual",
+      content_text: "Robot instructions",
+      category: :manual,
+      user: @user,
+      robot: @robot,
+      status: :active
+    )
+    doc2 = Document.create!(
+      title: "Guide",
+      content_text: "User guide",
+      category: :manual,
+      user: @user,
+      robot: @robot,
+      status: :active
+    )
+
+    results = Document.search("Robot")
+    assert_includes results, doc1
+    assert_not_includes results, doc2
+  end
+
+  test "should return all documents when search query is blank" do
+    count = Document.count
+    results = Document.search("")
+    assert_equal count, results.count
+  end
+
+  test "should search case insensitively" do
+    doc = Document.create!(
+      title: "ROBOT Manual",
+      content_text: "Instructions",
+      category: :manual,
+      user: @user,
+      robot: @robot,
+      status: :active
+    )
+
+    results = Document.search("robot")
+    assert_includes results, doc
+  end
+
+  test "should search in multiple fields" do
+    doc = Document.create!(
+      title: "Manual",
+      content_text: "Instructions",
+      author: "Robot Expert",
+      category: :manual,
+      user: @user,
+      robot: @robot,
+      status: :active
+    )
+
+    results = Document.search("Robot Expert")
+    assert_includes results, doc
+  end
 end
