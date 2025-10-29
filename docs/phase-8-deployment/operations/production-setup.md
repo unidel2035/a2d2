@@ -1,16 +1,16 @@
-# DEPLOY-001: Production Environment Setup
+# DEPLOY-001: Настройка Production окружения
 
-**Status**: Complete
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Статус**: Завершено
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Overview
+## Обзор
 
-This document describes the production environment setup for the A2D2 platform, including infrastructure requirements, configuration, and deployment architecture.
+Этот документ описывает настройку production окружения для платформы A2D2, включая требования к инфраструктуре, конфигурацию и архитектуру развертывания.
 
-## Production Architecture
+## Production архитектура
 
-### High-Level Architecture
+### Высокоуровневая архитектура
 
 ```
                                     ┌─────────────────┐
@@ -41,46 +41,46 @@ This document describes the production environment setup for the A2D2 platform, 
             └────────────────┘
 ```
 
-## Infrastructure Requirements
+## Требования к инфраструктуре
 
-### Minimum Production Requirements
+### Минимальные требования для Production
 
-#### Application Servers (2+ instances)
-- **CPU**: 4 cores
+#### Серверы приложений (2+ экземпляра)
+- **CPU**: 4 ядра
 - **RAM**: 8 GB
-- **Disk**: 100 GB SSD
-- **OS**: Ubuntu 22.04 LTS or later
-- **Network**: 1 Gbps
+- **Диск**: 100 GB SSD
+- **ОС**: Ubuntu 22.04 LTS или новее
+- **Сеть**: 1 Gbps
 
-#### Database Server (Primary + Replica)
-- **CPU**: 8 cores
+#### Сервер базы данных (Primary + Replica)
+- **CPU**: 8 ядер
 - **RAM**: 16 GB
-- **Disk**: 500 GB SSD (NVMe recommended)
-- **OS**: Ubuntu 22.04 LTS or later
-- **Network**: 1 Gbps
+- **Диск**: 500 GB SSD (рекомендуется NVMe)
+- **ОС**: Ubuntu 22.04 LTS или новее
+- **Сеть**: 1 Gbps
 
-#### Redis Cache/Queue Server
-- **CPU**: 2 cores
+#### Сервер Redis Cache/Queue
+- **CPU**: 2 ядра
 - **RAM**: 4 GB
-- **Disk**: 50 GB SSD
-- **OS**: Ubuntu 22.04 LTS or later
-- **Network**: 1 Gbps
+- **Диск**: 50 GB SSD
+- **ОС**: Ubuntu 22.04 LTS или новее
+- **Сеть**: 1 Gbps
 
-### Recommended Production Setup
+### Рекомендуемая настройка для Production
 
-For high-availability and scalability:
+Для высокой доступности и масштабируемости:
 
-- **Application Servers**: 3-5 instances behind load balancer
-- **Database**: PostgreSQL 14+ with streaming replication (1 primary + 2 replicas)
-- **Cache**: Redis Cluster (3 master + 3 replica nodes)
-- **Load Balancer**: nginx or HAProxy
-- **CDN**: CloudFlare or similar for static assets
-- **Monitoring**: Prometheus + Grafana + Loki
-- **Backup**: Automated daily backups with 30-day retention
+- **Серверы приложений**: 3-5 экземпляров за балансировщиком нагрузки
+- **База данных**: PostgreSQL 14+ с потоковой репликацией (1 primary + 2 replicas)
+- **Кеш**: Redis Cluster (3 master + 3 replica узла)
+- **Балансировщик нагрузки**: nginx или HAProxy
+- **CDN**: CloudFlare или аналог для статических ресурсов
+- **Мониторинг**: Prometheus + Grafana + Loki
+- **Резервное копирование**: Автоматические ежедневные бэкапы с хранением 30 дней
 
-## Software Stack
+## Стек программного обеспечения
 
-### Core Components
+### Основные компоненты
 
 ```yaml
 Ruby: 3.3.6
@@ -91,7 +91,7 @@ nginx: 1.27.x
 Node.js: 20.x LTS (for asset compilation)
 ```
 
-### Key Dependencies
+### Ключевые зависимости
 
 ```ruby
 # Production gems
@@ -102,11 +102,11 @@ thruster          # HTTP/2 proxy
 bootsnap          # Boot optimization
 ```
 
-## Environment Variables
+## Переменные окружения
 
-### Required Environment Variables
+### Обязательные переменные окружения
 
-Create a `.env.production` file or set via deployment tool:
+Создайте файл `.env.production` или установите через инструмент развертывания:
 
 ```bash
 # Application
@@ -149,7 +149,7 @@ RAILS_MAX_THREADS=5
 MALLOC_ARENA_MAX=2  # Reduces memory fragmentation
 ```
 
-### Generating Secrets
+### Генерация секретов
 
 ```bash
 # Generate SECRET_KEY_BASE
@@ -159,9 +159,9 @@ rails secret
 EDITOR=vim rails credentials:edit --environment production
 ```
 
-## Database Setup
+## Настройка базы данных
 
-### PostgreSQL Configuration
+### Конфигурация PostgreSQL
 
 #### postgresql.conf (Primary Server)
 
@@ -225,7 +225,7 @@ host    replication     replicator      <replica-ip>/32         scram-sha-256
 host    a2d2_production a2d2_user       <app-server-ip>/32      scram-sha-256
 ```
 
-### Redis Configuration
+### Конфигурация Redis
 
 #### redis.conf (Production)
 
@@ -263,9 +263,9 @@ rename-command KEYS ""
 rename-command CONFIG "CONFIG-2f7e8a9b1c3d4e5f"
 ```
 
-## Application Server Setup
+## Настройка сервера приложений
 
-### Install System Dependencies
+### Установка системных зависимостей
 
 ```bash
 # Update system
@@ -292,7 +292,7 @@ sudo apt-get install -y \
   nginx
 ```
 
-### Install Ruby
+### Установка Ruby
 
 ```bash
 # Install rbenv
@@ -312,7 +312,7 @@ rbenv global 3.3.6
 gem install bundler
 ```
 
-### Application Deployment Directory Structure
+### Структура каталогов развертывания приложения
 
 ```
 /var/www/a2d2/
@@ -334,9 +334,9 @@ gem install bundler
 └── repo/  # Git repository cache
 ```
 
-## Load Balancer Configuration
+## Конфигурация балансировщика нагрузки
 
-### nginx Configuration
+### Конфигурация nginx
 
 #### /etc/nginx/nginx.conf
 
@@ -530,7 +530,7 @@ server {
 }
 ```
 
-Enable the site:
+Включите сайт:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/a2d2 /etc/nginx/sites-enabled/
@@ -538,9 +538,9 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-## SSL/TLS Certificates
+## SSL/TLS сертификаты
 
-### Using Let's Encrypt
+### Использование Let's Encrypt
 
 ```bash
 # Install certbot
@@ -553,7 +553,7 @@ sudo certbot --nginx -d a2d2.example.com
 sudo certbot renew --dry-run
 ```
 
-## Systemd Service
+## Systemd сервис
 
 ### /etc/systemd/system/a2d2-web.service
 
@@ -610,7 +610,7 @@ StandardError=append:/var/log/a2d2/worker-error.log
 WantedBy=multi-user.target
 ```
 
-Enable and start services:
+Включите и запустите сервисы:
 
 ```bash
 sudo systemctl daemon-reload
@@ -619,30 +619,30 @@ sudo systemctl start a2d2-web a2d2-worker
 sudo systemctl status a2d2-web a2d2-worker
 ```
 
-## Security Checklist
+## Контрольный список безопасности
 
-- [ ] Firewall configured (ufw/iptables)
-- [ ] SSH key-only authentication
-- [ ] fail2ban installed and configured
-- [ ] Database accessible only from app servers
-- [ ] Redis password-protected
-- [ ] SSL/TLS certificates installed
-- [ ] Security headers configured in nginx
-- [ ] Environment variables secured
-- [ ] Application logs rotation configured
-- [ ] Backup encryption enabled
-- [ ] Monitoring and alerting configured
+- [ ] Настроен файрвол (ufw/iptables)
+- [ ] Аутентификация SSH только по ключу
+- [ ] Установлен и настроен fail2ban
+- [ ] База данных доступна только с серверов приложений
+- [ ] Redis защищен паролем
+- [ ] Установлены SSL/TLS сертификаты
+- [ ] Настроены заголовки безопасности в nginx
+- [ ] Переменные окружения защищены
+- [ ] Настроена ротация логов приложения
+- [ ] Включено шифрование резервных копий
+- [ ] Настроен мониторинг и оповещения
 
-## Next Steps
+## Следующие шаги
 
-After completing the production setup:
+После завершения настройки production:
 
-1. Proceed to [Database Migration Guide](migration-guide.md)
-2. Review [Zero-Downtime Deployment](zero-downtime.md)
-3. Configure [Health Checks](health-checks.md)
-4. Set up [Rollback Procedures](rollback-guide.md)
+1. Перейдите к [Руководству по миграции базы данных](migration-guide.md)
+2. Изучите [Развертывание без простоя](zero-downtime.md)
+3. Настройте [Проверки работоспособности](health-checks.md)
+4. Настройте [Процедуры отката](rollback-guide.md)
 
-## References
+## Ссылки
 
 - [Rails Production Deployment Guide](https://guides.rubyonrails.org/deployment.html)
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
@@ -651,6 +651,6 @@ After completing the production setup:
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
-**Maintainer**: A2D2 DevOps Team
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28
+**Сопровождающий**: A2D2 DevOps Team

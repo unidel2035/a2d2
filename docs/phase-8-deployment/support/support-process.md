@@ -1,105 +1,105 @@
-# SUPP-002: Support Processes
+# SUPP-002: Процессы поддержки
 
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Support Channels
+## Каналы поддержки
 
 ### GitHub Issues
-**For**: Bug reports, feature requests
+**Для**: Отчеты об ошибках, запросы функций
 **URL**: https://github.com/unidel2035/a2d2/issues
-**Response Time**: 24-48 hours
+**Время ответа**: 24-48 часов
 
 ### GitHub Discussions
-**For**: Questions, ideas, general discussion
+**Для**: Вопросы, идеи, общее обсуждение
 **URL**: https://github.com/unidel2035/a2d2/discussions
-**Response Time**: 24 hours
+**Время ответа**: 24 часа
 
-### Email Support
-**For**: Account issues, billing, private matters
+### Поддержка по электронной почте
+**Для**: Проблемы с учетной записью, вопросы оплаты, личные вопросы
 **Email**: support@example.com
-**Response Time**: 
-- Critical: <2 hours
-- High: <4 hours
-- Normal: <24 hours
+**Время ответа**:
+- Критично: <2 часов
+- Высокий: <4 часов
+- Обычный: <24 часов
 
-### Phone Support
-**For**: Urgent production issues
-**Phone**: +7 (XXX) XXX-XX-XX
-**Hours**: 9 AM - 6 PM MSK (weekdays)
+### Телефонная поддержка
+**Для**: Срочные производственные проблемы
+**Телефон**: +7 (XXX) XXX-XX-XX
+**Часы работы**: 9:00 - 18:00 МСК (рабочие дни)
 
-## Issue Severity Levels
+## Уровни серьезности проблем
 
-### Critical (P0)
-- System down
-- Data loss
-- Security breach
-**Response**: <1 hour
-**Resolution**: <4 hours
+### Критичная (P0)
+- Система не работает
+- Потеря данных
+- Нарушение безопасности
+**Ответ**: <1 часа
+**Решение**: <4 часов
 
-### High (P1)
-- Major feature broken
-- Severe performance degradation
-- Workaround exists
-**Response**: <4 hours
-**Resolution**: <24 hours
+### Высокая (P1)
+- Основная функция сломана
+- Серьезное снижение производительности
+- Существует обходной путь
+**Ответ**: <4 часов
+**Решение**: <24 часов
 
-### Normal (P2)
-- Minor bugs
-- Non-critical issues
-**Response**: <24 hours
-**Resolution**: <1 week
+### Обычная (P2)
+- Незначительные ошибки
+- Некритичные проблемы
+**Ответ**: <24 часов
+**Решение**: <1 недели
 
-### Low (P3)
-- Feature requests
-- Documentation
-- Minor improvements
-**Response**: <48 hours
-**Resolution**: Next release
+### Низкая (P3)
+- Запросы функций
+- Документация
+- Незначительные улучшения
+**Ответ**: <48 часов
+**Решение**: Следующий релиз
 
-## Support Process
+## Процесс поддержки
 
-1. **Submit Request**
-   - Choose appropriate channel
-   - Provide detailed information
-   - Include error messages/screenshots
+1. **Отправка запроса**
+   - Выберите подходящий канал
+   - Предоставьте подробную информацию
+   - Включите сообщения об ошибках/скриншоты
 
-2. **Ticket Created**
-   - Automatic acknowledgment
-   - Ticket number assigned
-   - Initial severity assessment
+2. **Создание тикета**
+   - Автоматическое подтверждение
+   - Присвоен номер тикета
+   - Первоначальная оценка серьезности
 
-3. **Investigation**
-   - Support team reviews
-   - Reproduction attempts
-   - Gather more info if needed
+3. **Расследование**
+   - Команда поддержки рассматривает
+   - Попытки воспроизведения
+   - Сбор дополнительной информации при необходимости
 
-4. **Resolution**
-   - Fix developed and tested
-   - Deployed to production
-   - Customer notified
+4. **Решение**
+   - Исправление разработано и протестировано
+   - Развернуто в production
+   - Клиент уведомлен
 
-5. **Verification**
-   - Customer confirms fix
-   - Ticket closed
-   - Feedback requested
+5. **Проверка**
+   - Клиент подтверждает исправление
+   - Тикет закрыт
+   - Запрошен отзыв
 
-## Escalation
+## Эскалация
 
-If not satisfied with response:
+Если вы не удовлетворены ответом:
 
-1. Reply to ticket requesting escalation
+1. Ответьте на тикет с запросом эскалации
 2. Email: escalation@example.com
-3. Phone: +7 (XXX) XXX-XX-XX
+3. Телефон: +7 (XXX) XXX-XX-XX
 
-## Self-Service Resources
+## Ресурсы самообслуживания
 
-- [User Guide](../user/user-guide.md)
+- [Руководство пользователя](../user/user-guide.md)
 - [FAQ](../user/faq.md)
-- [Video Tutorials](training.md)
-- [API Documentation](../user/api-guide.md)
+- [Видеоуроки](training.md)
+- [Документация API](../user/api-guide.md)
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28

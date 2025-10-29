@@ -16,6 +16,13 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index", as: "dashboard"
   get "home/index"
 
+  # Billing and pricing
+  get "billing", to: "billing#index", as: "billing"
+  get "pricing", to: "billing#index", as: "pricing"
+
+  # API Tokens
+  resources :api_tokens, only: [ :index, :create, :destroy ]
+
   # Agent orchestration routes
   namespace :api do
     namespace :v1 do
@@ -113,40 +120,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # Agricultural Platform "Kod Urozhaya" (Harvest Code) routes
-  get 'agro', to: 'agro_platform#index', as: 'agro_platform'
-  get 'agro/ecosystem', to: 'agro_platform#ecosystem', as: 'agro_platform_ecosystem'
-  get 'agro/monitoring', to: 'agro_platform#monitoring', as: 'agro_platform_monitoring'
-
-  # Agricultural Agents
-  resources :agro_agents do
-    member do
-      post :heartbeat
-    end
-  end
-
-  # Agricultural Tasks
-  resources :agro_tasks, only: [:index, :show, :new, :create] do
-    member do
-      post :retry
-    end
-  end
-
-  # Farms
-  resources :farms
-
-  # Market Offers (Supply/Demand)
-  resources :market_offers do
-    collection do
-      post :match
-    end
-  end
-
-  # Smart Contracts
-  resources :smart_contracts, only: [:index, :show]
-
-  # Agent Coordinations
-  resources :agent_coordinations, only: [:index, :show]
 
   # Defines the root path route ("/")
   root "home#index"
