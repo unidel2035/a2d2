@@ -42,7 +42,7 @@ module MaintenanceRecords
 
     def render_filters
       div(class: "bg-white rounded-lg shadow mb-6 p-6") do
-        form(method: "get", action: maintenance_records_path, class: "grid grid-cols-1 md:grid-cols-4 gap-4") do
+        form(method: "get", action: helpers.maintenance_records_path, class: "grid grid-cols-1 md:grid-cols-4 gap-4") do
           # Фильтр по статусу
           div do
             label(class: "block text-sm font-medium text-gray-700 mb-2") { "Статус" }
@@ -97,7 +97,7 @@ module MaintenanceRecords
             ) { "Применить" }
 
             a(
-              href: maintenance_records_path,
+              href: helpers.maintenance_records_path,
               class: "px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
             ) { "Сбросить" }
           end
@@ -145,7 +145,7 @@ module MaintenanceRecords
       tr(class: "hover:bg-gray-50") do
         td(class: "px-6 py-4 whitespace-nowrap") do
           a(
-            href: robot_path(record.robot),
+            href: helpers.robot_path(record.robot),
             class: "text-blue-600 hover:text-blue-900"
           ) { record.robot.serial_number }
         end
@@ -195,7 +195,7 @@ module MaintenanceRecords
         end
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm space-x-2") do
-          a(href: maintenance_record_path(record), class: "text-blue-600 hover:text-blue-900") { "Просмотр" }
+          a(href: helpers.maintenance_record_path(record), class: "text-blue-600 hover:text-blue-900") { "Просмотр" }
         end
       end
     end

@@ -96,13 +96,13 @@ module Errors
               "Полезные ссылки:"
             end
             div(class: "flex flex-wrap gap-4 justify-center text-sm") do
-              a(href: dashboard_path, class: "link link-primary") do
+              a(href: helpers.dashboard_path, class: "link link-primary") do
                 "Dashboard"
               end
-              a(href: components_path, class: "link link-primary") do
+              a(href: helpers.components_path, class: "link link-primary") do
                 "Компоненты"
               end
-              a(href: landing_path, class: "link link-primary") do
+              a(href: helpers.landing_path, class: "link link-primary") do
                 "О платформе"
               end
               a(href: "https://github.com/unidel2035/a2d2/issues", target: "_blank", rel: "noopener", class: "link link-primary") do

@@ -76,7 +76,7 @@ module Agents
       tr(class: "hover:bg-gray-50") do
         td(class: "px-6 py-4 whitespace-nowrap") do
           a(
-            href: agent_path(agent),
+            href: helpers.agent_path(agent),
             class: "text-blue-600 hover:text-blue-900 font-medium"
           ) { agent.name }
         end
@@ -127,7 +127,7 @@ module Agents
         end
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm") do
-          a(href: agent_path(agent), class: "text-blue-600 hover:text-blue-900") { "View" }
+          a(href: helpers.agent_path(agent), class: "text-blue-600 hover:text-blue-900") { "View" }
         end
       end
     end
@@ -192,7 +192,7 @@ module Agents
         td(class: "px-6 py-4 whitespace-nowrap text-sm") do
           if task.agent
             a(
-              href: agent_path(task.agent),
+              href: helpers.agent_path(task.agent),
               class: "text-blue-600 hover:text-blue-900"
             ) { task.agent.name }
           else

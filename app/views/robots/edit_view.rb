@@ -10,7 +10,7 @@ module Robots
       div(class: "container mx-auto px-4 py-8 max-w-3xl") do
         div(class: "mb-6") do
           a(
-            href: robot_path(@robot),
+            href: helpers.robot_path(@robot),
             class: "text-blue-600 hover:text-blue-900"
           ) { "← Назад к роботу" }
         end
@@ -21,7 +21,7 @@ module Robots
           end
 
           div(class: "px-6 py-6") do
-            form(method: "post", action: robot_path(@robot)) do
+            form(method: "post", action: helpers.robot_path(@robot)) do
               input(type: "hidden", name: "_method", value: "patch")
               input(type: "hidden", name: "authenticity_token", value: form_authenticity_token)
 
@@ -34,7 +34,7 @@ module Robots
                 ) { "Сохранить изменения" }
 
                 a(
-                  href: robot_path(@robot),
+                  href: helpers.robot_path(@robot),
                   class: "px-6 py-3 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 font-medium"
                 ) { "Отмена" }
               end

@@ -67,7 +67,7 @@ module Sessions
           div(class: "text-center") do
             p(class: "text-base-content/70") do
               plain "Нет аккаунта? "
-              Link(href: signup_path, class: "link link-primary font-semibold") do
+              Link(href: helpers.signup_path, class: "link link-primary font-semibold") do
                 "Зарегистрироваться"
               end
             end
@@ -96,7 +96,7 @@ module Sessions
     end
 
     def render_login_form
-      form(action: login_path, method: "post", class: "space-y-4") do
+      form(action: helpers.login_path, method: "post", class: "space-y-4") do
         # CSRF token
         input(type: "hidden", name: "authenticity_token", value: form_authenticity_token)
 

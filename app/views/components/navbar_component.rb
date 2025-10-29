@@ -23,7 +23,7 @@ module Components
             Menu :horizontal, class: "px-1" do |menu|
               menu.item { Link(href: "#features") { "Возможности" } }
               menu.item { Link(href: "#about") { "О проекте" } }
-              menu.item { Link(href: components_path) { "Компоненты дизайна" } }
+              menu.item { Link(href: helpers.components_path) { "Компоненты дизайна" } }
             end
           end
         else
@@ -35,7 +35,7 @@ module Components
         # Navbar end
         div(class: "navbar-end gap-2") do
           if @show_dashboard
-            Link href: dashboard_path, class: "btn btn-ghost" do
+            Link href: helpers.dashboard_path, class: "btn btn-ghost" do
               svg(
                 xmlns: "http://www.w3.org/2000/svg",
                 class: "h-5 w-5",
@@ -63,10 +63,10 @@ module Components
               input(type: "hidden", name: "_method", value: "delete")
             end
           else
-            Link href: login_path, class: "btn btn-ghost" do
+            Link href: helpers.login_path, class: "btn btn-ghost" do
               "Войти"
             end
-            Link href: signup_path, class: "btn btn-primary" do
+            Link href: helpers.signup_path, class: "btn btn-primary" do
               "Регистрация"
             end
           end

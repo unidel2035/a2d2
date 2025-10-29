@@ -10,7 +10,7 @@ module Tasks
       div(class: "container mx-auto px-4 py-8") do
         div(class: "mb-6") do
           a(
-            href: tasks_path,
+            href: helpers.tasks_path,
             class: "text-blue-600 hover:text-blue-900"
           ) { "← Назад к списку заданий" }
         end
