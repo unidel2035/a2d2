@@ -28,7 +28,7 @@ gem "rqrcode", "~> 3.1" # For QR code generation in MFA
 
 # Rate limiting and security - INFRA-001, SEC-001
 gem "rack-attack", "~> 6.7"
-gem "secure_headers", "~> 6.5"
+gem "secure_headers", "~> 7.1"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
