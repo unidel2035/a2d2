@@ -1,12 +1,15 @@
 class ApplicationComponent < Phlex::HTML
-  include Phlex::Rails::Helpers
-  include Phlex::Rails::Helpers::Routes
-
   # Include specific helpers for meta tags and assets
   include Phlex::Rails::Helpers::CSRFMetaTags
   include Phlex::Rails::Helpers::CSPMetaTag
   include Phlex::Rails::Helpers::StyleSheetLinkTag
   include Phlex::Rails::Helpers::JavaScriptImportmapTags
+
+  # Include date helpers for time_ago_in_words and similar methods
+  include ActionView::Helpers::DateHelper
+
+  # Для маршрутов используем helpers.dashboard_path, helpers.robot_path и т.д.
+  # Это НЕ конфликтует с SVG path() элементом
 
   # Actions
   def Button(*args, &block)
