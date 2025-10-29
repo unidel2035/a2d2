@@ -76,7 +76,7 @@ module Agents
       tr(class: "hover:bg-gray-50") do
         td(class: "px-6 py-4 whitespace-nowrap") do
           a(
-            href: helpers.agent_path(agent),
+            href: agent_path(agent),
             class: "text-blue-600 hover:text-blue-900 font-medium"
           ) { agent.name }
         end
@@ -120,14 +120,14 @@ module Agents
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm text-gray-500") do
           if agent.last_heartbeat
-            "#{helpers.time_ago_in_words(agent.last_heartbeat)} ago"
+            "#{time_ago_in_words(agent.last_heartbeat)} ago"
           else
             "Never"
           end
         end
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm") do
-          a(href: helpers.agent_path(agent), class: "text-blue-600 hover:text-blue-900") { "View" }
+          a(href: agent_path(agent), class: "text-blue-600 hover:text-blue-900") { "View" }
         end
       end
     end
@@ -192,7 +192,7 @@ module Agents
         td(class: "px-6 py-4 whitespace-nowrap text-sm") do
           if task.agent
             a(
-              href: helpers.agent_path(task.agent),
+              href: agent_path(task.agent),
               class: "text-blue-600 hover:text-blue-900"
             ) { task.agent.name }
           else
@@ -203,7 +203,7 @@ module Agents
         td(class: "px-6 py-4 whitespace-nowrap text-sm") { task.priority }
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm text-gray-500") do
-          "#{helpers.time_ago_in_words(task.created_at)} ago"
+          "#{time_ago_in_words(task.created_at)} ago"
         end
       end
     end

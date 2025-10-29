@@ -21,17 +21,17 @@ module Home
       head do
         title { "A2D2 - Платформа автоматизации автоматизации" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
-        helpers.csrf_meta_tags
-        helpers.csp_meta_tag
+        csrf_meta_tags
+        csp_meta_tag
 
-        helpers.stylesheet_link_tag "application", data: { turbo_track: "reload" }
+        stylesheet_link_tag "application", data: { turbo_track: "reload" }
         script(src: "https://cdn.tailwindcss.com")
         link(
           href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
           rel: "stylesheet",
           type: "text/css"
         )
-        helpers.javascript_importmap_tags
+        javascript_importmap_tags
       end
     end
 
@@ -88,12 +88,12 @@ module Home
 
             # CTA Buttons
             div(class: "flex flex-wrap gap-4 justify-center mb-16 animate-fade-in-up animation-delay-600") do
-              Link href: helpers.signup_path, class: "btn btn-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 shadow-2xl shadow-purple-500/50 gap-3 px-8" do
+              Link href: signup_path, class: "btn btn-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 shadow-2xl shadow-purple-500/50 gap-3 px-8" do
                 render_icon(:lightning)
                 plain "Начать работу бесплатно"
               end
 
-              Link href: helpers.dashboard_path, class: "btn btn-lg bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-sm gap-3 px-8" do
+              Link href: dashboard_path, class: "btn btn-lg bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-sm gap-3 px-8" do
                 render_icon(:grid)
                 plain "Посмотреть демо"
               end
@@ -317,7 +317,7 @@ module Home
 
           # CTA Buttons
           div(class: "flex flex-col sm:flex-row gap-4 justify-center mb-12") do
-            Link href: helpers.signup_path, class: "btn btn-lg bg-white text-purple-600 hover:bg-gray-100 border-0 shadow-2xl gap-3 px-10" do
+            Link href: signup_path, class: "btn btn-lg bg-white text-purple-600 hover:bg-gray-100 border-0 shadow-2xl gap-3 px-10" do
               plain "Создать аккаунт бесплатно"
               svg(
                 xmlns: "http://www.w3.org/2000/svg",
@@ -335,7 +335,7 @@ module Home
               end
             end
 
-            Link href: helpers.dashboard_path, class: "btn btn-lg bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm gap-3 px-10" do
+            Link href: dashboard_path, class: "btn btn-lg bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm gap-3 px-10" do
               svg(
                 xmlns: "http://www.w3.org/2000/svg",
                 class: "h-6 w-6",

@@ -1,4 +1,6 @@
 class ApplicationComponent < Phlex::HTML
+  include Phlex::Rails::Helpers
+
   # Actions
   def Button(*args, &block)
     PhlexyUI::Button.new(*args, &block)

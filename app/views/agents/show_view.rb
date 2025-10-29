@@ -22,7 +22,7 @@ module Agents
     def render_back_link
       div(class: "mb-6") do
         a(
-          href: helpers.agents_path,
+          href: agents_path,
           class: "text-blue-600 hover:text-blue-900"
         ) { "← Back to Agents" }
       end
@@ -89,7 +89,7 @@ module Agents
         h3(class: "text-sm font-medium text-gray-500 mb-1") { "Last Heartbeat" }
         p(class: "text-lg") do
           if @agent.last_heartbeat
-            "#{helpers.time_ago_in_words(@agent.last_heartbeat)} ago"
+            "#{time_ago_in_words(@agent.last_heartbeat)} ago"
           else
             "Never"
           end
@@ -138,7 +138,7 @@ module Agents
               h3(class: "text-sm font-medium text-gray-500 mb-1") { "Last Health Check" }
               p(class: "text-lg") do
                 if @registry_entry.last_health_check
-                  "#{helpers.time_ago_in_words(@registry_entry.last_health_check)} ago"
+                  "#{time_ago_in_words(@registry_entry.last_health_check)} ago"
                 else
                   "Never"
                 end
@@ -207,7 +207,7 @@ module Agents
         td(class: "px-6 py-4 whitespace-nowrap text-sm") { task.priority }
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm text-gray-500") do
-          "#{helpers.time_ago_in_words(task.created_at)} ago"
+          "#{time_ago_in_words(task.created_at)} ago"
         end
 
         td(class: "px-6 py-4 whitespace-nowrap text-sm text-gray-500") do

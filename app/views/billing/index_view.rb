@@ -21,17 +21,17 @@ module Billing
       head do
         title { "Тарифы и оплата - A2D2" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
-        helpers.csrf_meta_tags
-        helpers.csp_meta_tag
+        csrf_meta_tags
+        csp_meta_tag
 
-        helpers.stylesheet_link_tag "application", data: { turbo_track: "reload" }
+        stylesheet_link_tag "application", data: { turbo_track: "reload" }
         script(src: "https://cdn.tailwindcss.com")
         link(
           href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
           rel: "stylesheet",
           type: "text/css"
         )
-        helpers.javascript_importmap_tags
+        javascript_importmap_tags
       end
     end
 

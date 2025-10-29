@@ -21,17 +21,17 @@ module Components
       head do
         title { "Компоненты дизайна - A2D2" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
-        helpers.csrf_meta_tags
-        helpers.csp_meta_tag
+        csrf_meta_tags
+        csp_meta_tag
 
-        helpers.stylesheet_link_tag "application", data: { turbo_track: "reload" }
+        stylesheet_link_tag "application", data: { turbo_track: "reload" }
         script(src: "https://cdn.tailwindcss.com")
         link(
           href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
           rel: "stylesheet",
           type: "text/css"
         )
-        helpers.javascript_importmap_tags
+        javascript_importmap_tags
       end
     end
 
@@ -563,7 +563,7 @@ module Components
 
     def render_back_link
       div(class: "text-center") do
-        Link href: helpers.root_path, class: "btn btn-outline btn-lg" do
+        Link href: root_path, class: "btn btn-outline btn-lg" do
           svg(
             xmlns: "http://www.w3.org/2000/svg",
             class: "h-6 w-6",
