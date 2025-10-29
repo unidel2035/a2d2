@@ -113,40 +113,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # Agricultural Platform "Kod Urozhaya" (Harvest Code) routes
-  get 'agro', to: 'agro_platform#index', as: 'agro_platform'
-  get 'agro/ecosystem', to: 'agro_platform#ecosystem', as: 'agro_platform_ecosystem'
-  get 'agro/monitoring', to: 'agro_platform#monitoring', as: 'agro_platform_monitoring'
-
-  # Agricultural Agents
-  resources :agro_agents do
-    member do
-      post :heartbeat
-    end
-  end
-
-  # Agricultural Tasks
-  resources :agro_tasks, only: [:index, :show, :new, :create] do
-    member do
-      post :retry
-    end
-  end
-
-  # Farms
-  resources :farms
-
-  # Market Offers (Supply/Demand)
-  resources :market_offers do
-    collection do
-      post :match
-    end
-  end
-
-  # Smart Contracts
-  resources :smart_contracts, only: [:index, :show]
-
-  # Agent Coordinations
-  resources :agent_coordinations, only: [:index, :show]
 
   # Defines the root path route ("/")
   root "home#index"
