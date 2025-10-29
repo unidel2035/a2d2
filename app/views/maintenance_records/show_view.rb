@@ -10,7 +10,7 @@ module MaintenanceRecords
       div(class: "container mx-auto px-4 py-8") do
         div(class: "mb-6") do
           a(
-            href: maintenance_records_path,
+            href: helpers.maintenance_records_path,
             class: "text-blue-600 hover:text-blue-900"
           ) { "← Назад к списку ТО" }
         end

@@ -25,7 +25,7 @@ module Robots
     def render_back_link
       div(class: "mb-6") do
         a(
-          href: robots_path,
+          href: helpers.robots_path,
           class: "text-blue-600 hover:text-blue-900"
         ) { "← Назад к списку роботов" }
       end
@@ -43,17 +43,17 @@ module Robots
 
           div(class: "flex gap-3") do
             a(
-              href: edit_robot_path(@robot),
+              href: helpers.edit_robot_path(@robot),
               class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             ) { "Изменить" }
 
             a(
-              href: new_robot_task_path(robot_id: @robot.id),
+              href: helpers.new_robot_task_path(robot_id: @robot.id),
               class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             ) { "Создать задание" }
 
             a(
-              href: new_robot_maintenance_record_path(robot_id: @robot.id),
+              href: helpers.new_robot_maintenance_record_path(robot_id: @robot.id),
               class: "px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700"
             ) { "Запланировать ТО" }
           end
@@ -175,7 +175,7 @@ module Robots
         div(class: "px-6 py-4 border-b border-gray-200 flex justify-between items-center") do
           h2(class: "text-xl font-semibold") { "Последние задания" }
           a(
-            href: tasks_path(robot_id: @robot.id),
+            href: helpers.tasks_path(robot_id: @robot.id),
             class: "text-blue-600 hover:text-blue-900 text-sm"
           ) { "Посмотреть все →" }
         end
@@ -212,7 +212,7 @@ module Robots
       tr(class: "hover:bg-gray-50") do
         td(class: "px-6 py-4 whitespace-nowrap text-sm font-mono") do
           a(
-            href: task_path(task),
+            href: helpers.task_path(task),
             class: "text-blue-600 hover:text-blue-900"
           ) { task.task_number }
         end
@@ -256,7 +256,7 @@ module Robots
         div(class: "px-6 py-4 border-b border-gray-200 flex justify-between items-center") do
           h2(class: "text-xl font-semibold") { "Техническое обслуживание" }
           a(
-            href: maintenance_records_path(robot_id: @robot.id),
+            href: helpers.maintenance_records_path(robot_id: @robot.id),
             class: "text-blue-600 hover:text-blue-900 text-sm"
           ) { "Посмотреть все →" }
         end

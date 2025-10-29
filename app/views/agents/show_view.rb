@@ -22,7 +22,7 @@ module Agents
     def render_back_link
       div(class: "mb-6") do
         a(
-          href: agents_path,
+          href: helpers.agents_path,
           class: "text-blue-600 hover:text-blue-900"
         ) { "← Back to Agents" }
       end

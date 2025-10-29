@@ -129,92 +129,68 @@ render :index
 - **НЕ должно быть конфликтов**: Класс модели и модуль представления не должны иметь одинаковые имена на одном уровне
 - Если есть модель `Dashboard`, то модуль представлений должен называться `DashboardViews`, а не `Dashboard`
 
----
+### Использование маршрутов (URL helpers) в Phlex компонентах
 
-Issue to solve: undefined
-Your prepared branch: issue-10-e5e48284
-Your prepared working directory: /tmp/gh-issue-solver-1761668034661
-Your forked repository: konard/a2d2
-Original repository (upstream): unidel2035/a2d2
+**КРИТИЧЕСКИ ВАЖНО**: В Phlex компонентах НЕТ прямого доступа к Rails хелперам маршрутов!
 
-Proceed.
+#### ❌ НЕПРАВИЛЬНО (вызовет ошибку NameError):
+```ruby
+module Robots
+  class IndexView < ApplicationComponent
+    def view_template
+      a(href: robots_path) { "Список роботов" }
+      a(href: robot_path(@robot)) { "Робот" }
+      form(action: robots_path, method: "get") do
+        # ...
+      end
+    end
+  end
+end
+```
 
----
+#### ✅ ПРАВИЛЬНО (используем префикс `helpers.`):
+```ruby
+module Robots
+  class IndexView < ApplicationComponent
+    def view_template
+      # Для ссылок
+      a(href: helpers.robots_path) { "Список роботов" }
+      a(href: helpers.robot_path(@robot)) { "Робот" }
+      a(href: helpers.new_robot_path) { "Новый робот" }
+      a(href: helpers.edit_robot_path(@robot)) { "Редактировать" }
 
-Issue to solve: undefined
-Your prepared branch: issue-38-1a27e0ad
-Your prepared working directory: /tmp/gh-issue-solver-1761679193972
+      # Для форм
+      form(action: helpers.robots_path, method: "get") do
+        # ...
+      end
 
-Proceed.
+      # С параметрами
+      a(href: helpers.tasks_path(robot_id: @robot.id)) { "Задания" }
+    end
+  end
+end
+```
 
----
+#### Основные правила:
+1. **ВСЕГДА используйте префикс `helpers.`** перед любым маршрутным хелпером
+2. Это касается ВСЕХ хелперов: `_path`, `_url`, и т.д.
+3. Примеры хелперов требующих префикс:
+   - `robots_path` → `helpers.robots_path`
+   - `robot_path(robot)` → `helpers.robot_path(robot)`
+   - `new_robot_path` → `helpers.new_robot_path`
+   - `edit_robot_path(robot)` → `helpers.edit_robot_path(robot)`
+   - `tasks_path` → `helpers.tasks_path`
+   - `maintenance_records_path` → `helpers.maintenance_records_path`
+   - `login_path`, `logout_path`, `signup_path` → `helpers.login_path`, и т.д.
 
-Issue to solve: undefined
-Your prepared branch: issue-43-8e946708
-Your prepared working directory: /tmp/gh-issue-solver-1761680870340
+#### Почему это важно:
+- Phlex компоненты наследуют от `Phlex::HTML`, а не от `ActionView::Base`
+- Rails хелперы маршрутов доступны только через объект `helpers`
+- Без префикса `helpers.` возникает ошибка: `undefined local variable or method 'robots_path' for an instance of Robots::IndexView`
 
-Proceed.
+#### Что УЖЕ работает без helpers:
+Некоторые хелперы уже включены в `ApplicationComponent` и работают напрямую:
+- `time_ago_in_words` (из ActionView::Helpers::DateHelper)
+- `form_authenticity_token` (из Phlex::Rails::Helpers)
+- Методы мета-тегов и ассетов
 
----
-
-Issue to solve: undefined
-Your prepared branch: issue-60-12430ac2
-Your prepared working directory: /tmp/gh-issue-solver-1761685599399
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-66-fcca4299
-Your prepared working directory: /tmp/gh-issue-solver-1761716951433
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-72-30c89862
-Your prepared working directory: /tmp/gh-issue-solver-1761718660008
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-105-f7e3c336
-Your prepared working directory: /tmp/gh-issue-solver-1761742370057
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-126-448bc928
-Your prepared working directory: /tmp/gh-issue-solver-1761751045120
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-132-c65abfe3
-Your prepared working directory: /tmp/gh-issue-solver-1761752940447
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-136-10be0a93
-Your prepared working directory: /tmp/gh-issue-solver-1761753980764
-
-Proceed.
-
----
-
-Issue to solve: undefined
-Your prepared branch: issue-138-3cec7550
-Your prepared working directory: /tmp/gh-issue-solver-1761754857687
-
-Proceed.
