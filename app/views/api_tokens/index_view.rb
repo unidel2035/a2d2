@@ -110,7 +110,7 @@ module ApiTokens
               div(class: "flex-1") do
                 div(class: "flex items-center gap-3 mb-2") do
                   h3(class: "text-lg font-bold") { name }
-                  Badge :#{status}, class: "badge-sm" do
+                  Badge status.to_sym, class: "badge-sm" do
                     permissions
                   end
                 end

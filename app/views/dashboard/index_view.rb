@@ -84,7 +84,7 @@ module Dashboard
                   render_icon(icon, size: "h-7 w-7")
                 end
               end
-              Badge :#{color}, class: "badge-sm" do
+              Badge color.to_sym, class: "badge-sm" do
                 badge_text
               end
             end
@@ -97,7 +97,7 @@ module Dashboard
 
             # Progress bar
             div(class: "mt-4") do
-              Progress :#{color}, value: 75, max: 100, class: "h-1"
+              Progress color.to_sym, value: 75, max: 100, class: "h-1"
             end
           end
         end
