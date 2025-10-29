@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       end
 
       resources :robots
+      resources :maintenance_records
 
       namespace :monitoring do
         get :dashboard
