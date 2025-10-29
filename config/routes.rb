@@ -16,6 +16,13 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index", as: "dashboard"
   get "home/index"
 
+  # Billing and pricing
+  get "billing", to: "billing#index", as: "billing"
+  get "pricing", to: "billing#index", as: "pricing"
+
+  # API Tokens
+  resources :api_tokens, only: [ :index, :create, :destroy ]
+
   # Agent orchestration routes
   namespace :api do
     namespace :v1 do
