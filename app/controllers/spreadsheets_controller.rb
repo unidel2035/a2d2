@@ -3,7 +3,8 @@ class SpreadsheetsController < ApplicationController
 
   # GET /spreadsheets
   def index
-    @spreadsheets = Spreadsheet.all.order(created_at: :desc)
+    spreadsheets = Spreadsheet.all.order(created_at: :desc)
+    render Spreadsheets::IndexView.new(spreadsheets: spreadsheets)
   end
 
   # GET /spreadsheets/:id
