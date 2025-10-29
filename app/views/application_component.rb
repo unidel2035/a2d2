@@ -11,9 +11,6 @@ class ApplicationComponent < Phlex::HTML
   # Include date helpers for time_ago_in_words and similar methods
   include ActionView::Helpers::DateHelper
 
-  # Include URL helpers
-  include ActionView::Helpers::UrlHelper
-
   # Actions
   def Button(*args, &block)
     PhlexyUI::Button.new(*args, &block)
