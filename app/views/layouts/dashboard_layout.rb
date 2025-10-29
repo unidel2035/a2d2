@@ -27,7 +27,7 @@ module Layouts
             type: "text/css"
           )
           script do
-            unsafe_raw <<~JS
+            raw <<~JS
               tailwind.config = {
                 theme: {
                   extend: {

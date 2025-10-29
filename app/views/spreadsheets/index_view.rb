@@ -98,7 +98,7 @@ module Spreadsheets
 
     def render_styles
       style do
-        unsafe_raw <<~CSS
+        raw <<~CSS
           .spreadsheet-container {
             max-width: 1200px;
             margin: 0 auto;
