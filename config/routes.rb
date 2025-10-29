@@ -66,6 +66,30 @@ Rails.application.routes.draw do
   get "agents", to: "agents#index", as: "agents"
   get "agents/:id", to: "agents#show", as: "agent"
 
+  # Robot management UI
+  resources :robots do
+    resources :robot_tasks, path: "tasks", as: "tasks"
+    resources :maintenance_records
+  end
+
+  # Tasks (robot tasks) UI - top level for listing all tasks
+  resources :tasks, controller: "tasks", only: [:index, :show] do
+    member do
+      post :start
+      post :complete
+      post :cancel
+    end
+  end
+
+  # Maintenance records UI - top level for listing all records
+  resources :maintenance_records, only: [:index, :show] do
+    member do
+      post :start
+      post :complete
+      post :cancel
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
