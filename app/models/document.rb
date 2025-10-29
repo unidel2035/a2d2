@@ -1,4 +1,9 @@
 class Document < ApplicationRecord
+  include Searchable
+
+  # DOC-006: Full-text search configuration
+  SEARCHABLE_FIELDS = [:title, :content_text, :author, :description]
+
   # Enums
   enum :category, {
     passport: 0,

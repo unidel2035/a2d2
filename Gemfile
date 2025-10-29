@@ -67,7 +67,7 @@ gem "caxlsx"
 gem "caxlsx_rails"
 
 # Full-text search - DOC-006
-gem "pg_search"
+# gem "pg_search" # Removed: incompatible with SQLite3, replaced with custom Searchable concern
 
 # PDF processing - DOC-002, DOC-003
 gem "pdf-reader"
