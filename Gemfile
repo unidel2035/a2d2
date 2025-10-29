@@ -24,7 +24,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "devise", "~> 4.9"
 gem "devise-two-factor", github: "devise-two-factor/devise-two-factor"
 gem "pundit", "~> 2.3"
-gem "rqrcode", "~> 2.0" # For QR code generation in MFA
+gem "rqrcode", "~> 3.1" # For QR code generation in MFA
 
 # Rate limiting and security - INFRA-001, SEC-001
 gem "rack-attack", "~> 6.7"
