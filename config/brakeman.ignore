@@ -1,0 +1,22 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Parse Error",
+      "warning_code": null,
+      "fingerprint": null,
+      "check_name": null,
+      "message": "parse error on value \"{\" (tLCURLY)",
+      "file": "app/views/components/index_view.rb",
+      "line": 121,
+      "link": null,
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": null,
+      "note": "This is valid Phlex DSL syntax that Brakeman's parser doesn't understand. The syntax 'Button :neutral { \"Neutral\" }' is valid Ruby."
+    }
+  ],
+  "updated": "2025-10-28 00:00:00 +0000",
+  "brakeman_version": "7.1.0"
+}

@@ -16,6 +16,46 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index", as: "dashboard"
   get "home/index"
 
+  # Agent orchestration routes
+  namespace :api do
+    namespace :v1 do
+      resources :agents do
+        member do
+          post :activate
+          post :deactivate
+          post :heartbeat
+        end
+        collection do
+          get :stats
+        end
+      end
+
+      resources :tasks do
+        member do
+          post :retry_task
+          post :cancel
+        end
+        collection do
+          post :batch_create
+          get :stats
+          get :dead_letter
+        end
+      end
+
+      namespace :monitoring do
+        get :dashboard
+        get 'agents/:id/metrics', to: 'monitoring#agent_metrics'
+        get :quality_report
+        get :memory_stats
+        get :health
+      end
+    end
+  end
+
+  # Agent admin UI
+  get "agents", to: "agents#index", as: "agents"
+  get "agents/:id", to: "agents#show", as: "agent"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

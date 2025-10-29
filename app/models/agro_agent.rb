@@ -9,6 +9,7 @@ class AgroAgent < ApplicationRecord
   has_many :market_offers, dependent: :nullify
   has_many :buyer_contracts, class_name: 'SmartContract', foreign_key: 'buyer_agent_id', dependent: :nullify
   has_many :seller_contracts, class_name: 'SmartContract', foreign_key: 'seller_agent_id', dependent: :nullify
+  has_many :decision_supports, dependent: :nullify
 
   # Agent types based on economic roles
   AGENT_TYPES = %w[

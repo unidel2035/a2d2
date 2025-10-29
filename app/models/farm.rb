@@ -4,6 +4,13 @@ class Farm < ApplicationRecord
   belongs_to :user, optional: true
   has_many :crops, dependent: :destroy
   has_many :equipment, dependent: :destroy
+  has_many :field_zones, dependent: :destroy
+  has_many :remote_sensing_data, dependent: :destroy
+  has_many :weather_data, dependent: :destroy
+  has_many :adaptive_agrotechnologies, dependent: :destroy
+  has_many :decision_supports, dependent: :destroy
+  has_many :simulation_results, dependent: :destroy
+  has_many :risk_assessments, dependent: :destroy
 
   FARM_TYPES = %w[crop livestock mixed processing greenhouse].freeze
 

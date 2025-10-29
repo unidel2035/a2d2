@@ -3,7 +3,7 @@
 module Components
   class FooterComponent < ApplicationComponent
     def view_template
-      Footer class: "footer-center p-10 bg-base-200 text-base-content" do
+     div class: "footer-center p-10 bg-base-200 text-base-content" do
         div do
           p(class: "font-bold text-xl") do
             span(class: "bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent") { "A2D2" }

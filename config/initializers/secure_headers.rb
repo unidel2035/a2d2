@@ -44,23 +44,16 @@ SecureHeaders::Configuration.default do |config|
     frame_ancestors: %w['none'],
     base_uri: %w['self'],
     form_action: %w['self'],
-    upgrade_insecure_requests: true,
-    block_all_mixed_content: true
+    upgrade_insecure_requests: true
   }
 
-  # Permissions-Policy (formerly Feature-Policy)
-  # Controls which browser features can be used
-  config.permissions_policy = {
-    camera: %w['none'],
-    geolocation: %w['none'],
-    microphone: %w['none'],
-    payment: %w['none'],
-    usb: %w['none']
-  }
+  # Note: Permissions-Policy is not supported by secure_headers gem version 6.5
+  # It needs to be configured separately using Rails' native permissions_policy
+  # See config/initializers/permissions_policy.rb
 
-  # Expect-CT header (Certificate Transparency)
-  # Helps detect mis-issued certificates
-  config.expect_ct = "max-age=#{1.day.to_i}, enforce"
+  # Note: Expect-CT header is deprecated since Chrome 107 (2022)
+  # Chrome now enforces Certificate Transparency by default
+  # This configuration is removed as it's no longer needed
 end
 
 # Override for development environment if needed
