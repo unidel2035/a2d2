@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_29_150000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", null: false
@@ -283,6 +283,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
     t.date "issue_date"
     t.json "metadata", default: {}
     t.integer "parent_id"
+    t.integer "robot_id"
     t.integer "status", default: 0, null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
@@ -293,6 +294,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
     t.index ["classification"], name: "index_documents_on_classification"
     t.index ["created_at"], name: "index_documents_on_created_at"
     t.index ["parent_id"], name: "index_documents_on_parent_id"
+    t.index ["robot_id"], name: "index_documents_on_robot_id"
     t.index ["status"], name: "index_documents_on_status"
     t.index ["user_id"], name: "index_documents_on_user_id"
   end
@@ -519,6 +521,23 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
     t.index ["recorded_at"], name: "index_metrics_on_recorded_at"
   end
 
+  create_table "notification_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "days_before"
+    t.text "metadata"
+    t.integer "notifiable_id", null: false
+    t.string "notifiable_type", null: false
+    t.string "notification_type", null: false
+    t.text "recipients"
+    t.date "scheduled_date"
+    t.datetime "sent_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notification_logs_on_notifiable"
+    t.index ["notification_type"], name: "index_notification_logs_on_notification_type"
+    t.index ["scheduled_date"], name: "index_notification_logs_on_scheduled_date"
+    t.index ["sent_at"], name: "index_notification_logs_on_sent_at"
+  end
+
   create_table "orchestrator_events", force: :cascade do |t|
     t.integer "agent_id"
     t.integer "agent_task_id"
@@ -721,6 +740,28 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
     t.index ["severity", "is_active"], name: "index_risk_assessments_on_severity_and_is_active"
   end
 
+  create_table "robot_tasks", force: :cascade do |t|
+    t.datetime "actual_end"
+    t.datetime "actual_start"
+    t.text "context_data"
+    t.datetime "created_at", null: false
+    t.integer "duration"
+    t.string "location"
+    t.integer "operator_id"
+    t.json "parameters", default: {}
+    t.datetime "planned_date"
+    t.string "purpose"
+    t.integer "robot_id", null: false
+    t.integer "status", default: 0, null: false
+    t.string "task_number", null: false
+    t.datetime "updated_at", null: false
+    t.index ["operator_id"], name: "index_robot_tasks_on_operator_id"
+    t.index ["planned_date"], name: "index_robot_tasks_on_planned_date"
+    t.index ["robot_id"], name: "index_robot_tasks_on_robot_id"
+    t.index ["status"], name: "index_robot_tasks_on_status"
+    t.index ["task_number"], name: "index_robot_tasks_on_task_number", unique: true
+  end
+
   create_table "robots", force: :cascade do |t|
     t.json "capabilities", default: {}
     t.json "configuration", default: {}
@@ -831,28 +872,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
     t.index ["share_token"], name: "index_spreadsheets_on_share_token", unique: true
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.datetime "actual_end"
-    t.datetime "actual_start"
-    t.text "context_data"
-    t.datetime "created_at", null: false
-    t.integer "duration"
-    t.string "location"
-    t.integer "operator_id"
-    t.json "parameters", default: {}
-    t.datetime "planned_date"
-    t.string "purpose"
-    t.integer "robot_id", null: false
-    t.integer "status", default: 0, null: false
-    t.string "task_number", null: false
-    t.datetime "updated_at", null: false
-    t.index ["operator_id"], name: "index_tasks_on_operator_id"
-    t.index ["planned_date"], name: "index_tasks_on_planned_date"
-    t.index ["robot_id"], name: "index_tasks_on_robot_id"
-    t.index ["status"], name: "index_tasks_on_status"
-    t.index ["task_number"], name: "index_tasks_on_task_number", unique: true
-  end
-
   create_table "telemetry_data", force: :cascade do |t|
     t.decimal "altitude", precision: 10, scale: 2
     t.datetime "created_at", null: false
@@ -869,6 +888,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
     t.index ["robot_id", "recorded_at"], name: "index_telemetry_data_on_robot_id_and_recorded_at"
     t.index ["robot_id"], name: "index_telemetry_data_on_robot_id"
     t.index ["task_id"], name: "index_telemetry_data_on_task_id"
+  end
+
+  create_table "token_blacklists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.string "jti", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["expires_at"], name: "index_token_blacklists_on_expires_at"
+    t.index ["jti"], name: "index_token_blacklists_on_jti", unique: true
+    t.index ["user_id"], name: "index_token_blacklists_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -1028,12 +1058,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
   add_foreign_key "decision_supports", "crops"
   add_foreign_key "decision_supports", "farms"
   add_foreign_key "decision_supports", "field_zones"
+  add_foreign_key "documents", "robots"
   add_foreign_key "documents", "users"
   add_foreign_key "equipment", "farms"
   add_foreign_key "farms", "agro_agents"
   add_foreign_key "farms", "users"
   add_foreign_key "field_zones", "farms"
-  add_foreign_key "inspection_reports", "tasks"
+  add_foreign_key "inspection_reports", "robot_tasks", column: "task_id"
   add_foreign_key "integration_logs", "integrations"
   add_foreign_key "integrations", "users"
   add_foreign_key "llm_requests", "agent_tasks"
@@ -1060,6 +1091,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
   add_foreign_key "risk_assessments", "crops"
   add_foreign_key "risk_assessments", "decision_supports"
   add_foreign_key "risk_assessments", "farms"
+  add_foreign_key "robot_tasks", "robots"
+  add_foreign_key "robot_tasks", "users", column: "operator_id"
   add_foreign_key "role_permissions", "permissions"
   add_foreign_key "role_permissions", "roles"
   add_foreign_key "rows", "sheets"
@@ -1069,10 +1102,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_29_093444) do
   add_foreign_key "simulation_results", "farms"
   add_foreign_key "smart_contracts", "agro_agents", column: "buyer_agent_id"
   add_foreign_key "smart_contracts", "agro_agents", column: "seller_agent_id"
-  add_foreign_key "tasks", "robots"
-  add_foreign_key "tasks", "users", column: "operator_id"
+  add_foreign_key "telemetry_data", "robot_tasks", column: "task_id"
   add_foreign_key "telemetry_data", "robots"
-  add_foreign_key "telemetry_data", "tasks"
+  add_foreign_key "token_blacklists", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "weather_data", "farms"
