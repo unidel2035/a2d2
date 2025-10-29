@@ -31,7 +31,7 @@ class User < ApplicationRecord
   has_many :dashboards, dependent: :destroy
   has_many :reports, dependent: :destroy
   has_many :integrations, dependent: :destroy
-  has_many :operated_tasks, class_name: "Task", foreign_key: :operator_id, dependent: :nullify
+  has_many :operated_tasks, class_name: "RobotTask", foreign_key: :operator_id, dependent: :nullify
   has_many :maintenance_records, foreign_key: :technician_id, dependent: :nullify
   has_one_attached :certificate # For operator certificates
 

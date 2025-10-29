@@ -8,7 +8,8 @@ class Robot < ApplicationRecord
   }
 
   # Associations
-  has_many :tasks, dependent: :destroy
+  has_many :robot_tasks, dependent: :destroy
+  has_many :tasks, class_name: 'RobotTask', dependent: :destroy  # Backwards compatibility
   has_many :maintenance_records, dependent: :destroy
   has_many :telemetry_data, dependent: :destroy
 

@@ -206,9 +206,11 @@ class Robot < ApplicationRecord
 end
 ```
 
-#### 4.1.2 Task (Задание)
+#### 4.1.2 RobotTask (Задание робота)
 ```ruby
-class Task < ApplicationRecord
+class RobotTask < ApplicationRecord
+  self.table_name = 'robot_tasks'
+
   # Атрибуты
   - task_number: string        # Номер задания
   - planned_date: datetime     # Плановое время
@@ -223,11 +225,16 @@ class Task < ApplicationRecord
 
   # Связи
   belongs_to :robot
-  belongs_to :operator, class_name: 'User'
-  has_one :telemetry_data
-  has_many :inspection_reports
+  belongs_to :operator, class_name: 'User', optional: true
+  has_one :inspection_report
+  has_many :telemetry_data
 end
+
+# Обратная совместимость
+Task = RobotTask
 ```
+
+**Примечание:** RobotTask используется для физических операций роботов. Для задач ИИ-агентов используется отдельная модель AgentTask. См. [docs/TASK_MANAGEMENT_ARCHITECTURE.md](docs/TASK_MANAGEMENT_ARCHITECTURE.md)
 
 #### 4.1.3 Document (Документ)
 ```ruby
