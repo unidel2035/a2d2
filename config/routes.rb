@@ -14,7 +14,6 @@ Rails.application.routes.draw do
 
   # Dashboard
   get "dashboard", to: "dashboard#index", as: "dashboard"
-  get "home/index"
 
   # Billing and pricing
   get "billing", to: "billing#index", as: "billing"
@@ -156,5 +155,5 @@ Rails.application.routes.draw do
 
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "dashboard#index"
 end
