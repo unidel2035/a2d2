@@ -326,7 +326,7 @@ module Home
                 viewBox: "0 0 24 24",
                 stroke: "currentColor"
               ) do
-                path_(
+                path(
                   stroke_linecap: "round",
                   stroke_linejoin: "round",
                   stroke_width: "2",
@@ -343,13 +343,13 @@ module Home
                 viewBox: "0 0 24 24",
                 stroke: "currentColor"
               ) do
-                path_(
+                path(
                   stroke_linecap: "round",
                   stroke_linejoin: "round",
                   stroke_width: "2",
                   d: "M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
                 )
-                path_(
+                path(
                   stroke_linecap: "round",
                   stroke_linejoin: "round",
                   stroke_width: "2",
@@ -364,19 +364,19 @@ module Home
           div(class: "flex flex-wrap justify-center items-center gap-8 text-white/80 text-sm") do
             div(class: "flex items-center gap-2") do
               svg(xmlns: "http://www.w3.org/2000/svg", class: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor") do
-                path_(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
+                path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
               end
               plain "Без привязки карты"
             end
             div(class: "flex items-center gap-2") do
               svg(xmlns: "http://www.w3.org/2000/svg", class: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor") do
-                path_(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
+                path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
               end
               plain "30 дней бесплатно"
             end
             div(class: "flex items-center gap-2") do
               svg(xmlns: "http://www.w3.org/2000/svg", class: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor") do
-                path_(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
+                path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
               end
               plain "Отмена в любой момент"
             end
@@ -395,7 +395,7 @@ module Home
           viewBox: "0 0 24 24",
           stroke: "currentColor"
         ) do
-          path_(
+          path(
             stroke_linecap: "round",
             stroke_linejoin: "round",
             stroke_width: "2",
@@ -410,7 +410,7 @@ module Home
           viewBox: "0 0 24 24",
           stroke: "currentColor"
         ) do
-          path_(
+          path(
             stroke_linecap: "round",
             stroke_linejoin: "round",
             stroke_width: "2",
@@ -425,7 +425,7 @@ module Home
           viewBox: "0 0 24 24",
           stroke: "currentColor"
         ) do
-          path_(
+          path(
             stroke_linecap: "round",
             stroke_linejoin: "round",
             stroke_width: "2",
