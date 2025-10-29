@@ -1,6 +1,5 @@
 class DashboardController < ApplicationController
-  layout "dashboard"
-
   def index
+    render Dashboard::IndexView.new, layout: Layouts::DashboardLayout
   end
 end
