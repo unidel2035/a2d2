@@ -15,6 +15,11 @@ class RobotsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get robot path (singular)" do
+    get robot_url
+    assert_response :success
+  end
+
   test "should get index with status filter" do
     get robots_url, params: { status: "active" }
     assert_response :success
