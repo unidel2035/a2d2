@@ -66,10 +66,6 @@ gem "prawn-table"
 gem "caxlsx"
 gem "caxlsx_rails"
 
-# GraphQL client and API
-gem "graphql-client"
-gem "graphql", "~> 2.0" # BUS-003: GraphQL API
-
 # Full-text search - DOC-006
 gem "pg_search"
 
@@ -85,9 +81,6 @@ gem "builder"
 
 # Schedule management - ANL-005
 gem "whenever", require: false
-
-# Data validation
-gem "dry-validation"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
