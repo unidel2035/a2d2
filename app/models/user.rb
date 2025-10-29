@@ -1,8 +1,9 @@
 class User < ApplicationRecord
-  include Searchable
-
   # AUTH-001: User search configuration
+  # ВАЖНО: SEARCHABLE_FIELDS должен быть определён ДО include Searchable
   SEARCHABLE_FIELDS = [:email, :name, :first_name, :last_name, :license_number]
+
+  include Searchable
 
   # AUTH-001: Devise modules for authentication
   # :database_authenticatable - password authentication

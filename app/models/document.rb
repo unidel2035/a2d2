@@ -1,8 +1,9 @@
 class Document < ApplicationRecord
-  include Searchable
-
   # DOC-006: Full-text search configuration
+  # ВАЖНО: SEARCHABLE_FIELDS должен быть определён ДО include Searchable
   SEARCHABLE_FIELDS = [:title, :content_text, :author, :description]
+
+  include Searchable
 
   # Enums
   enum :category, {

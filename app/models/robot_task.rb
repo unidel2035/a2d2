@@ -1,10 +1,11 @@
 class RobotTask < ApplicationRecord
-  include Searchable
-
   self.table_name = 'robot_tasks'
 
   # ROB-002: Task search configuration
+  # ВАЖНО: SEARCHABLE_FIELDS должен быть определён ДО include Searchable
   SEARCHABLE_FIELDS = [:task_number, :description, :location, :notes]
+
+  include Searchable
 
   # Enums
   enum :status, {
