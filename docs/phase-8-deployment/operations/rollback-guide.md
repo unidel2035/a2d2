@@ -1,48 +1,48 @@
-# DEPLOY-004: Rollback Procedures
+# DEPLOY-004: Процедуры Отката
 
-**Status**: Complete
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Статус**: Завершено
+**Версия**: 1.0
+**Последнее Обновление**: 2025-10-28
 
-## Overview
+## Обзор
 
-Comprehensive rollback procedures for the A2D2 platform to quickly revert problematic deployments.
+Комплексные процедуры отката для платформы A2D2 для быстрого возврата проблемных развертываний.
 
-## Rollback Decision Matrix
+## Матрица Решений об Откате
 
-| Severity | Symptoms | Action | Timeframe |
-|----------|----------|--------|-----------|
-| **Critical** | Service down, 500 errors, data loss | Immediate rollback | < 5 minutes |
-| **High** | >5% error rate, severe performance degradation | Fast rollback | < 15 minutes |
-| **Medium** | <5% error rate, minor bugs | Evaluate, then rollback or hotfix | < 30 minutes |
-| **Low** | UI issues, non-critical bugs | Hotfix in next deployment | Next release |
+| Критичность | Симптомы | Действие | Временные Рамки |
+|-------------|----------|----------|-----------------|
+| **Критическая** | Сервис недоступен, ошибки 500, потеря данных | Немедленный откат | < 5 минут |
+| **Высокая** | >5% частота ошибок, серьезная деградация производительности | Быстрый откат | < 15 минут |
+| **Средняя** | <5% частота ошибок, незначительные баги | Оценить, затем откат или hotfix | < 30 минут |
+| **Низкая** | Проблемы UI, некритичные баги | Hotfix в следующем развертывании | Следующий релиз |
 
-## Quick Rollback Commands
+## Команды Быстрого Отката
 
-### Application Rollback
+### Откат Приложения
 
 ```bash
-# One-command rollback
+# Откат одной командой
 /var/www/a2d2/scripts/rollback.sh
 
-# Or manual:
+# Или вручную:
 cd /var/www/a2d2
 ln -nfs releases/PREVIOUS_VERSION current
 sudo systemctl reload a2d2-web a2d2-worker
 ```
 
-### Database Rollback
+### Откат Базы Данных
 
 ```bash
-# Rollback last migration
+# Откат последней миграции
 cd /var/www/a2d2/current
 RAILS_ENV=production bundle exec rails db:rollback
 
-# Rollback specific version
+# Откат конкретной версии
 RAILS_ENV=production bundle exec rails db:migrate:down VERSION=20251028120000
 ```
 
-## Automated Rollback Script
+## Автоматизированный Скрипт Отката
 
 ```bash
 #!/bin/bash
@@ -107,79 +107,79 @@ fi
 echo "Rollback completed: $PREVIOUS is now active"
 ```
 
-## Rollback Scenarios
+## Сценарии Отката
 
-### Scenario 1: Application Code Issue
+### Сценарий 1: Проблема с Кодом Приложения
 
-**Symptoms**: Crashes, 500 errors, exceptions
+**Симптомы**: Сбои, ошибки 500, исключения
 
-**Solution**:
+**Решение**:
 ```bash
-# 1. Rollback application
+# 1. Откат приложения
 ./scripts/rollback.sh
 
-# 2. Verify health
+# 2. Проверка работоспособности
 curl http://localhost:3000/health
 
-# 3. Monitor logs
+# 3. Мониторинг логов
 tail -f log/production.log
 ```
 
-### Scenario 2: Database Migration Issue
+### Сценарий 2: Проблема с Миграцией Базы Данных
 
-**Symptoms**: Database errors, migration failures
+**Симптомы**: Ошибки базы данных, сбои миграции
 
-**Solution**:
+**Решение**:
 ```bash
-# 1. Rollback migration
+# 1. Откат миграции
 cd /var/www/a2d2/current
 RAILS_ENV=production bundle exec rails db:rollback
 
-# 2. Verify database state
+# 2. Проверка состояния базы данных
 RAILS_ENV=production bundle exec rails db:migrate:status
 
-# 3. Restart application
+# 3. Перезапуск приложения
 sudo systemctl restart a2d2-web a2d2-worker
 ```
 
-### Scenario 3: Performance Degradation
+### Сценарий 3: Деградация Производительности
 
-**Symptoms**: Slow response times, high CPU/memory
+**Симптомы**: Медленное время отклика, высокая загрузка CPU/памяти
 
-**Solution**:
+**Решение**:
 ```bash
-# 1. Capture metrics
+# 1. Сбор метрик
 ./scripts/capture-diagnostics.sh
 
-# 2. Rollback if severe
+# 2. Откат если серьезно
 ./scripts/rollback.sh
 
-# 3. Analyze later
+# 3. Анализ позже
 less /var/log/a2d2/diagnostics-*.log
 ```
 
-### Scenario 4: Data Corruption
+### Сценарий 4: Повреждение Данных
 
-**Symptoms**: Invalid data, missing records
+**Симптомы**: Недействительные данные, отсутствующие записи
 
-**Solution**:
+**Решение**:
 ```bash
-# 1. STOP ALL SERVICES IMMEDIATELY
+# 1. НЕМЕДЛЕННО ОСТАНОВИТЬ ВСЕ СЕРВИСЫ
 sudo systemctl stop a2d2-web a2d2-worker
 
-# 2. Restore database from backup
+# 2. Восстановить базу данных из резервной копии
 ./scripts/restore-from-backup.sh /var/backups/postgresql/latest.dump
 
-# 3. Rollback application
+# 3. Откат приложения
 ./scripts/rollback.sh
 
-# 4. Investigate root cause
-# DO NOT re-deploy until issue identified
+# 4. Исследовать первопричину
+# НЕ РАЗВЕРТЫВАТЬ повторно до выявления проблемы
 ```
 
-## Database Restore Procedures
+## Процедуры Восстановления Базы Данных
 
-### Full Database Restore
+### Полное Восстановление Базы Данных
 
 ```bash
 #!/bin/bash
@@ -212,45 +212,45 @@ pg_restore -h localhost -U a2d2_user -d $DB_NAME -v "$BACKUP_FILE"
 sudo systemctl start a2d2-worker a2d2-web
 ```
 
-### Point-in-Time Recovery (PITR)
+### Восстановление на Момент Времени (PITR)
 
 ```bash
-# Restore to specific timestamp
+# Восстановление на конкретный момент времени
 pg_restore_pitr --target-time="2025-10-28 14:30:00" \
     --backup-dir=/var/backups/postgresql/base \
     --wal-dir=/var/backups/postgresql/wal
 ```
 
-## Monitoring During Rollback
+## Мониторинг Во Время Отката
 
 ```bash
-# Terminal 1: Application logs
+# Терминал 1: Логи приложения
 tail -f /var/www/a2d2/shared/log/production.log
 
-# Terminal 2: System logs
+# Терминал 2: Системные логи
 journalctl -u a2d2-web -u a2d2-worker -f
 
-# Terminal 3: Nginx logs
+# Терминал 3: Логи Nginx
 tail -f /var/log/nginx/error.log
 
-# Terminal 4: Database activity
+# Терминал 4: Активность базы данных
 watch -n 1 'sudo -u postgres psql -c "SELECT count(*) FROM pg_stat_activity;"'
 ```
 
-## Post-Rollback Actions
+## Действия После Отката
 
-1. **Incident Report**: Document what happened
-2. **Root Cause Analysis**: Identify why deployment failed
-3. **Fix**: Prepare proper fix
-4. **Test**: Thoroughly test fix in staging
-5. **Re-deploy**: When ready, deploy with caution
+1. **Отчет об Инциденте**: Задокументировать что произошло
+2. **Анализ Первопричин**: Определить почему развертывание не удалось
+3. **Исправление**: Подготовить надлежащее исправление
+4. **Тестирование**: Тщательно протестировать исправление на staging
+5. **Повторное Развертывание**: Когда готово, развертывать с осторожностью
 
-## Rollback Testing
+## Тестирование Отката
 
-### Regular Drills
+### Регулярные Учения
 
 ```bash
-# Monthly rollback drill script
+# Скрипт ежемесячных учений отката
 #!/bin/bash
 # File: scripts/test-rollback.sh
 
@@ -274,30 +274,30 @@ else
 fi
 ```
 
-Run monthly:
+Запускать ежемесячно:
 
 ```bash
-# Add to crontab
+# Добавить в crontab
 0 3 1 * * /var/www/a2d2/scripts/test-rollback.sh > /var/log/a2d2/rollback-drill.log 2>&1
 ```
 
-## Emergency Contact Procedures
+## Процедуры Экстренного Контакта
 
-If rollback doesn't resolve the issue:
+Если откат не решает проблему:
 
-1. **Escalate** to senior engineers
-2. **Contact** infrastructure team
-3. **Enable** maintenance mode
-4. **Communicate** with stakeholders
+1. **Эскалировать** к старшим инженерам
+2. **Связаться** с командой инфраструктуры
+3. **Включить** режим обслуживания
+4. **Сообщить** заинтересованным сторонам
 
 ```bash
-# Enable maintenance mode
+# Включить режим обслуживания
 sudo systemctl stop a2d2-web
 sudo cp /var/www/a2d2/public/maintenance.html /var/www/a2d2/public/index.html
 ```
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
-**Maintainer**: A2D2 DevOps Team
+**Версия Документа**: 1.0
+**Последнее Обновление**: 2025-10-28
+**Сопровождающий**: Команда DevOps A2D2
