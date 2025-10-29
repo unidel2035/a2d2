@@ -27,7 +27,7 @@ module Layouts
             type: "text/css"
           )
           script do
-            raw <<~JS
+            plain <<~JS
               tailwind.config = {
                 theme: {
                   extend: {
