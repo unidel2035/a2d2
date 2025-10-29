@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   get "agents/:id", to: "agents#show", as: "agent"
 
   # Robot management UI
+  get "robot", to: "robots#index", as: "robot"
   resources :robots do
     resources :robot_tasks, path: "tasks", as: "tasks"
     resources :maintenance_records
