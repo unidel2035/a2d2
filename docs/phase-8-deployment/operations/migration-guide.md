@@ -1,28 +1,28 @@
-# DEPLOY-002: Database Migration Guide
+# DEPLOY-002: Руководство по миграции базы данных
 
-**Status**: Complete
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Статус**: Завершено
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Overview
+## Обзор
 
-This document provides comprehensive procedures for database migrations in the A2D2 platform, covering both initial setup and ongoing schema changes.
+Этот документ предоставляет исчерпывающие процедуры для миграций базы данных на платформе A2D2, охватывающие как начальную настройку, так и текущие изменения схемы.
 
-## Pre-Migration Checklist
+## Контрольный список перед миграцией
 
-Before running any migration:
+Перед выполнением любой миграции:
 
-- [ ] **Backup**: Create a full database backup
-- [ ] **Review**: Examine migration files for potential issues
-- [ ] **Test**: Run migration on staging environment first
-- [ ] **Downtime**: Schedule maintenance window if needed
-- [ ] **Rollback Plan**: Prepare rollback procedure
-- [ ] **Monitoring**: Set up alerts for migration monitoring
-- [ ] **Communication**: Notify stakeholders about maintenance
+- [ ] **Резервное копирование**: Создать полную резервную копию базы данных
+- [ ] **Проверка**: Изучить файлы миграции на предмет потенциальных проблем
+- [ ] **Тестирование**: Запустить миграцию сначала в staging окружении
+- [ ] **Простой**: Запланировать окно обслуживания при необходимости
+- [ ] **План отката**: Подготовить процедуру отката
+- [ ] **Мониторинг**: Настроить оповещения для мониторинга миграции
+- [ ] **Коммуникация**: Уведомить заинтересованные стороны об обслуживании
 
-## Initial Database Setup
+## Начальная настройка базы данных
 
-### 1. Create Production Database
+### 1. Создание Production базы данных
 
 ```bash
 # Connect to PostgreSQL
@@ -42,9 +42,9 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO a2d2_user;
 \q
 ```
 
-### 2. Configure Database Connection
+### 2. Настройка подключения к базе данных
 
-Edit `config/database.yml` or use environment variables:
+Отредактируйте `config/database.yml` или используйте переменные окружения:
 
 ```yaml
 production:
@@ -56,7 +56,7 @@ production:
   advisory_locks: false
 ```
 
-### 3. Run Initial Migrations
+### 3. Запуск начальных миграций
 
 ```bash
 cd /var/www/a2d2/current
@@ -71,9 +71,9 @@ RAILS_ENV=production bundle exec rails db:migrate
 RAILS_ENV=production bundle exec rails db:seed
 ```
 
-## Ongoing Migration Procedures
+## Процедуры текущих миграций
 
-### Migration Workflow
+### Рабочий процесс миграции
 
 ```
 ┌─────────────────┐
@@ -101,9 +101,9 @@ RAILS_ENV=production bundle exec rails db:seed
 └─────────────────┘
 ```
 
-### Running Migrations in Production
+### Запуск миграций в Production
 
-#### Standard Migration (with downtime)
+#### Стандартная миграция (с простоем)
 
 ```bash
 #!/bin/bash
@@ -150,17 +150,17 @@ curl -f http://localhost:3000/health || {
 echo "Migration completed successfully!"
 ```
 
-Make it executable:
+Сделайте его исполняемым:
 
 ```bash
 chmod +x scripts/migrate-production.sh
 ```
 
-### Zero-Downtime Migrations
+### Миграции без простоя
 
-For migrations that don't require downtime, follow these patterns:
+Для миграций, которые не требуют простоя, следуйте этим паттернам:
 
-#### Pattern 1: Adding a New Column
+#### Паттерн 1: Добавление нового столбца
 
 ```ruby
 # Good: Adding column with default (in multiple steps)
@@ -175,7 +175,7 @@ class AddStatusToDocuments < ActiveRecord::Migration[8.0]
 end
 ```
 
-#### Pattern 2: Removing a Column
+#### Паттерн 2: Удаление столбца
 
 ```ruby
 # Step 1: Mark column as ignored in model
@@ -191,7 +191,7 @@ class RemoveOldFieldFromDocuments < ActiveRecord::Migration[8.0]
 end
 ```
 
-#### Pattern 3: Adding an Index
+#### Паттерн 3: Добавление индекса
 
 ```ruby
 # Add index concurrently (doesn't lock table)
@@ -204,7 +204,7 @@ class AddIndexToDocumentsStatus < ActiveRecord::Migration[8.0]
 end
 ```
 
-#### Pattern 4: Renaming a Column
+#### Паттерн 4: Переименование столбца
 
 ```ruby
 # Step 1: Add new column
@@ -232,9 +232,9 @@ class RemoveOldNameFromDocuments < ActiveRecord::Migration[8.0]
 end
 ```
 
-## Migration Best Practices
+## Лучшие практики миграций
 
-### Writing Safe Migrations
+### Написание безопасных миграций
 
 ```ruby
 class SafeMigrationExample < ActiveRecord::Migration[8.0]
@@ -268,15 +268,15 @@ class SafeMigrationExample < ActiveRecord::Migration[8.0]
 end
 ```
 
-### Migration Anti-Patterns (Avoid These!)
+### Анти-паттерны миграций (Избегайте их!)
 
-❌ **Don't**: Add column with default in one migration on large table
+❌ **Не делайте**: Добавление столбца со значением по умолчанию в одной миграции на большой таблице
 ```ruby
 # This locks the table!
 add_column :large_table, :status, :string, default: 'pending', null: false
 ```
 
-✅ **Do**: Split into multiple migrations
+✅ **Делайте**: Разделите на несколько миграций
 ```ruby
 # Migration 1
 add_column :large_table, :status, :string
@@ -288,20 +288,20 @@ change_column_default :large_table, :status, 'pending'
 change_column_null :large_table, :status, false
 ```
 
-❌ **Don't**: Remove column immediately
+❌ **Не делайте**: Немедленное удаление столбца
 ```ruby
 remove_column :table, :column  # App will crash if still referenced!
 ```
 
-✅ **Do**: Use multi-step deprecation
+✅ **Делайте**: Используйте многошаговое устаревание
 ```ruby
 # 1. Ignore in model, deploy
 # 2. Remove column in next deploy
 ```
 
-## Monitoring Migrations
+## Мониторинг миграций
 
-### Real-time Migration Monitoring
+### Мониторинг миграций в реальном времени
 
 ```bash
 # Watch migration progress
@@ -323,9 +323,9 @@ sudo -u postgres psql -d a2d2_production -c "
 "
 ```
 
-### Migration Logging
+### Логирование миграций
 
-Enable detailed logging:
+Включите детальное логирование:
 
 ```ruby
 # config/environments/production.rb
@@ -333,9 +333,9 @@ config.active_record.verbose_query_logs = true
 config.active_record.logger = ActiveSupport::Logger.new('log/migrations.log')
 ```
 
-## Rollback Procedures
+## Процедуры отката
 
-### Automatic Rollback
+### Автоматический откат
 
 ```bash
 # Rollback last migration
@@ -348,7 +348,7 @@ RAILS_ENV=production bundle exec rails db:rollback STEP=3
 RAILS_ENV=production bundle exec rails db:migrate:down VERSION=20251028120000
 ```
 
-### Manual Rollback (from backup)
+### Ручной откат (из резервной копии)
 
 ```bash
 #!/bin/bash
@@ -394,9 +394,9 @@ sudo systemctl start a2d2-worker a2d2-web
 echo "Database restored successfully!"
 ```
 
-## Data Backfill Scripts
+## Скрипты обратного заполнения данных
 
-### Example: Backfill with Progress Tracking
+### Пример: Обратное заполнение с отслеживанием прогресса
 
 ```ruby
 # lib/tasks/backfill_document_status.rake
@@ -433,15 +433,15 @@ namespace :data do
 end
 ```
 
-Run backfill:
+Запустите обратное заполнение:
 
 ```bash
 RAILS_ENV=production bundle exec rake data:backfill_document_status
 ```
 
-## Performance Considerations
+## Соображения производительности
 
-### Index Strategy
+### Стратегия индексов
 
 ```ruby
 # Create indexes before loading data
@@ -462,7 +462,7 @@ class OptimizedMigration < ActiveRecord::Migration[8.0]
 end
 ```
 
-### Batch Processing
+### Пакетная обработка
 
 ```ruby
 # Process in batches to avoid memory issues
@@ -477,11 +477,11 @@ class BatchProcessingMigration < ActiveRecord::Migration[8.0]
 end
 ```
 
-## Troubleshooting
+## Устранение неполадок
 
-### Common Issues
+### Распространенные проблемы
 
-#### 1. Migration Stuck/Hanging
+#### 1. Миграция зависла/не отвечает
 
 ```sql
 -- Check for blocking queries
@@ -497,7 +497,7 @@ WHERE cardinality(pg_blocking_pids(pid)) > 0;
 SELECT pg_terminate_backend(pid);
 ```
 
-#### 2. Migration Failed Midway
+#### 2. Миграция завершилась с ошибкой на середине
 
 ```bash
 # Check migration status
@@ -507,7 +507,7 @@ RAILS_ENV=production bundle exec rails db:migrate:status
 RAILS_ENV=production bundle exec rails db:migrate
 ```
 
-#### 3. Disk Space Issues
+#### 3. Проблемы с дисковым пространством
 
 ```bash
 # Check disk space
@@ -520,9 +520,9 @@ sudo journalctl --vacuum-time=7d
 sudo -u postgres psql -d a2d2_production -c "VACUUM FULL VERBOSE;"
 ```
 
-## Migration Checklist Template
+## Шаблон контрольного списка миграции
 
-Use this checklist for every production migration:
+Используйте этот контрольный список для каждой production миграции:
 
 ```markdown
 ## Migration Checklist: [Migration Name]
@@ -557,13 +557,13 @@ Use this checklist for every production migration:
 - [ ] Incident report created
 ```
 
-## Next Steps
+## Следующие шаги
 
-- Review [Zero-Downtime Deployment](zero-downtime.md)
-- Configure [Health Checks](health-checks.md)
-- Set up [Rollback Procedures](rollback-guide.md)
+- Изучите [Развертывание без простоя](zero-downtime.md)
+- Настройте [Проверки работоспособности](health-checks.md)
+- Настройте [Процедуры отката](rollback-guide.md)
 
-## References
+## Ссылки
 
 - [Rails Migrations Guide](https://guides.rubyonrails.org/active_record_migrations.html)
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/current/sql-altertable.html)
@@ -571,6 +571,6 @@ Use this checklist for every production migration:
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
-**Maintainer**: A2D2 DevOps Team
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28
+**Сопровождающий**: A2D2 DevOps Team
