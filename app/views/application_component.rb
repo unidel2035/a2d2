@@ -18,7 +18,8 @@ class ApplicationComponent < Phlex::HTML
     if method_name.to_s.end_with?('_path', '_url')
       helpers.public_send(method_name, *args, **kwargs, &block)
     else
-      super
+      # ВАЖНО: явно передаем все аргументы в super для Ruby 3+ совместимости
+      super(method_name, *args, **kwargs, &block)
     end
   end
 
