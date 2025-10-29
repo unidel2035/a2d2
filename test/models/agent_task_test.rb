@@ -2,79 +2,115 @@ require "test_helper"
 
 class AgentTaskTest < ActiveSupport::TestCase
   def setup
-    @task = AgentTask.new(
-      task_type: "test_task",
-      status: "pending",
-      priority: 5,
-      input_data: { test: "data" }
+    @agent = Agent.create!(
+      name: "test-agent",
+      agent_type: "test",
+      status: "idle"
+    )
+
+    @task = AgentTask.create!(
+      task_type: "data_analysis",
+      payload: { data: "test" },
+      priority: 5
     )
   end
 
-  test "valid task" do
-    assert @task.valid?
+  test "should create task with valid attributes" do
+    assert @task.persisted?
+    assert_equal "data_analysis", @task.task_type
+    assert_equal "pending", @task.status
+    assert_equal 5, @task.priority
   end
 
-  test "requires task_type" do
-    @task.task_type = nil
-    assert_not @task.valid?
+  test "should require task_type" do
+    task = AgentTask.new
+    assert_not task.valid?
+    assert_includes task.errors[:task_type], "can't be blank"
   end
 
-  test "validates status inclusion" do
-    @task.status = "invalid"
-    assert_not @task.valid?
-  end
+  test "assign_to! should assign task to agent" do
+    result = @task.assign_to!(@agent)
 
-  test "validates priority range" do
-    @task.priority = 0
-    assert_not @task.valid?
-
-    @task.priority = 11
-    assert_not @task.valid?
-
-    @task.priority = 5
-    assert @task.valid?
-  end
-
-  test "start! updates status and started_at" do
-    @task.save!
-    @task.start!
-    assert_equal "processing", @task.status
+    assert result
+    assert_equal "assigned", @task.status
+    assert_equal @agent, @task.agent
     assert_not_nil @task.started_at
   end
 
-  test "complete! updates status and output" do
-    @task.save!
+  test "start! should change status to running" do
+    @task.assign_to!(@agent)
     @task.start!
-    output = { result: "success" }
-    @task.complete!(output)
+
+    assert_equal "running", @task.status
+  end
+
+  test "complete! should set status and result" do
+    @task.assign_to!(@agent)
+    @task.start!
+
+    result_data = { output: "success" }
+    @task.complete!(result_data)
+
     assert_equal "completed", @task.status
-    assert_equal output, @task.output_data
+    assert_equal result_data, @task.result
     assert_not_nil @task.completed_at
   end
 
-  test "fail! updates status and error message" do
-    @task.save!
+  test "fail! should set status and error message" do
+    @task.assign_to!(@agent)
     @task.start!
+
     @task.fail!("Test error")
+
     assert_equal "failed", @task.status
     assert_equal "Test error", @task.error_message
     assert_not_nil @task.completed_at
   end
 
-  test "overdue? returns true for past deadline" do
-    @task.deadline_at = 1.hour.ago
-    assert @task.overdue?
+  test "retry! should reset task for retry" do
+    @task.assign_to!(@agent)
+    @task.start!
+    @task.fail!("Error")
+
+    result = @task.retry!
+
+    assert result
+    assert_equal "pending", @task.status
+    assert_equal 1, @task.retry_count
+    assert_nil @task.agent
   end
 
-  test "overdue? returns false for completed tasks" do
-    @task.deadline_at = 1.hour.ago
-    @task.status = "completed"
-    assert_not @task.overdue?
+  test "retry! should not retry if max retries exceeded" do
+    @task.update!(retry_count: 3, max_retries: 3, status: "failed")
+
+    result = @task.retry!
+
+    assert_not result
   end
 
-  test "processing_time calculates duration" do
-    @task.started_at = Time.current - 10.seconds
-    @task.completed_at = Time.current
-    assert_in_delta 10, @task.processing_time, 1
+  test "move_to_dead_letter! should change status" do
+    @task.move_to_dead_letter!
+
+    assert_equal "dead_letter", @task.status
+    assert_not_nil @task.completed_at
+  end
+
+  test "duration should calculate correctly" do
+    start_time = Time.current
+    end_time = start_time + 10.seconds
+
+    @task.update!(started_at: start_time, completed_at: end_time)
+
+    assert_in_delta 10.0, @task.duration, 0.1
+  end
+
+  test "scopes should filter correctly" do
+    AgentTask.create!(task_type: "test1", status: "pending")
+    AgentTask.create!(task_type: "test2", status: "completed")
+    AgentTask.create!(task_type: "test3", status: "failed")
+
+    assert_equal 2, AgentTask.pending.count
+    assert_equal 1, AgentTask.completed.count
+    assert_equal 1, AgentTask.failed.count
   end
 end
