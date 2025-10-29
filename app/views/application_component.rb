@@ -1,5 +1,12 @@
 class ApplicationComponent < Phlex::HTML
   include Phlex::Rails::Helpers
+  include Phlex::Rails::Helpers::Routes
+
+  # Include specific helpers for meta tags and assets
+  include Phlex::Rails::Helpers::CSRFMetaTags
+  include Phlex::Rails::Helpers::CSPMetaTag
+  include Phlex::Rails::Helpers::StyleSheetLinkTag
+  include Phlex::Rails::Helpers::JavaScriptImportmapTags
 
   # Actions
   def Button(*args, &block)
