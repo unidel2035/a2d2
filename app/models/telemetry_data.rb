@@ -1,7 +1,8 @@
 class TelemetryData < ApplicationRecord
   # Associations
   belongs_to :robot
-  belongs_to :task, optional: true
+  belongs_to :robot_task, foreign_key: :task_id, optional: true
+  belongs_to :task, class_name: 'RobotTask', optional: true  # Backwards compatibility
 
   # Validations
   validates :recorded_at, presence: true

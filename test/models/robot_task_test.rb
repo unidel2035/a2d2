@@ -1,10 +1,10 @@
 require "test_helper"
 
-class TaskTest < ActiveSupport::TestCase
+class RobotTaskTest < ActiveSupport::TestCase
   def setup
     @user = create(:user)
     @robot = create(:robot)
-    @task = create(:task, robot: @robot, operator: @user)
+    @task = create(:robot_task, robot: @robot, operator: @user)
   end
 
   test "should be valid with required attributes" do
@@ -18,13 +18,13 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   test "should auto-generate task_number on create" do
-    new_task = Task.create!(robot: @robot, status: :planned)
+    new_task = RobotTask.create!(robot: @robot, status: :planned)
     assert_not_nil new_task.task_number
     assert_match(/^TSK-\d{8}-[A-F0-9]{8}$/, new_task.task_number)
   end
 
   test "should enforce unique task_number" do
-    duplicate_task = build(:task, robot: @robot, task_number: @task.task_number)
+    duplicate_task = build(:robot_task, robot: @robot, task_number: @task.task_number)
     assert_not duplicate_task.valid?
     assert_includes duplicate_task.errors[:task_number], "has already been taken"
   end
@@ -116,35 +116,35 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   test "scope recent should order by created_at desc" do
-    old_task = create(:task, robot: @robot, created_at: 2.days.ago)
-    new_task = create(:task, robot: @robot, created_at: 1.day.ago)
+    old_task = create(:robot_task, robot: @robot, created_at: 2.days.ago)
+    new_task = create(:robot_task, robot: @robot, created_at: 1.day.ago)
 
-    tasks = Task.recent.limit(2)
+    tasks = RobotTask.recent.limit(2)
     assert_equal new_task, tasks.first
     assert_equal old_task, tasks.second
   end
 
   test "scope upcoming should return future planned tasks" do
-    upcoming_task = create(:task, robot: @robot, status: :planned, planned_date: 1.day.from_now)
-    create(:task, robot: @robot, status: :planned, planned_date: 1.day.ago)
+    upcoming_task = create(:robot_task, robot: @robot, status: :planned, planned_date: 1.day.from_now)
+    create(:robot_task, robot: @robot, status: :planned, planned_date: 1.day.ago)
 
-    assert_includes Task.upcoming, upcoming_task
+    assert_includes RobotTask.upcoming, upcoming_task
   end
 
   test "scope overdue should return past planned tasks" do
-    overdue_task = create(:task, robot: @robot, status: :planned, planned_date: 1.day.ago)
-    create(:task, robot: @robot, status: :planned, planned_date: 1.day.from_now)
+    overdue_task = create(:robot_task, robot: @robot, status: :planned, planned_date: 1.day.ago)
+    create(:robot_task, robot: @robot, status: :planned, planned_date: 1.day.from_now)
 
-    assert_includes Task.overdue, overdue_task
+    assert_includes RobotTask.overdue, overdue_task
   end
 
   test "scope completed_in_range should return completed tasks in date range" do
     start_date = 2.days.ago
     end_date = Time.current
-    completed_task = create(:task, robot: @robot, status: :completed, actual_end: 1.day.ago)
-    create(:task, robot: @robot, status: :completed, actual_end: 3.days.ago)
+    completed_task = create(:robot_task, robot: @robot, status: :completed, actual_end: 1.day.ago)
+    create(:robot_task, robot: @robot, status: :completed, actual_end: 3.days.ago)
 
-    tasks = Task.completed_in_range(start_date, end_date)
+    tasks = RobotTask.completed_in_range(start_date, end_date)
     assert_includes tasks, completed_task
   end
 

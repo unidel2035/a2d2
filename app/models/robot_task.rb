@@ -1,4 +1,6 @@
-class Task < ApplicationRecord
+class RobotTask < ApplicationRecord
+  self.table_name = 'robot_tasks'
+
   # Enums
   enum :status, {
     planned: 0,
@@ -84,3 +86,6 @@ class Task < ApplicationRecord
     end
   end
 end
+
+# Backwards compatibility alias
+Task = RobotTask
