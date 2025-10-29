@@ -157,6 +157,14 @@ Rails.application.routes.draw do
   end
 
 
+  # Error pages
+  get "404", to: "errors#not_found", as: "not_found"
+  get "500", to: "errors#internal_server_error", as: "internal_server_error"
+  get "422", to: "errors#unprocessable_entity", as: "unprocessable_entity"
+
+  # Catch all unmatched routes and show 404
+  match "*path", to: "errors#not_found", via: :all
+
   # Defines the root path route ("/")
   root "dashboard#index"
 end
