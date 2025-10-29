@@ -1,17 +1,25 @@
 # Main controller for the Agricultural Platform "Kod Urozhaya" (Harvest Code)
 class AgroPlatformController < ApplicationController
   def index
-    @orchestrator = AgroOrchestrator.new
-    @ecosystem_status = @orchestrator.monitor_ecosystem
+    orchestrator = AgroOrchestrator.new
+    ecosystem_status = orchestrator.monitor_ecosystem
 
-    @total_agents = AgroAgent.count
-    @active_coordinations = AgentCoordination.active.count
-    @pending_tasks = AgroTask.pending.count
-    @active_contracts = SmartContract.active.count
+    active_coordinations = AgentCoordination.active.count
+    pending_tasks = AgroTask.pending.count
+    active_contracts = SmartContract.active.count
 
     # Recent activity
-    @recent_tasks = AgroTask.order(created_at: :desc).limit(10)
-    @recent_contracts = SmartContract.order(created_at: :desc).limit(5)
+    recent_tasks = AgroTask.order(created_at: :desc).limit(10)
+    recent_contracts = SmartContract.order(created_at: :desc).limit(5)
+
+    render AgroPlatform::IndexView.new(
+      ecosystem_status: ecosystem_status,
+      active_coordinations: active_coordinations,
+      pending_tasks: pending_tasks,
+      active_contracts: active_contracts,
+      recent_tasks: recent_tasks,
+      recent_contracts: recent_contracts
+    )
   end
 
   def ecosystem
