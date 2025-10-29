@@ -3,10 +3,32 @@
 module Dashboard
   class IndexView < ApplicationComponent
     def view_template
-      # Dashboard Header
-      div(class: "mb-6") do
-        h1(class: "text-3xl font-bold mb-2") { "Dashboard" }
-        p(class: "text-base-content/70") { "Welcome to A2D2 - Your Robotization & AI Agents Management System" }
+      # Dashboard Header with gradient
+      div(class: "mb-8") do
+        div(class: "flex flex-col md:flex-row md:items-center md:justify-between gap-4") do
+          div do
+            h1(class: "text-4xl font-black mb-2 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent") do
+              "Dashboard"
+            end
+            p(class: "text-lg text-base-content/70") do
+              "Добро пожаловать в A2D2 - Система управления роботизацией и ИИ-агентами"
+            end
+          end
+
+          # User actions
+          div(class: "flex gap-2") do
+            Button :primary, :outline, class: "gap-2" do
+              render_icon("bell")
+              Badge :primary, class: "badge-sm" do
+                "3"
+              end
+            end
+            Button :secondary, class: "gap-2" do
+              render_icon("plus")
+              plain "Создать задачу"
+            end
+          end
+        end
       end
 
       # Quick Actions
@@ -41,23 +63,43 @@ module Dashboard
     end
 
     def render_stats_cards
-      div(class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6") do
-        render_stat_card("Total Robots", "24", "↗︎ 12% from last month", "primary", "rocket")
-        render_stat_card("Active Tasks", "156", "↗︎ 23% from last week", "secondary", "sparkles")
-        render_stat_card("Needs Maintenance", "3", "2 robots require immediate attention", "error", "warning")
-        render_stat_card("Active Operators", "18", "↗︎ 3 new this month", "info", "users")
+      div(class: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8") do
+        render_stat_card("Всего агентов", "24", "↗︎ 12% за месяц", "primary", "rocket", "+3")
+        render_stat_card("Активные задачи", "156", "↗︎ 23% за неделю", "secondary", "sparkles", "В работе")
+        render_stat_card("Требуют внимания", "3", "2 агента нуждаются в обслуживании", "error", "warning", "Срочно")
+        render_stat_card("Операторы онлайн", "18", "↗︎ 3 новых за месяц", "info", "users", "Активны")
       end
     end
 
-    def render_stat_card(title, value, description, color, icon)
-      div(class: "stats shadow") do
-        div(class: "stat") do
-          div(class: "stat-figure text-#{color}") do
-            render_icon(icon, size: "h-10 w-10")
+    def render_stat_card(title, value, description, color, icon, badge_text)
+      div(class: "group relative") do
+        # Glow effect on hover
+        div(class: "absolute inset-0 bg-gradient-to-r from-#{color} to-#{color} rounded-2xl opacity-0 group-hover:opacity-10 blur transition-all duration-300")
+
+        Card :base_100, class: "relative shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-1 border-2 border-transparent group-hover:border-#{color}/30" do |card|
+          card.body do
+            div(class: "flex items-start justify-between mb-3") do
+              div(class: "flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-#{color}/20 to-#{color}/10 group-hover:scale-110 transition-transform") do
+                div(class: "text-#{color}") do
+                  render_icon(icon, size: "h-7 w-7")
+                end
+              end
+              Badge :#{color}, class: "badge-sm" do
+                badge_text
+              end
+            end
+
+            div(class: "space-y-1") do
+              div(class: "text-sm font-medium text-base-content/70") { title }
+              div(class: "text-3xl font-black text-#{color}") { value }
+              div(class: "text-xs text-base-content/60 mt-2") { description }
+            end
+
+            # Progress bar
+            div(class: "mt-4") do
+              Progress :#{color}, value: 75, max: 100, class: "h-1"
+            end
           end
-          div(class: "stat-title") { title }
-          div(class: "stat-value text-#{color}") { value }
-          div(class: "stat-desc") { description }
         end
       end
     end
@@ -207,7 +249,8 @@ module Dashboard
         "chart-bar" => "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
         "sparkles" => "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
         "warning" => "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z",
-        "users" => "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+        "users" => "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+        "bell" => "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
       }
 
       svg(
