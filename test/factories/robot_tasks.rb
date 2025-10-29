@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :task do
+  factory :robot_task do
     association :robot
     association :operator, factory: :user, optional: true
     task_number { nil } # Will be auto-generated
@@ -30,4 +30,7 @@ FactoryBot.define do
       planned_date { 1.day.ago }
     end
   end
+
+  # Backwards compatibility alias
+  factory :task, parent: :robot_task
 end
