@@ -49,6 +49,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :robots
+
       namespace :monitoring do
         get :dashboard
         get 'agents/:id/metrics', to: 'monitoring#agent_metrics'
