@@ -1,0 +1,34 @@
+Напоминание о техническом обслуживании
+=======================================
+
+Здравствуйте, <%= @technician.name %>!
+
+<% if @days_before == 1 %>
+⚠️ Напоминаем, что завтра запланировано техническое обслуживание робота.
+<% elsif @days_before == 3 %>
+Напоминаем, что через 3 дня запланировано техническое обслуживание робота.
+<% else %>
+Напоминаем, что через <%= @days_before %> дней запланировано техническое обслуживание робота.
+<% end %>
+
+Детали технического обслуживания:
+---------------------------------
+
+Робот: <%= @robot.serial_number %> (<%= @robot.manufacturer %>)
+Дата ТО: <%= @maintenance_record.scheduled_date.strftime("%d.%m.%Y") %>
+Тип обслуживания: <%= I18n.t("activerecord.attributes.maintenance_record.maintenance_types.#{@maintenance_record.maintenance_type}", default: @maintenance_record.maintenance_type) %>
+<% if @robot.location.present? %>
+Местоположение: <%= @robot.location %>
+<% end %>
+Наработка: <%= @robot.total_operation_hours %> часов
+
+Пожалуйста, убедитесь в наличии необходимых инструментов и запасных частей.
+
+<% if @maintenance_record.description.present? %>
+Дополнительная информация:
+<%= @maintenance_record.description %>
+<% end %>
+
+---
+Это автоматическое уведомление из системы A2D2
+Если у вас есть вопросы, свяжитесь с вашим руководителем
