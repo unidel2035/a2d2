@@ -220,6 +220,45 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
     t.index ["user_id"], name: "index_integrations_on_user_id"
   end
 
+  create_table "llm_requests", force: :cascade do |t|
+    t.integer "agent_task_id"
+    t.string "provider", null: false
+    t.string "model", null: false
+    t.integer "prompt_tokens"
+    t.integer "completion_tokens"
+    t.integer "total_tokens"
+    t.decimal "cost", precision: 10, scale: 6
+    t.integer "response_time_ms"
+    t.string "status"
+    t.text "error_message"
+    t.text "request_data"
+    t.text "response_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_task_id"], name: "index_llm_requests_on_agent_task_id"
+    t.index ["created_at"], name: "index_llm_requests_on_created_at"
+    t.index ["model"], name: "index_llm_requests_on_model"
+    t.index ["provider"], name: "index_llm_requests_on_provider"
+    t.index ["status"], name: "index_llm_requests_on_status"
+  end
+
+  create_table "llm_usage_summaries", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "model", null: false
+    t.date "date", null: false
+    t.integer "request_count", default: 0
+    t.bigint "total_tokens", default: 0
+    t.bigint "prompt_tokens", default: 0
+    t.bigint "completion_tokens", default: 0
+    t.decimal "total_cost", precision: 12, scale: 6, default: "0.0"
+    t.integer "error_count", default: 0
+    t.integer "avg_response_time_ms"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_llm_usage_summaries_on_date"
+    t.index ["provider", "model", "date"], name: "index_llm_usage_on_provider_model_date", unique: true
+  end
+
 
 
   create_table "maintenance_records", force: :cascade do |t|
@@ -563,6 +602,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_28_193016) do
   add_foreign_key "inspection_reports", "tasks"
   add_foreign_key "integration_logs", "integrations"
   add_foreign_key "integrations", "users"
+  add_foreign_key "llm_requests", "agent_tasks"
   add_foreign_key "maintenance_records", "robots"
   add_foreign_key "maintenance_records", "users", column: "technician_id"
   add_foreign_key "process_executions", "processes"
