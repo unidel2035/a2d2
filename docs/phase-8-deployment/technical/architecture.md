@@ -1,11 +1,11 @@
-# DOC-TECH-001: Architecture Documentation
+# DOC-TECH-001: Документация по архитектуре
 
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## System Architecture
+## Архитектура системы
 
-### High-Level Architecture
+### Высокоуровневая архитектура
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -36,7 +36,7 @@
 └────────────────┘
 ```
 
-### Technology Stack
+### Технологический стек
 
 **Backend**:
 - Ruby 3.3.6
@@ -49,46 +49,46 @@
 - ImportMap
 - Tailwind CSS
 
-**Infrastructure**:
+**Инфраструктура**:
 - Docker & Docker Compose
 - nginx
 - Puma
-- Solid Queue (background jobs)
-- Solid Cache (caching)
+- Solid Queue (фоновые задачи)
+- Solid Cache (кеширование)
 
-**Monitoring**:
+**Мониторинг**:
 - Prometheus
 - Grafana
 - Loki
 
-## Layer Architecture
+## Слоистая архитектура
 
-### 1. Presentation Layer
-- **Controllers**: Handle HTTP requests
-- **Views**: Hotwire templates
-- **Stimulus Controllers**: Client-side interactions
+### 1. Слой представления
+- **Контроллеры**: Обработка HTTP-запросов
+- **Представления**: Шаблоны Hotwire
+- **Stimulus-контроллеры**: Взаимодействие на стороне клиента
 
-### 2. Business Logic Layer
-- **Services**: Business logic encapsulation
-- **Agents**: AI agent implementations
-- **Orchestrator**: Agent coordination
+### 2. Слой бизнес-логики
+- **Сервисы**: Инкапсуляция бизнес-логики
+- **Агенты**: Реализации AI-агентов
+- **Оркестратор**: Координация агентов
 
-### 3. Data Access Layer
-- **Models**: ActiveRecord ORM
-- **Repositories**: Data access patterns
-- **Queries**: Complex queries
+### 3. Слой доступа к данным
+- **Модели**: ActiveRecord ORM
+- **Репозитории**: Паттерны доступа к данным
+- **Запросы**: Сложные запросы
 
-### 4. Integration Layer
-- **API Controllers**: REST/GraphQL endpoints
-- **Webhooks**: Event handlers
-- **External Services**: Third-party integrations
+### 4. Слой интеграции
+- **API-контроллеры**: REST/GraphQL endpoints
+- **Webhooks**: Обработчики событий
+- **Внешние сервисы**: Интеграции со сторонними сервисами
 
-## Key Components
+## Ключевые компоненты
 
-### Meta-Layer (Agent Orchestration)
+### Мета-слой (оркестрация агентов)
 
 ```ruby
-# Orchestrator manages agent lifecycle
+# Orchestrator управляет жизненным циклом агентов
 class AgentOrchestrator
   def assign_task(task, strategy: :capability_match)
     agent = select_agent(task, strategy)
@@ -111,10 +111,10 @@ class AgentOrchestrator
 end
 ```
 
-### AI Agents
+### AI-агенты
 
 ```ruby
-# Base agent class
+# Базовый класс агента
 class BaseAgent
   include AgentMemory
   include AgentVerification
@@ -137,7 +137,7 @@ class BaseAgent
   end
 end
 
-# Example: Analyzer Agent
+# Пример: агент-анализатор
 class AnalyzerAgent < BaseAgent
   def process(task)
     data = task.payload
@@ -150,7 +150,7 @@ class AnalyzerAgent < BaseAgent
 end
 ```
 
-### Unified LLM API
+### Унифицированный LLM API
 
 ```ruby
 # app/services/llm_service.rb
@@ -165,7 +165,7 @@ class LLMService
   def call(model:, prompt:, **options)
     provider = detect_provider(model)
     client = PROVIDERS[provider].new
-    
+
     with_fallback do
       client.complete(
         model: model,
@@ -186,44 +186,44 @@ class LLMService
 end
 ```
 
-## Database Schema
+## Схема базы данных
 
-### Core Tables
+### Основные таблицы
 
 ```sql
--- Users & Authentication
+-- Пользователи и аутентификация
 users (id, email, encrypted_password, role, ...)
 sessions (id, user_id, token, expires_at, ...)
 
--- Documents
+-- Документы
 documents (id, user_id, filename, content_type, status, ...)
 document_versions (id, document_id, version, changes, ...)
 document_tags (id, document_id, tag_name, ...)
 
--- Processes
+-- Процессы
 processes (id, name, definition, status, ...)
 process_executions (id, process_id, status, started_at, ...)
 process_steps (id, execution_id, step_type, input, output, ...)
 
--- AI Agents
+-- AI-агенты
 agents (id, type, name, capabilities, status, ...)
 agent_tasks (id, agent_id, task_type, payload, result, ...)
 agent_metrics (id, agent_id, success_count, avg_duration, ...)
 
--- Integrations
+-- Интеграции
 integrations (id, service, credentials, config, ...)
 integration_logs (id, integration_id, action, status, ...)
 ```
 
-## Security Architecture
+## Архитектура безопасности
 
-### Authentication Flow
+### Поток аутентификации
 
 ```
-User → Login → JWT Token → Request → Verify Token → Access Resource
+Пользователь → Вход → JWT Token → Запрос → Проверка токена → Доступ к ресурсу
 ```
 
-### Authorization (RBAC)
+### Авторизация (RBAC)
 
 ```ruby
 class Ability
@@ -244,15 +244,15 @@ class Ability
 end
 ```
 
-### Data Encryption
+### Шифрование данных
 
-- **At Rest**: AES-256 via `attr_encrypted`
-- **In Transit**: TLS 1.3
-- **Secrets**: Rails credentials
+- **В состоянии покоя**: AES-256 через `attr_encrypted`
+- **При передаче**: TLS 1.3
+- **Секреты**: Rails credentials
 
-## Deployment Architecture
+## Архитектура развертывания
 
-### Production Deployment
+### Production-развертывание
 
 ```yaml
 # docker-compose.prod.yml
@@ -268,23 +268,23 @@ services:
       RAILS_ENV: production
       DATABASE_URL: ${DATABASE_URL}
       REDIS_URL: ${REDIS_URL}
-    
+
   postgres-primary:
     image: postgres:14
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    
+
   postgres-replica:
     image: postgres:14
     environment:
       POSTGRES_PRIMARY_HOST: postgres-primary
-    
+
   redis:
     image: redis:7-alpine
     command: redis-server --requirepass ${REDIS_PASSWORD}
-    
+
   nginx:
     image: nginx:1.27
     ports:
@@ -294,28 +294,28 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 ```
 
-## Performance Considerations
+## Вопросы производительности
 
-### Caching Strategy
+### Стратегия кеширования
 
-1. **Page Caching**: Static pages
-2. **Fragment Caching**: Partial views
-3. **Query Caching**: Database queries
-4. **Redis Caching**: Application data
+1. **Кеширование страниц**: Статические страницы
+2. **Фрагментарное кеширование**: Частичные представления
+3. **Кеширование запросов**: Запросы к базе данных
+4. **Redis-кеширование**: Данные приложения
 
 ```ruby
-# Example: Fragment caching
+# Пример: фрагментарное кеширование
 <% cache document do %>
   <%= render document %>
 <% end %>
 
-# Query result caching
+# Кеширование результатов запросов
 Rails.cache.fetch("document_#{id}", expires_in: 1.hour) do
   Document.find(id)
 end
 ```
 
-### Background Jobs
+### Фоновые задачи
 
 ```ruby
 # app/jobs/document_processing_job.rb
@@ -325,16 +325,16 @@ class DocumentProcessingJob < ApplicationJob
 
   def perform(document_id)
     document = Document.find(document_id)
-    
-    # Extract text
+
+    # Извлечение текста
     text = extract_text(document)
-    
-    # Classify document
+
+    # Классификация документа
     classification = AnalyzerAgent.new.classify(text)
-    
-    # Extract entities
+
+    # Извлечение сущностей
     entities = AnalyzerAgent.new.extract_entities(text)
-    
+
     document.update!(
       processed_text: text,
       classification: classification,
@@ -345,20 +345,20 @@ class DocumentProcessingJob < ApplicationJob
 end
 ```
 
-## Monitoring & Observability
+## Мониторинг и наблюдаемость
 
-### Metrics Collected
+### Собираемые метрики
 
-- **Application**: Request rate, response time, error rate
-- **Database**: Query performance, connection pool
-- **Redis**: Hit rate, memory usage
-- **Agents**: Task completion rate, accuracy
-- **System**: CPU, memory, disk I/O
+- **Приложение**: Частота запросов, время отклика, частота ошибок
+- **База данных**: Производительность запросов, пул соединений
+- **Redis**: Коэффициент попаданий, использование памяти
+- **Агенты**: Показатель завершения задач, точность
+- **Система**: CPU, память, дисковый I/O
 
-### Logging
+### Логирование
 
 ```ruby
-# Structured logging
+# Структурированное логирование
 Rails.logger.info({
   event: 'document_processed',
   document_id: document.id,
@@ -367,27 +367,27 @@ Rails.logger.info({
 }.to_json)
 ```
 
-## Scalability
+## Масштабируемость
 
-### Horizontal Scaling
+### Горизонтальное масштабирование
 
-- Add more app servers behind load balancer
-- Database read replicas for queries
-- Redis cluster for distributed caching
-- Agent instances can scale independently
+- Добавление большего количества серверов приложений за балансировщиком нагрузки
+- Реплики базы данных для чтения запросов
+- Redis-кластер для распределенного кеширования
+- Экземпляры агентов могут масштабироваться независимо
 
-### Vertical Scaling
+### Вертикальное масштабирование
 
-- Increase server resources (CPU, RAM)
-- Optimize database (indexes, queries)
-- Tune application (connection pools, threads)
+- Увеличение ресурсов сервера (CPU, RAM)
+- Оптимизация базы данных (индексы, запросы)
+- Настройка приложения (пулы соединений, потоки)
 
 ---
 
-**For more details, see**:
-- [Deployment Guide](deployment-guide.md)
-- [API Documentation](../user/api-guide.md)
-- [Contributing Guidelines](contributing.md)
+**Для получения дополнительной информации см.**:
+- [Руководство по развертыванию](deployment-guide.md)
+- [Документация API](../user/api-guide.md)
+- [Руководство по внесению вклада](contributing.md)
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28

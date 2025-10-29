@@ -1,57 +1,57 @@
-# DOC-TECH-004: Contributing Guidelines
+# DOC-TECH-004: Руководство по внесению вклада
 
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Welcome Contributors!
+## Добро пожаловать, участники!
 
-Thank you for your interest in contributing to A2D2!
+Благодарим вас за интерес к внесению вклада в A2D2!
 
-## Getting Started
+## Начало работы
 
-### Development Setup
+### Настройка среды разработки
 
 ```bash
-# Clone repository
+# Клонирование репозитория
 git clone https://github.com/unidel2035/a2d2.git
 cd a2d2
 
-# Install dependencies
+# Установка зависимостей
 bundle install
 
-# Setup database
+# Настройка базы данных
 rails db:setup
 
-# Run tests
+# Запуск тестов
 rails test
 
-# Start development server
+# Запуск сервера разработки
 ./bin/dev
 ```
 
-### Code Style
+### Стиль кода
 
-We use RuboCop for code formatting:
+Мы используем RuboCop для форматирования кода:
 
 ```bash
-# Check code style
+# Проверка стиля кода
 bundle exec rubocop
 
-# Auto-fix issues
+# Автоматическое исправление проблем
 bundle exec rubocop -a
 ```
 
-## Contribution Workflow
+## Рабочий процесс внесения вклада
 
-1. **Fork** the repository
-2. **Create** a feature branch: `git checkout -b feature/my-feature`
-3. **Make** changes
-4. **Test** your changes: `rails test`
-5. **Commit** with clear message
-6. **Push** to your fork
-7. **Create** Pull Request
+1. **Форк** репозитория
+2. **Создание** ветки функции: `git checkout -b feature/my-feature`
+3. **Внесение** изменений
+4. **Тестирование** изменений: `rails test`
+5. **Коммит** с понятным сообщением
+6. **Push** в ваш форк
+7. **Создание** Pull Request
 
-### Commit Message Format
+### Формат сообщений коммитов
 
 ```
 <type>(<scope>): <subject>
@@ -61,9 +61,9 @@ bundle exec rubocop -a
 <footer>
 ```
 
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+Типы: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
-Example:
+Пример:
 ```
 feat(agents): add DeepSeek integration
 
@@ -73,22 +73,22 @@ Includes rate limiting and fallback support.
 Closes #123
 ```
 
-## Testing
+## Тестирование
 
-### Running Tests
+### Запуск тестов
 
 ```bash
-# All tests
+# Все тесты
 rails test
 
-# Specific test file
+# Конкретный файл теста
 rails test test/models/document_test.rb
 
-# With coverage
+# С покрытием
 COVERAGE=true rails test
 ```
 
-### Writing Tests
+### Написание тестов
 
 ```ruby
 require 'test_helper'
@@ -102,56 +102,56 @@ class DocumentTest < ActiveSupport::TestCase
 end
 ```
 
-## Code Review
+## Ревью кода
 
-All contributions require code review:
+Все вклады требуют ревью кода:
 
-- **Quality**: Clean, readable, maintainable code
-- **Tests**: Adequate test coverage (>80%)
-- **Documentation**: Updated docs for new features
-- **Style**: Follows RuboCop guidelines
-- **Security**: No vulnerabilities introduced
+- **Качество**: Чистый, читаемый, поддерживаемый код
+- **Тесты**: Адекватное покрытие тестами (>80%)
+- **Документация**: Обновленная документация для новых функций
+- **Стиль**: Соответствует рекомендациям RuboCop
+- **Безопасность**: Не вносятся уязвимости
 
-## Feature Requests
+## Запросы функций
 
-Submit feature requests via [GitHub Issues](https://github.com/unidel2035/a2d2/issues):
+Отправляйте запросы функций через [GitHub Issues](https://github.com/unidel2035/a2d2/issues):
 
-1. Check if issue already exists
-2. Describe the feature
-3. Explain the use case
-4. Add mockups if applicable
+1. Проверьте, существует ли уже такая задача
+2. Опишите функцию
+3. Объясните сценарий использования
+4. Добавьте макеты, если применимо
 
-## Bug Reports
+## Отчеты об ошибках
 
-Report bugs via [GitHub Issues](https://github.com/unidel2035/a2d2/issues):
+Сообщайте об ошибках через [GitHub Issues](https://github.com/unidel2035/a2d2/issues):
 
-1. Search existing issues
-2. Provide clear title
-3. Describe steps to reproduce
-4. Include error messages
-5. Specify environment (OS, Ruby version, etc.)
+1. Поиск существующих задач
+2. Предоставьте понятный заголовок
+3. Опишите шаги для воспроизведения
+4. Включите сообщения об ошибках
+5. Укажите окружение (ОС, версию Ruby и т.д.)
 
-## Documentation
+## Документация
 
-Help improve documentation:
+Помогите улучшить документацию:
 
-- **User guides**: docs/phase-8-deployment/user/
-- **Technical docs**: docs/phase-8-deployment/technical/
-- **API docs**: Update alongside code changes
+- **Руководства пользователя**: docs/phase-8-deployment/user/
+- **Техническая документация**: docs/phase-8-deployment/technical/
+- **Документация API**: Обновляйте вместе с изменениями кода
 
-## Community
+## Сообщество
 
-- **Discussions**: [GitHub Discussions](https://github.com/unidel2035/a2d2/discussions)
-- **Chat**: Coming soon
+- **Обсуждения**: [GitHub Discussions](https://github.com/unidel2035/a2d2/discussions)
+- **Чат**: Скоро
 - **Email**: dev@example.com
 
-## License
+## Лицензия
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+Внося вклад, вы соглашаетесь с тем, что ваш вклад будет лицензирован по лицензии MIT.
 
 ---
 
-**Thank you for contributing to A2D2!**
+**Спасибо за ваш вклад в A2D2!**
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28
