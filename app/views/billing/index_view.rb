@@ -178,7 +178,7 @@ module Billing
         # Featured badge
         if featured
           div(class: "absolute -top-4 left-1/2 -translate-x-1/2 z-10") do
-            Badge :#{color}, class: "badge-lg shadow-lg" do
+            Badge color.to_sym, class: "badge-lg shadow-lg" do
               "✨ Рекомендуем"
             end
           end
@@ -193,7 +193,7 @@ module Billing
           card.body class: "p-8" do
             # Header
             div(class: "text-center mb-6") do
-              Badge :#{color}, class: "badge-lg mb-3" do
+              Badge color.to_sym, class: "badge-lg mb-3" do
                 badge
               end
               h3(class: "text-2xl font-bold mb-2") { name }
@@ -238,7 +238,7 @@ module Billing
             end
 
             # CTA button
-            Button :#{color}, :block, :lg, class: "#{featured ? 'shadow-lg' : ''}" do
+            Button color.to_sym, :block, :lg, class: "#{featured ? 'shadow-lg' : ''}" do
               button_text
             end
           end
