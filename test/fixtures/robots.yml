@@ -1,0 +1,32 @@
+one:
+  manufacturer: TestCorp
+  model: RB-100
+  serial_number: SN-001
+  registration_number: REG-001
+  status: active
+  specifications: { type: "inspection", max_altitude: 400 }
+  capabilities: { autonomous: true, camera: true }
+  total_operation_hours: 120.5
+  last_maintenance_date: <%= 2.months.ago.to_date %>
+  created_at: <%= 3.months.ago %>
+
+two:
+  manufacturer: RoboCorp
+  model: RB-200
+  serial_number: SN-002
+  registration_number: REG-002
+  status: maintenance
+  specifications: { type: "transport", payload: 10 }
+  capabilities: { autonomous: false, gps: true }
+  total_operation_hours: 250.0
+  last_maintenance_date: <%= 1.week.ago.to_date %>
+  created_at: <%= 6.months.ago %>
+
+three:
+  manufacturer: AeroBot
+  model: RB-300
+  serial_number: SN-003
+  status: retired
+  total_operation_hours: 1200.0
+  last_maintenance_date: <%= 1.year.ago.to_date %>
+  created_at: <%= 2.years.ago %>

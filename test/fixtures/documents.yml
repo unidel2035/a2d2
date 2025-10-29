@@ -1,0 +1,40 @@
+one:
+  title: Robot Manual RB-100
+  category: manual
+  status: active
+  robot: one
+  user: one
+  version_number: 1
+  content_text: This is a manual for Robot RB-100 with instructions
+  created_at: <%= 1.month.ago %>
+
+two:
+  title: Certificate RB-100
+  category: certificate
+  status: active
+  robot: one
+  user: one
+  version_number: 1
+  expiry_date: <%= 25.days.from_now.to_date %>
+  content_text: Certificate for Robot RB-100
+  created_at: <%= 2.months.ago %>
+
+three:
+  title: Robot Passport RB-200
+  category: passport
+  status: active
+  robot: two
+  user: one
+  version_number: 1
+  content_text: Passport documentation for Robot RB-200
+  created_at: <%= 3.months.ago %>
+
+archived:
+  title: Old Report
+  category: report
+  status: archived
+  robot: one
+  user: one
+  version_number: 1
+  content_text: This is an archived report
+  created_at: <%= 6.months.ago %>

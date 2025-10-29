@@ -1,0 +1,26 @@
+one:
+  name: Analyzer Agent
+  agent_type: analyzer
+  status: active
+  capabilities: { analyze: true, classify: true }
+  configuration: { model: "gpt-4", temperature: 0.7 }
+  version: "1.0.0"
+  created_at: <%= 1.month.ago %>
+
+two:
+  name: Transformer Agent
+  agent_type: transformer
+  status: idle
+  capabilities: { transform: true, extract: true }
+  configuration: { model: "claude-3", max_tokens: 4000 }
+  version: "1.0.0"
+  created_at: <%= 2.months.ago %>
+
+busy:
+  name: Busy Agent
+  agent_type: orchestrator
+  status: busy
+  capabilities: { orchestrate: true }
+  configuration: { timeout: 300 }
+  version: "1.1.0"
+  created_at: <%= 3.months.ago %>
