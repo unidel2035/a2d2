@@ -1,8 +1,9 @@
 class Robot < ApplicationRecord
-  include Searchable
-
   # ROB-006: Search configuration
+  # ВАЖНО: SEARCHABLE_FIELDS должен быть определён ДО include Searchable
   SEARCHABLE_FIELDS = [:serial_number, :name, :manufacturer, :model, :description, :location]
+
+  include Searchable
 
   # Enums
   enum :status, {
