@@ -1,6 +1,7 @@
 class ApplicationComponent < Phlex::HTML
-  include Phlex::Rails::Helpers
-  include Phlex::Rails::Helpers::Routes
+  # НЕ включаем Phlex::Rails::Helpers - он конфликтует с SVG path элементами!
+  # НЕ включаем Phlex::Rails::Helpers::Routes - он также конфликтует с SVG path!
+  # Вместо этого используем method_missing для делегирования маршрутных методов
 
   # Include specific helpers for meta tags and assets
   include Phlex::Rails::Helpers::CSRFMetaTags
@@ -10,6 +11,20 @@ class ApplicationComponent < Phlex::HTML
 
   # Include date helpers for time_ago_in_words and similar methods
   include ActionView::Helpers::DateHelper
+
+  # Делегируем вызовы *_path и *_url методов в helpers
+  # Это позволяет использовать dashboard_path напрямую без конфликта с SVG path()
+  def method_missing(method_name, *args, **kwargs, &block)
+    if method_name.to_s.end_with?('_path', '_url')
+      helpers.public_send(method_name, *args, **kwargs, &block)
+    else
+      super
+    end
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    method_name.to_s.end_with?('_path', '_url') || super
+  end
 
   # Actions
   def Button(*args, &block)
