@@ -44,8 +44,7 @@ SecureHeaders::Configuration.default do |config|
     frame_ancestors: %w['none'],
     base_uri: %w['self'],
     form_action: %w['self'],
-    upgrade_insecure_requests: true,
-    block_all_mixed_content: true
+    upgrade_insecure_requests: true
   }
 
   # Permissions-Policy (formerly Feature-Policy)
