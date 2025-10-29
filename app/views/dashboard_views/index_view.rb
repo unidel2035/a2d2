@@ -72,15 +72,68 @@ module DashboardViews
     end
 
     def render_stat_card(title, value, description, color, icon, badge_text)
+      # Маппинг цветов на статические Tailwind классы
+      gradient_class = case color
+      when "primary"
+        "bg-gradient-to-r from-primary to-primary"
+      when "secondary"
+        "bg-gradient-to-r from-secondary to-secondary"
+      when "error"
+        "bg-gradient-to-r from-error to-error"
+      when "info"
+        "bg-gradient-to-r from-info to-info"
+      else
+        "bg-gradient-to-r from-base-300 to-base-300"
+      end
+
+      border_class = case color
+      when "primary"
+        "group-hover:border-primary/30"
+      when "secondary"
+        "group-hover:border-secondary/30"
+      when "error"
+        "group-hover:border-error/30"
+      when "info"
+        "group-hover:border-info/30"
+      else
+        "group-hover:border-base-300"
+      end
+
+      bg_icon_class = case color
+      when "primary"
+        "bg-gradient-to-br from-primary/20 to-primary/10"
+      when "secondary"
+        "bg-gradient-to-br from-secondary/20 to-secondary/10"
+      when "error"
+        "bg-gradient-to-br from-error/20 to-error/10"
+      when "info"
+        "bg-gradient-to-br from-info/20 to-info/10"
+      else
+        "bg-base-200"
+      end
+
+      text_class = case color
+      when "primary"
+        "text-primary"
+      when "secondary"
+        "text-secondary"
+      when "error"
+        "text-error"
+      when "info"
+        "text-info"
+      else
+        "text-base-content"
+      end
+
       div(class: "group relative") do
         # Glow effect on hover
-        div(class: "absolute inset-0 bg-gradient-to-r from-#{color} to-#{color} rounded-2xl opacity-0 group-hover:opacity-10 blur transition-all duration-300")
+        div(class: "absolute inset-0 #{gradient_class} rounded-2xl opacity-0 group-hover:opacity-10 blur transition-all duration-300")
 
-        Card :base_100, class: "relative shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-1 border-2 border-transparent group-hover:border-#{color}/30" do |card|
+        Card :base_100, class: "relative shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-1 border-2 border-transparent #{border_class}" do |card|
           card.body do
             div(class: "flex items-start justify-between mb-3") do
-              div(class: "flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-#{color}/20 to-#{color}/10 group-hover:scale-110 transition-transform") do
-                div(class: "text-#{color}") do
+              div(class: "flex items-center justify-center w-14 h-14 rounded-xl #{bg_icon_class} group-hover:scale-110 transition-transform") do
+                div(class: text_class) do
                   render_icon(icon, size: "h-7 w-7")
                 end
               end
@@ -91,7 +144,7 @@ module DashboardViews
 
             div(class: "space-y-1") do
               div(class: "text-sm font-medium text-base-content/70") { title }
-              div(class: "text-3xl font-black text-#{color}") { value }
+              div(class: "text-3xl font-black #{text_class}") { value }
               div(class: "text-xs text-base-content/60 mt-2") { description }
             end
 
@@ -201,9 +254,25 @@ module DashboardViews
     end
 
     def render_activity_item(title, description, time, color, icon)
+      # Маппинг цветов на статические Tailwind классы
+      avatar_bg_class = case color
+      when "success"
+        "bg-success text-success-content"
+      when "info"
+        "bg-info text-info-content"
+      when "warning"
+        "bg-warning text-warning-content"
+      when "primary"
+        "bg-primary text-primary-content"
+      when "accent"
+        "bg-accent text-accent-content"
+      else
+        "bg-base-300 text-base-content"
+      end
+
       div(class: "flex items-start gap-4 p-4 bg-base-200 rounded-lg hover:bg-base-300 transition-colors") do
         div(class: "avatar placeholder") do
-          div(class: "bg-#{color} text-#{color}-content rounded-full w-12") do
+          div(class: "#{avatar_bg_class} rounded-full w-12") do
             render_activity_icon(icon)
           end
         end

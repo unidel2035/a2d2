@@ -8,6 +8,12 @@ class ApplicationComponent < Phlex::HTML
   include Phlex::Rails::Helpers::StyleSheetLinkTag
   include Phlex::Rails::Helpers::JavaScriptImportmapTags
 
+  # Include date helpers for time_ago_in_words and similar methods
+  include ActionView::Helpers::DateHelper
+
+  # Include URL helpers
+  include ActionView::Helpers::UrlHelper
+
   # Actions
   def Button(*args, &block)
     PhlexyUI::Button.new(*args, &block)
