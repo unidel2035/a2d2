@@ -35,7 +35,7 @@ module Components
         # Navbar end
         div(class: "navbar-end gap-2") do
           if @show_dashboard
-            Link href: dashboard_path, class: "btn btn-ghost" do
+            Link href: helpers.dashboard_path, class: "btn btn-ghost" do
               svg(
                 xmlns: "http://www.w3.org/2000/svg",
                 class: "h-5 w-5",
