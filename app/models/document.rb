@@ -19,7 +19,8 @@ class Document < ApplicationRecord
   }
 
   # Associations
-  belongs_to :user
+  belongs_to :robot
+  belongs_to :user  # Кто загрузил документ
   has_one_attached :file
   belongs_to :parent, class_name: "Document", optional: true
   has_many :versions, class_name: "Document", foreign_key: :parent_id, dependent: :destroy
@@ -28,6 +29,7 @@ class Document < ApplicationRecord
   validates :title, presence: true
   validates :category, presence: true
   validates :status, presence: true
+  validates :robot, presence: true
   validates :version_number, numericality: { greater_than: 0 }
 
   # Scopes
