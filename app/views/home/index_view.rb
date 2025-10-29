@@ -319,43 +319,11 @@ module Home
           div(class: "flex flex-col sm:flex-row gap-4 justify-center mb-12") do
             Link href: signup_path, class: "btn btn-lg bg-white text-purple-600 hover:bg-gray-100 border-0 shadow-2xl gap-3 px-10" do
               plain "Создать аккаунт бесплатно"
-              svg(
-                xmlns: "http://www.w3.org/2000/svg",
-                class: "h-6 w-6",
-                fill: "none",
-                viewBox: "0 0 24 24",
-                stroke: "currentColor"
-              ) do
-                path(
-                  stroke_linecap: "round",
-                  stroke_linejoin: "round",
-                  stroke_width: "2",
-                  d: "M17 8l4 4m0 0l-4 4m4-4H3"
-                )
-              end
+              render_icon(:arrow_right)
             end
 
             Link href: dashboard_path, class: "btn btn-lg bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm gap-3 px-10" do
-              svg(
-                xmlns: "http://www.w3.org/2000/svg",
-                class: "h-6 w-6",
-                fill: "none",
-                viewBox: "0 0 24 24",
-                stroke: "currentColor"
-              ) do
-                path(
-                  stroke_linecap: "round",
-                  stroke_linejoin: "round",
-                  stroke_width: "2",
-                  d: "M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                )
-                path(
-                  stroke_linecap: "round",
-                  stroke_linejoin: "round",
-                  stroke_width: "2",
-                  d: "M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                )
-              end
+              render_icon(:play)
               plain "Смотреть демо"
             end
           end
@@ -363,21 +331,15 @@ module Home
           # Trust indicators
           div(class: "flex flex-wrap justify-center items-center gap-8 text-white/80 text-sm") do
             div(class: "flex items-center gap-2") do
-              svg(xmlns: "http://www.w3.org/2000/svg", class: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor") do
-                path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
-              end
+              render_icon(:check)
               plain "Без привязки карты"
             end
             div(class: "flex items-center gap-2") do
-              svg(xmlns: "http://www.w3.org/2000/svg", class: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor") do
-                path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
-              end
+              render_icon(:check)
               plain "30 дней бесплатно"
             end
             div(class: "flex items-center gap-2") do
-              svg(xmlns: "http://www.w3.org/2000/svg", class: "h-5 w-5", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor") do
-                path(stroke_linecap: "round", stroke_linejoin: "round", stroke_width: "2", d: "M5 13l4 4L19 7")
-              end
+              render_icon(:check)
               plain "Отмена в любой момент"
             end
           end
@@ -430,6 +392,57 @@ module Home
             stroke_linejoin: "round",
             stroke_width: "2",
             d: "M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+          )
+        end
+      when :arrow_right
+        svg(
+          xmlns: "http://www.w3.org/2000/svg",
+          class: "h-6 w-6",
+          fill: "none",
+          viewBox: "0 0 24 24",
+          stroke: "currentColor"
+        ) do
+          path(
+            stroke_linecap: "round",
+            stroke_linejoin: "round",
+            stroke_width: "2",
+            d: "M17 8l4 4m0 0l-4 4m4-4H3"
+          )
+        end
+      when :play
+        svg(
+          xmlns: "http://www.w3.org/2000/svg",
+          class: "h-6 w-6",
+          fill: "none",
+          viewBox: "0 0 24 24",
+          stroke: "currentColor"
+        ) do
+          path(
+            stroke_linecap: "round",
+            stroke_linejoin: "round",
+            stroke_width: "2",
+            d: "M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+          )
+          path(
+            stroke_linecap: "round",
+            stroke_linejoin: "round",
+            stroke_width: "2",
+            d: "M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          )
+        end
+      when :check
+        svg(
+          xmlns: "http://www.w3.org/2000/svg",
+          class: "h-5 w-5",
+          fill: "none",
+          viewBox: "0 0 24 24",
+          stroke: "currentColor"
+        ) do
+          path(
+            stroke_linecap: "round",
+            stroke_linejoin: "round",
+            stroke_width: "2",
+            d: "M5 13l4 4L19 7"
           )
         end
       end
