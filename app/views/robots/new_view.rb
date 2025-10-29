@@ -10,7 +10,7 @@ module Robots
       div(class: "container mx-auto px-4 py-8 max-w-3xl") do
         div(class: "mb-6") do
           a(
-            href: robots_path,
+            href: helpers.robots_path,
             class: "text-blue-600 hover:text-blue-900"
           ) { "← Назад к списку роботов" }
         end
@@ -21,7 +21,7 @@ module Robots
           end
 
           div(class: "px-6 py-6") do
-            form(method: "post", action: robots_path) do
+            form(method: "post", action: helpers.robots_path) do
               input(type: "hidden", name: "authenticity_token", value: form_authenticity_token)
 
               render_form_fields
@@ -33,7 +33,7 @@ module Robots
                 ) { "Зарегистрировать робота" }
 
                 a(
-                  href: robots_path,
+                  href: helpers.robots_path,
                   class: "px-6 py-3 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 font-medium"
                 ) { "Отмена" }
               end

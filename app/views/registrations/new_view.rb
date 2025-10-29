@@ -67,7 +67,7 @@ module Registrations
           div(class: "text-center") do
             p(class: "text-base-content/70") do
               plain "Уже есть аккаунт? "
-              Link(href: login_path, class: "link link-primary font-semibold") do
+              Link(href: helpers.login_path, class: "link link-primary font-semibold") do
                 "Войти"
               end
             end
@@ -103,7 +103,7 @@ module Registrations
     end
 
     def render_registration_form
-      form(action: signup_path, method: "post", class: "space-y-4") do
+      form(action: helpers.signup_path, method: "post", class: "space-y-4") do
         # CSRF token
         input(type: "hidden", name: "authenticity_token", value: form_authenticity_token)
 

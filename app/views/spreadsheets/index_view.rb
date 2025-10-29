@@ -22,7 +22,7 @@ module Spreadsheets
       div(class: "header") do
         h1 { "Табличный редактор" }
         a(
-          href: new_spreadsheet_path,
+          href: helpers.new_spreadsheet_path,
           class: "btn btn-primary"
         ) { "Создать новую таблицу" }
       end
@@ -44,7 +44,7 @@ module Spreadsheets
       div(class: "spreadsheet-card") do
         div(class: "spreadsheet-header") do
           h3 do
-            a(href: spreadsheet_path(spreadsheet)) { spreadsheet.name }
+            a(href: helpers.spreadsheet_path(spreadsheet)) { spreadsheet.name }
           end
           span(class: "spreadsheet-meta") do
             spreadsheet.created_at.strftime("%d.%m.%Y")
@@ -64,12 +64,12 @@ module Spreadsheets
 
           div(class: "spreadsheet-actions") do
             a(
-              href: spreadsheet_path(spreadsheet),
+              href: helpers.spreadsheet_path(spreadsheet),
               class: "btn btn-sm"
             ) { "Открыть" }
 
             a(
-              href: spreadsheet_path(spreadsheet),
+              href: helpers.spreadsheet_path(spreadsheet),
               class: "btn btn-sm btn-danger",
               data: { turbo_method: :delete, turbo_confirm: "Вы уверены?" }
             ) { "Удалить" }
@@ -83,7 +83,7 @@ module Spreadsheets
         h3 { "Пока нет таблиц" }
         p { "Создайте свою первую таблицу для начала работы" }
         a(
-          href: new_spreadsheet_path,
+          href: helpers.new_spreadsheet_path,
           class: "btn btn-primary"
         ) { "Создать таблицу" }
       end
