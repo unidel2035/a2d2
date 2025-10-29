@@ -22,7 +22,7 @@ gem "bcrypt", "~> 3.1.7"
 
 # Authentication and Authorization - AUTH-001 to AUTH-006
 gem "devise", "~> 4.9"
-gem "devise-two-factor", "~> 5.0"
+gem "devise-two-factor", github: "devise-two-factor/devise-two-factor"
 gem "pundit", "~> 2.3"
 gem "rqrcode", "~> 2.0" # For QR code generation in MFA
 
