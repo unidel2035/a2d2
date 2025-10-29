@@ -1,40 +1,40 @@
-# DOC-USER-002: Administrator Guide
+# DOC-USER-002: Руководство администратора
 
-**Version**: 1.0
-**Last Updated**: 2025-10-28
-**Audience**: System Administrators
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
+**Аудитория**: Системные администраторы
 
-## User Management
+## Управление пользователями
 
-### Creating Users
+### Создание пользователей
 ```bash
-# Via Rails console
+# Через консоль Rails
 RAILS_ENV=production rails console
 User.create!(email: 'user@example.com', password: 'secure_pass', role: 'user')
 ```
 
-### Roles and Permissions
-- **Admin**: Full system access
-- **Manager**: Create/manage processes, view all documents
-- **User**: Basic access to own documents and processes
-- **Viewer**: Read-only access
+### Роли и разрешения
+- **Admin**: Полный доступ к системе
+- **Manager**: Создание/управление процессами, просмотр всех документов
+- **User**: Базовый доступ к собственным документам и процессам
+- **Viewer**: Доступ только для чтения
 
-### Managing Licenses
+### Управление лицензиями
 ```ruby
-# Check license usage
+# Проверка использования лицензий
 License.current_usage
 # => { users: 45, max_users: 50, ai_agents: 10, processes: 120 }
 ```
 
-## System Configuration
+## Конфигурация системы
 
-### Environment Variables
+### Переменные окружения
 ```bash
-# Core settings
+# Основные настройки
 RAILS_ENV=production
 SECRET_KEY_BASE=<generate_with_rails_secret>
 
-# Database
+# База данных
 DATABASE_URL=postgresql://user:pass@host:5432/db
 DATABASE_REPLICA_URL=postgresql://user:pass@replica:5432/db
 
@@ -42,100 +42,100 @@ DATABASE_REPLICA_URL=postgresql://user:pass@replica:5432/db
 REDIS_URL=redis://:password@host:6379/0
 REDIS_CACHE_URL=redis://:password@host:6379/1
 
-# LLM APIs
+# LLM API
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 DEEPSEEK_API_KEY=...
 ```
 
-### Application Settings
-Located in `config/settings.yml`:
+### Настройки приложения
+Расположены в `config/settings.yml`:
 ```yaml
 production:
-  max_upload_size: 100 # MB
-  session_timeout: 30 # minutes
+  max_upload_size: 100 # МБ
+  session_timeout: 30 # минуты
   enable_2fa: true
   log_level: info
   retention_days: 90
 ```
 
-## Backup and Restore
+## Резервное копирование и восстановление
 
-### Automated Backups
+### Автоматическое резервное копирование
 ```bash
-# Daily backup script (runs via cron)
+# Скрипт ежедневного резервного копирования (запускается через cron)
 /var/www/a2d2/scripts/backup-daily.sh
 ```
 
-### Manual Backup
+### Ручное резервное копирование
 ```bash
-# Database
+# База данных
 pg_dump -U a2d2_user -F c -b a2d2_production > backup.dump
 
-# Files
+# Файлы
 tar -czf uploads-backup.tar.gz /var/www/a2d2/shared/storage
 ```
 
-### Restore
+### Восстановление
 ```bash
-# Database
+# База данных
 pg_restore -U a2d2_user -d a2d2_production backup.dump
 
-# Files
+# Файлы
 tar -xzf uploads-backup.tar.gz -C /var/www/a2d2/shared/
 ```
 
-## Monitoring
+## Мониторинг
 
-### Key Metrics
-- Response time: <2s (95th percentile)
-- Error rate: <0.1%
-- CPU usage: <70%
-- Memory usage: <80%
-- Disk usage: <85%
-- Queue size: <1000 pending jobs
+### Ключевые метрики
+- Время отклика: <2с (95-й процентиль)
+- Частота ошибок: <0.1%
+- Использование CPU: <70%
+- Использование памяти: <80%
+- Использование диска: <85%
+- Размер очереди: <1000 ожидающих задач
 
-### Accessing Monitoring
+### Доступ к мониторингу
 - **Grafana**: http://your-server:3001
 - **Prometheus**: http://your-server:9090
-- **Logs**: `/var/log/a2d2/`
+- **Логи**: `/var/log/a2d2/`
 
-### Log Locations
+### Расположение логов
 ```
 /var/log/a2d2/
-├── production.log       # Application logs
-├── web.log             # Web server logs
-├── worker.log          # Background job logs
-└── error.log           # Error logs
+├── production.log       # Логи приложения
+├── web.log             # Логи веб-сервера
+├── worker.log          # Логи фоновых задач
+└── error.log           # Логи ошибок
 ```
 
-## Performance Tuning
+## Настройка производительности
 
-### Database Optimization
+### Оптимизация базы данных
 ```sql
--- Vacuum database
+-- Очистка базы данных
 VACUUM ANALYZE;
 
--- Reindex
+-- Переиндексация
 REINDEX DATABASE a2d2_production;
 
--- Check slow queries
-SELECT query, mean_exec_time 
-FROM pg_stat_statements 
-ORDER BY mean_exec_time DESC 
+-- Проверка медленных запросов
+SELECT query, mean_exec_time
+FROM pg_stat_statements
+ORDER BY mean_exec_time DESC
 LIMIT 10;
 ```
 
-### Redis Optimization
+### Оптимизация Redis
 ```bash
-# Clear cache
+# Очистка кэша
 redis-cli FLUSHDB
 
-# Check memory
+# Проверка памяти
 redis-cli INFO memory
 ```
 
-### Application Tuning
+### Настройка приложения
 ```ruby
 # config/puma.rb
 workers ENV.fetch("WEB_CONCURRENCY") { 4 }
@@ -143,102 +143,102 @@ threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 threads threads_count, threads_count
 ```
 
-## Security
+## Безопасность
 
-### SSL Certificate Renewal
+### Обновление SSL-сертификата
 ```bash
-# Let's Encrypt auto-renewal
+# Автоматическое обновление Let's Encrypt
 sudo certbot renew --dry-run
 ```
 
-### Security Audits
+### Аудит безопасности
 ```bash
-# Run security scan
+# Запуск сканирования безопасности
 bundle exec brakeman -o brakeman-report.html
 
-# Check gem vulnerabilities
+# Проверка уязвимостей gem-пакетов
 bundle exec bundler-audit check --update
 ```
 
-### Firewall Rules
+### Правила брандмауэра
 ```bash
-# Allow HTTP/HTTPS
+# Разрешить HTTP/HTTPS
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 
-# Allow SSH (change port as needed)
+# Разрешить SSH (измените порт при необходимости)
 sudo ufw allow 22/tcp
 
-# Enable firewall
+# Включить брандмауэр
 sudo ufw enable
 ```
 
-## Troubleshooting
+## Устранение неполадок
 
-### Common Issues
+### Распространенные проблемы
 
-**Issue**: Application not responding
+**Проблема**: Приложение не отвечает
 ```bash
-# Check services
+# Проверка сервисов
 sudo systemctl status a2d2-web a2d2-worker
 
-# Restart if needed
+# Перезапуск при необходимости
 sudo systemctl restart a2d2-web a2d2-worker
 ```
 
-**Issue**: High database CPU
+**Проблема**: Высокая загрузка CPU базы данных
 ```sql
--- Find long-running queries
+-- Поиск долго выполняющихся запросов
 SELECT pid, age(clock_timestamp(), query_start), query
 FROM pg_stat_activity
 WHERE state != 'idle' AND query NOT LIKE '%pg_stat_activity%'
 ORDER BY query_start;
 
--- Kill problematic query
+-- Завершение проблемного запроса
 SELECT pg_terminate_backend(pid);
 ```
 
-**Issue**: Disk space low
+**Проблема**: Мало места на диске
 ```bash
-# Check disk usage
+# Проверка использования диска
 df -h
 
-# Clean old logs
+# Очистка старых логов
 sudo journalctl --vacuum-time=7d
 
-# Clean old releases
+# Очистка старых релизов
 cd /var/www/a2d2/releases
 ls -t | tail -n +6 | xargs rm -rf
 ```
 
-## Maintenance Tasks
+## Задачи обслуживания
 
-### Weekly
-- [ ] Review error logs
-- [ ] Check disk space
-- [ ] Monitor performance metrics
-- [ ] Review security alerts
+### Еженедельно
+- [ ] Просмотр логов ошибок
+- [ ] Проверка места на диске
+- [ ] Мониторинг метрик производительности
+- [ ] Проверка предупреждений безопасности
 
-### Monthly
-- [ ] Apply security updates
-- [ ] Review user access
-- [ ] Clean up old data
-- [ ] Test backup restore
-- [ ] Update documentation
+### Ежемесячно
+- [ ] Применение обновлений безопасности
+- [ ] Проверка доступа пользователей
+- [ ] Очистка старых данных
+- [ ] Тестирование восстановления из резервной копии
+- [ ] Обновление документации
 
-### Quarterly
-- [ ] Security audit
-- [ ] Performance review
-- [ ] Capacity planning
-- [ ] User training sessions
+### Ежеквартально
+- [ ] Аудит безопасности
+- [ ] Обзор производительности
+- [ ] Планирование мощностей
+- [ ] Обучающие сессии для пользователей
 
-## Support Contacts
+## Контакты поддержки
 
-- **DevOps Team**: devops@example.com
-- **Security Team**: security@example.com
-- **On-Call**: +7 (XXX) XXX-XX-XX
+- **Команда DevOps**: devops@example.com
+- **Команда безопасности**: security@example.com
+- **Дежурный**: +7 (XXX) XXX-XX-XX
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28
