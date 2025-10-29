@@ -9,12 +9,14 @@ class SpreadsheetsController < ApplicationController
 
   # GET /spreadsheets/:id
   def show
-    @current_sheet = @spreadsheet.sheets.first || @spreadsheet.sheets.create!(name: 'Sheet 1')
+    current_sheet = @spreadsheet.sheets.first || @spreadsheet.sheets.create!(name: 'Sheet 1')
+    render Spreadsheets::ShowView.new(spreadsheet: @spreadsheet, current_sheet: current_sheet)
   end
 
   # GET /spreadsheets/new
   def new
     @spreadsheet = Spreadsheet.new
+    render Spreadsheets::NewView.new(spreadsheet: @spreadsheet)
   end
 
   # POST /spreadsheets
@@ -28,12 +30,13 @@ class SpreadsheetsController < ApplicationController
       @spreadsheet.sheets.create!(name: 'Sheet 1')
       redirect_to @spreadsheet, notice: 'Spreadsheet was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+      render Spreadsheets::NewView.new(spreadsheet: @spreadsheet), status: :unprocessable_entity
     end
   end
 
   # GET /spreadsheets/:id/edit
   def edit
+    render Spreadsheets::EditView.new(spreadsheet: @spreadsheet)
   end
 
   # PATCH/PUT /spreadsheets/:id
@@ -41,7 +44,7 @@ class SpreadsheetsController < ApplicationController
     if @spreadsheet.update(spreadsheet_params)
       redirect_to @spreadsheet, notice: 'Spreadsheet was successfully updated.'
     else
-      render :edit, status: :unprocessable_entity
+      render Spreadsheets::EditView.new(spreadsheet: @spreadsheet), status: :unprocessable_entity
     end
   end
 

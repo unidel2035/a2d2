@@ -1,5 +1,5 @@
 class ThemeGeneratorController < ApplicationController
   def index
-    # This will render the theme generator view
+    render ThemeGenerator::IndexView.new
   end
 end

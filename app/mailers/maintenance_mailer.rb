@@ -7,6 +7,11 @@ class MaintenanceMailer < ApplicationMailer
     @days_before = days_before
     @technician = maintenance_record.technician
 
+    render MaintenanceMailer::UpcomingMaintenanceTechnicianView.new(
+      maintenance: @maintenance_record,
+      technician: @technician
+    )
+
     mail(
       to: @technician.email,
       subject: "Напоминание: ТО робота #{@robot.serial_number} через #{@days_before} #{days_word(@days_before)}"
@@ -20,6 +25,11 @@ class MaintenanceMailer < ApplicationMailer
     @days_before = days_before
     @operator = operator
     @technician = maintenance_record.technician
+
+    render MaintenanceMailer::UpcomingMaintenanceOperatorView.new(
+      maintenance: @maintenance_record,
+      operator: @operator
+    )
 
     mail(
       to: @operator.email,
