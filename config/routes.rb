@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # Theme generator
   get "theme-generator", to: "theme_generator#index", as: "theme_generator"
 
+  # Landing page
+  get "landing", to: "landing#index", as: "landing"
+
   # Dashboard
   get "dashboard", to: "dashboard#index", as: "dashboard"
 
