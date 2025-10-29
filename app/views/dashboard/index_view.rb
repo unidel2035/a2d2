@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dashboard
+module DashboardViews
   class IndexView < ApplicationComponent
     def view_template
       # Dashboard Header with gradient
