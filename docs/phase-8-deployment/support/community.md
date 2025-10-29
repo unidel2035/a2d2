@@ -1,100 +1,100 @@
-# SUPP-005: Community Guidelines
+# SUPP-005: Правила сообщества
 
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Welcome to the A2D2 Community!
+## Добро пожаловать в сообщество A2D2!
 
-Our community is built on respect, collaboration, and continuous learning.
+Наше сообщество основано на уважении, сотрудничестве и непрерывном обучении.
 
-## Code of Conduct
+## Кодекс поведения
 
-### Our Pledge
+### Наше обязательство
 
-We pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+Мы обязуемся сделать участие в нашем сообществе свободным от притеснений для всех, независимо от возраста, телосложения, инвалидности, этнической принадлежности, гендерной идентичности, уровня опыта, национальности, внешности, расы, религии или сексуальной идентичности и ориентации.
 
-### Our Standards
+### Наши стандарты
 
-**Positive behavior**:
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
+**Позитивное поведение**:
+- Использование приветливого и инклюзивного языка
+- Уважение к различным точкам зрения
+- Изящное принятие конструктивной критики
+- Фокус на том, что лучше для сообщества
+- Проявление эмпатии к другим членам сообщества
 
-**Unacceptable behavior**:
-- Harassment or discriminatory language
-- Trolling, insulting comments, personal attacks
-- Public or private harassment
-- Publishing others' private information
-- Other conduct inappropriate in a professional setting
+**Неприемлемое поведение**:
+- Притеснение или дискриминационные высказывания
+- Троллинг, оскорбительные комментарии, личные нападки
+- Публичное или частное преследование
+- Публикация личной информации других людей
+- Другое поведение, неуместное в профессиональной обстановке
 
-### Enforcement
+### Применение мер
 
-Violations may result in:
-1. Warning
-2. Temporary ban
-3. Permanent ban
+Нарушения могут привести к:
+1. Предупреждению
+2. Временному бану
+3. Постоянному бану
 
-Report violations to: community@example.com
+Сообщайте о нарушениях по адресу: community@example.com
 
-## Communication Channels
+## Каналы коммуникации
 
 ### GitHub Issues
-For bug reports and feature requests:
-- Search before posting
-- Use issue templates
-- Be specific and clear
-- Include reproduction steps
+Для отчетов об ошибках и запросов функций:
+- Ищите перед публикацией
+- Используйте шаблоны задач
+- Будьте конкретны и ясны
+- Включайте шаги для воспроизведения
 
 ### GitHub Discussions
-For questions and general discussion:
-- **Q&A**: Ask questions
-- **Ideas**: Share feature ideas
-- **Show and tell**: Share what you've built
-- **General**: Everything else
+Для вопросов и общего обсуждения:
+- **Вопросы и ответы**: Задавайте вопросы
+- **Идеи**: Делитесь идеями функций
+- **Покажи и расскажи**: Делитесь тем, что вы создали
+- **Общее**: Всё остальное
 
-### Support
-For urgent issues:
+### Поддержка
+Для срочных вопросов:
 - Email: support@example.com
-- Phone: +7 (XXX) XXX-XX-XX
+- Телефон: +7 (XXX) XXX-XX-XX
 
-## Getting Help
+## Получение помощи
 
-1. Check documentation
-2. Search existing issues/discussions
-3. Ask clear, specific questions
-4. Provide context and details
-5. Be patient and respectful
+1. Проверьте документацию
+2. Поищите существующие задачи/обсуждения
+3. Задавайте ясные, конкретные вопросы
+4. Предоставляйте контекст и детали
+5. Будьте терпеливы и уважительны
 
-## Contributing
+## Внесение вклада
 
-See [Contributing Guidelines](../technical/contributing.md)
+См. [Руководство по внесению вклада](../technical/contributing.md)
 
-## Recognition
+## Признание
 
-We recognize contributors:
-- **Contributor badge**: First PR merged
-- **Regular contributor**: 5+ PRs
-- **Core contributor**: Significant contributions
-- **Maintainer**: Ongoing maintenance
+Мы признаём участников:
+- **Значок участника**: Первый слитый PR
+- **Постоянный участник**: 5+ PR
+- **Основной участник**: Значительный вклад
+- **Мейнтейнер**: Постоянная поддержка
 
-## Events
+## События
 
-- **Monthly webinars**: Product updates and demos
-- **Quarterly meetups**: Community gatherings
-- **Annual conference**: A2D2 Summit
+- **Ежемесячные вебинары**: Обновления продукта и демонстрации
+- **Ежеквартальные встречи**: Собрания сообщества
+- **Ежегодная конференция**: A2D2 Summit
 
-## Resources
+## Ресурсы
 
-- Documentation: https://docs.a2d2.example.com
-- Blog: https://blog.a2d2.example.com
-- YouTube: Video tutorials
+- Документация: https://docs.a2d2.example.com
+- Блог: https://blog.a2d2.example.com
+- YouTube: Видеоуроки
 - Twitter: @a2d2platform
 
 ---
 
-**Together we build better automation!**
+**Вместе мы создаём лучшую автоматизацию!**
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28

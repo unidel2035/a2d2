@@ -1,18 +1,18 @@
-# DEPLOY-003: Zero-Downtime Deployment Strategy
+# DEPLOY-003: Стратегия развертывания без простоя
 
-**Status**: Complete
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Статус**: Завершено
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Overview
+## Обзор
 
-This document describes the zero-downtime deployment strategy for A2D2, enabling continuous service availability during updates.
+Этот документ описывает стратегию развертывания без простоя для A2D2, обеспечивающую непрерывную доступность сервиса во время обновлений.
 
-## Deployment Strategy
+## Стратегия развертывания
 
-### Blue-Green Deployment
+### Blue-Green развертывание
 
-A2D2 uses blue-green deployment to achieve zero downtime:
+A2D2 использует blue-green развертывание для достижения нулевого простоя:
 
 ```
 ┌─────────────┐
@@ -32,9 +32,9 @@ A2D2 uses blue-green deployment to achieve zero downtime:
 4. Keep BLUE as rollback
 ```
 
-### Rolling Deployment
+### Поэтапное развертывание
 
-For gradual traffic shifting:
+Для постепенного переключения трафика:
 
 ```
 App Server 1  ████████████  v1.0.0
@@ -60,9 +60,9 @@ App Server 2  ████████████  v1.1.0  ← 33% traffic
 App Server 3  ████████████  v1.1.0  ← 33% traffic
 ```
 
-## Deployment Script
+## Скрипт развертывания
 
-### Automated Zero-Downtime Deployment
+### Автоматизированное развертывание без простоя
 
 ```bash
 #!/bin/bash
@@ -189,21 +189,21 @@ if [ -n "$SLACK_WEBHOOK" ]; then
 fi
 ```
 
-Make executable:
+Сделайте исполняемым:
 
 ```bash
 chmod +x scripts/deploy-zero-downtime.sh
 ```
 
-Usage:
+Использование:
 
 ```bash
 ./scripts/deploy-zero-downtime.sh v1.2.0
 ```
 
-## Graceful Restart with Puma
+## Плавный перезапуск с Puma
 
-### Puma Configuration for Zero-Downtime
+### Конфигурация Puma для развертывания без простоя
 
 ```ruby
 # config/puma.rb
@@ -250,7 +250,7 @@ before_fork do
 end
 ```
 
-### Graceful Restart Commands
+### Команды плавного перезапуска
 
 ```bash
 # Phased restart (zero-downtime)
@@ -263,11 +263,11 @@ sudo systemctl reload a2d2-web
 kill -USR2 $(cat tmp/pids/puma.pid)
 ```
 
-## Database Migration Strategy
+## Стратегия миграции базы данных
 
-### Compatible Migrations Only
+### Только совместимые миграции
 
-Ensure migrations are backwards-compatible:
+Убедитесь, что миграции обратно совместимы:
 
 ```ruby
 # ✅ GOOD: Backwards-compatible
@@ -287,9 +287,9 @@ class RemoveRequiredField < ActiveRecord::Migration[8.0]
 end
 ```
 
-### Multi-Phase Deployments
+### Многофазные развертывания
 
-For breaking changes, use multi-phase approach:
+Для критических изменений используйте многофазный подход:
 
 ```
 Phase 1: Deploy code that works with BOTH old and new schema
@@ -297,9 +297,9 @@ Phase 2: Run migration
 Phase 3: Deploy code that only uses new schema
 ```
 
-## Load Balancer Configuration
+## Конфигурация балансировщика нагрузки
 
-### nginx Upstream Health Checks
+### Проверки работоспособности nginx Upstream
 
 ```nginx
 upstream a2d2_app {
@@ -335,11 +335,11 @@ server {
 }
 ```
 
-## Traffic Management
+## Управление трафиком
 
-### Gradual Traffic Shift
+### Постепенное переключение трафика
 
-Use nginx split_clients for canary deployments:
+Используйте nginx split_clients для canary развертываний:
 
 ```nginx
 # Canary deployment: 10% to new version
@@ -364,9 +364,9 @@ server {
 }
 ```
 
-## Monitoring During Deployment
+## Мониторинг во время развертывания
 
-### Key Metrics to Watch
+### Ключевые метрики для отслеживания
 
 ```bash
 # Monitor error rates
@@ -386,7 +386,7 @@ done
 # http_code: %{http_code}
 ```
 
-### Prometheus Alerts
+### Оповещения Prometheus
 
 ```yaml
 # prometheus/alerts.yml
@@ -406,9 +406,9 @@ groups:
           summary: "Slow response times detected"
 ```
 
-## Rollback Procedures
+## Процедуры отката
 
-### Quick Rollback
+### Быстрый откат
 
 ```bash
 #!/bin/bash
@@ -445,7 +445,7 @@ sudo systemctl reload a2d2-worker
 echo "Rollback completed!"
 ```
 
-## Deployment Checklist
+## Контрольный список развертывания
 
 ```markdown
 ### Pre-Deployment
@@ -473,24 +473,24 @@ echo "Rollback completed!"
 - [ ] Team notified of completion
 ```
 
-## Best Practices
+## Лучшие практики
 
-1. **Always use feature flags** for risky changes
-2. **Monitor metrics** before, during, and after deployment
-3. **Deploy during low-traffic periods** when possible
-4. **Keep rollback simple** - practice regularly
-5. **Automate everything** - manual steps cause errors
-6. **Test in staging** first, always
-7. **Communicate clearly** with team about deployment status
+1. **Всегда используйте feature flags** для рискованных изменений
+2. **Отслеживайте метрики** до, во время и после развертывания
+3. **Развертывайте в периоды низкого трафика** когда это возможно
+4. **Упрощайте откат** - практикуйтесь регулярно
+5. **Автоматизируйте все** - ручные шаги приводят к ошибкам
+6. **Тестируйте на staging** первым делом, всегда
+7. **Общайтесь четко** с командой о статусе развертывания
 
-## Next Steps
+## Следующие шаги
 
-- Configure [Health Checks](health-checks.md)
-- Review [Rollback Guide](rollback-guide.md)
-- Set up [Monitoring](../technical/monitoring.md)
+- Настройте [Проверки работоспособности](health-checks.md)
+- Изучите [Руководство по откату](rollback-guide.md)
+- Настройте [Мониторинг](../technical/monitoring.md)
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
-**Maintainer**: A2D2 DevOps Team
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28
+**Сопровождающий**: A2D2 DevOps Team

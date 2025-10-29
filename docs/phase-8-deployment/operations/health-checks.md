@@ -1,16 +1,16 @@
-# DEPLOY-005: Health Checks and Smoke Tests
+# DEPLOY-005: Проверки работоспособности и дымовые тесты
 
-**Status**: Complete
-**Version**: 1.0
-**Last Updated**: 2025-10-28
+**Статус**: Завершено
+**Версия**: 1.0
+**Последнее обновление**: 2025-10-28
 
-## Overview
+## Обзор
 
-Comprehensive health check and smoke testing procedures for the A2D2 platform to ensure system reliability.
+Комплексные процедуры проверки работоспособности и дымового тестирования для платформы A2D2 для обеспечения надежности системы.
 
-## Health Check Endpoints
+## Конечные точки проверки работоспособности
 
-### Application Health Check
+### Проверка работоспособности приложения
 
 ```ruby
 # app/controllers/health_controller.rb
@@ -74,7 +74,7 @@ class HealthController < ApplicationController
 end
 ```
 
-### Route Configuration
+### Конфигурация маршрутов
 
 ```ruby
 # config/routes.rb
@@ -85,7 +85,7 @@ Rails.application.routes.draw do
 end
 ```
 
-## Kubernetes Health Probes
+## Проверки работоспособности Kubernetes
 
 ```yaml
 # deployment.yaml
@@ -115,9 +115,9 @@ spec:
           failureThreshold: 3
 ```
 
-## Smoke Tests
+## Дымовые тесты
 
-### Automated Smoke Test Suite
+### Автоматизированный набор дымовых тестов
 
 ```ruby
 # test/smoke/smoke_test.rb
@@ -172,13 +172,13 @@ class SmokeTest < ActiveSupport::TestCase
 end
 ```
 
-Run smoke tests:
+Запустите дымовые тесты:
 
 ```bash
 SMOKE_TEST_URL=https://a2d2.example.com rails test:smoke
 ```
 
-### Manual Smoke Test Checklist
+### Контрольный список ручных дымовых тестов
 
 ```markdown
 ## Post-Deployment Smoke Tests
@@ -211,9 +211,9 @@ SMOKE_TEST_URL=https://a2d2.example.com rails test:smoke
 - [ ] No exposed secrets in logs
 ```
 
-## Monitoring Scripts
+## Скрипты мониторинга
 
-### Continuous Health Monitoring
+### Непрерывный мониторинг работоспособности
 
 ```bash
 #!/bin/bash
@@ -243,7 +243,7 @@ while true; do
 done
 ```
 
-### Comprehensive System Check
+### Комплексная проверка системы
 
 ```bash
 #!/bin/bash
@@ -299,9 +299,9 @@ echo ""
 echo "System check complete!"
 ```
 
-## Performance Benchmarks
+## Бенчмарки производительности
 
-### Load Testing with Apache Bench
+### Нагрузочное тестирование с Apache Bench
 
 ```bash
 # Simple load test
@@ -315,7 +315,7 @@ ab -n 1000 -c 10 -H "Authorization: Bearer TOKEN" \
 ab -n 10000 -c 50 -t 60 http://localhost:3000/
 ```
 
-### Response Time Monitoring
+### Мониторинг времени отклика
 
 ```bash
 #!/bin/bash
@@ -345,9 +345,9 @@ if (( $(echo "$average > 2.0" | bc -l) )); then
 fi
 ```
 
-## Alerting Configuration
+## Конфигурация оповещений
 
-### Prometheus Alert Rules
+### Правила оповещений Prometheus
 
 ```yaml
 # prometheus/alert-rules.yml
@@ -388,9 +388,9 @@ groups:
           summary: "Background job queue backing up"
 ```
 
-## Scheduled Health Checks
+## Запланированные проверки работоспособности
 
-### Cron Configuration
+### Конфигурация Cron
 
 ```bash
 # /etc/cron.d/a2d2-health
@@ -404,9 +404,9 @@ groups:
 */15 * * * * deploy /var/www/a2d2/scripts/response-time-check.sh >> /var/log/a2d2/response-time.log 2>&1
 ```
 
-## Integration with External Monitoring
+## Интеграция с внешним мониторингом
 
-### Datadog Integration
+### Интеграция с Datadog
 
 ```ruby
 # config/initializers/datadog.rb
@@ -435,6 +435,6 @@ end
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-28
-**Maintainer**: A2D2 DevOps Team
+**Версия документа**: 1.0
+**Последнее обновление**: 2025-10-28
+**Сопровождающий**: A2D2 DevOps Team
