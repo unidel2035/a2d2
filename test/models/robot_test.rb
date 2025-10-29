@@ -120,4 +120,41 @@ class RobotTest < ActiveSupport::TestCase
     assert_includes Robot.active_robots, active
     assert_not_includes Robot.active_robots, retired
   end
+
+  test "should have many documents" do
+    user = User.create!(name: "Doc User", email: "doc@example.com", password: "password123", role: :admin)
+
+    doc1 = @robot.documents.create!(
+      title: "Passport",
+      category: :passport,
+      user: user,
+      status: :active
+    )
+
+    doc2 = @robot.documents.create!(
+      title: "Manual",
+      category: :manual,
+      user: user,
+      status: :active
+    )
+
+    assert_equal 2, @robot.documents.count
+    assert_includes @robot.documents, doc1
+    assert_includes @robot.documents, doc2
+  end
+
+  test "should destroy associated documents when robot is destroyed" do
+    user = User.create!(name: "Doc User", email: "doc@example.com", password: "password123", role: :admin)
+
+    @robot.documents.create!(
+      title: "Test Doc",
+      category: :certificate,
+      user: user,
+      status: :active
+    )
+
+    assert_difference "Document.count", -1 do
+      @robot.destroy
+    end
+  end
 end

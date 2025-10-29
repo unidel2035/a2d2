@@ -12,6 +12,7 @@ class Robot < ApplicationRecord
   has_many :tasks, class_name: 'RobotTask', dependent: :destroy  # Backwards compatibility
   has_many :maintenance_records, dependent: :destroy
   has_many :telemetry_data, dependent: :destroy
+  has_many :documents, dependent: :destroy
 
   # Validations
   validates :serial_number, presence: true, uniqueness: true

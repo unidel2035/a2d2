@@ -10,10 +10,17 @@ class DocumentTest < ActiveSupport::TestCase
       last_name: "User",
       role: :admin
     )
+    @robot = Robot.create!(
+      manufacturer: "TestCorp",
+      model: "RB-100",
+      serial_number: "SN-DOC-TEST",
+      status: :active
+    )
     @document = Document.create!(
       title: "Test Document",
       category: :passport,
       user: @user,
+      robot: @robot,
       status: :draft
     )
   end
@@ -59,8 +66,8 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should scope active documents" do
-    active_doc = Document.create!(title: "Active", category: :manual, user: @user, status: :active)
-    archived_doc = Document.create!(title: "Archived", category: :manual, user: @user, status: :archived)
+    active_doc = Document.create!(title: "Active", category: :manual, user: @user, robot: @robot, status: :active)
+    archived_doc = Document.create!(title: "Archived", category: :manual, user: @user, robot: @robot, status: :archived)
 
     assert_includes Document.active, active_doc
     assert_not_includes Document.active, archived_doc
@@ -72,5 +79,19 @@ class DocumentTest < ActiveSupport::TestCase
 
     @document.update!(expiry_date: 40.days.from_now)
     assert_not_includes Document.expiring_soon, @document
+  end
+
+  test "should belong to robot" do
+    assert_equal @robot, @document.robot
+  end
+
+  test "should require robot" do
+    @document.robot = nil
+    assert_not @document.valid?
+    assert_includes @document.errors[:robot], "can't be blank"
+  end
+
+  test "should belong to user who uploaded" do
+    assert_equal @user, @document.user
   end
 end
