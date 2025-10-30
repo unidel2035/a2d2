@@ -1,0 +1,51 @@
+/*
+ * Стили для лендинга A2D2
+ * Минималистичный дизайн без градиентов
+ */
+
+/* Основные секции */
+.landing-hero {
+  background-color: var(--fallback-b1, oklch(var(--b1)));
+}
+
+/* Карточки функций */
+.landing-feature-card {
+  transition: all 0.3s ease;
+}
+
+.landing-feature-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Секции с чередующимся фоном */
+.landing-section-light {
+  background-color: var(--fallback-b1, oklch(var(--b1)));
+}
+
+.landing-section-dark {
+  background-color: var(--fallback-b2, oklch(var(--b2)));
+}
+
+/* Статистика */
+.landing-stats {
+  border: 1px solid var(--fallback-bc, oklch(var(--bc) / 0.2));
+}
+
+/* Карточки быстрого старта */
+.landing-step-card {
+  border-width: 2px;
+}
+
+/* Футер */
+.landing-footer {
+  border-top: 1px solid var(--fallback-bc, oklch(var(--bc) / 0.2));
+}
+
+/* Ссылки в футере */
+.landing-footer-link {
+  transition: color 0.2s ease;
+}
+
+.landing-footer-link:hover {
+  color: var(--fallback-bc, oklch(var(--bc)));
+}

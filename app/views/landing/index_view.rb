@@ -3,7 +3,7 @@
 module Landing
   class IndexView < ApplicationComponent
     def view_template
-      div(class: "min-h-screen") do
+      div(class: "min-h-screen bg-base-100") do
         render_hero_section
         render_key_features
         render_tech_stack
@@ -15,33 +15,29 @@ module Landing
     private
 
     def render_hero_section
-      section(class: "hero min-h-screen bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10") do
+      section(class: "hero min-h-screen bg-base-100") do
         div(class: "hero-content text-center") do
           div(class: "max-w-4xl") do
             # Badge
             div(class: "mb-6") do
-              Badge :primary, class: "badge-lg gap-2" do
+              Badge :neutral, class: "badge-lg gap-2" do
                 plain "🚀"
                 plain "Automation to Automation Delivery"
               end
             end
 
             # Main heading
-            h1(
-              class: "text-5xl md:text-6xl lg:text-7xl font-bold mb-6 " \
-                     "bg-gradient-to-r from-primary via-secondary to-accent " \
-                     "bg-clip-text text-transparent"
-            ) do
+            h1(class: "text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-base-content") do
               plain "A2D2"
             end
 
-            h2(class: "text-3xl md:text-4xl font-bold mb-8 text-base-content") do
+            h2(class: "text-3xl md:text-4xl font-bold mb-8 text-base-content/80") do
               plain "Платформа автоматизации автоматизации с интеллектуальными "
               plain "агентами"
             end
 
             # Description
-            p(class: "text-xl md:text-2xl mb-8 text-base-content/80 leading-relaxed") do
+            p(class: "text-xl md:text-2xl mb-8 text-base-content/70 leading-relaxed max-w-3xl mx-auto") do
               plain "Платформа «Автоматизации автоматизации» на базе Ruby on Rails, "
               plain "где ИИ-агенты управляют бизнес-процессами, а мета-система "
               plain "координирует работу этих агентов. Экосистема интеллектуальных "
@@ -55,7 +51,7 @@ module Landing
                 href: "https://github.com/unidel2035/a2d2",
                 target: "_blank",
                 rel: "noopener noreferrer",
-                class: "btn btn-primary btn-lg gap-2"
+                class: "btn btn-neutral btn-lg gap-2"
               ) do
                 render_github_icon
                 plain "GitHub"
@@ -63,30 +59,30 @@ module Landing
 
               a(
                 href: "#features",
-                class: "btn btn-secondary btn-lg gap-2"
+                class: "btn btn-outline btn-lg gap-2"
               ) do
                 plain "Узнать больше"
               end
             end
 
             # Stats
-            div(class: "stats stats-vertical lg:stats-horizontal shadow-2xl bg-base-100") do
+            div(class: "stats stats-vertical lg:stats-horizontal shadow-xl bg-base-200 border border-base-300") do
               div(class: "stat place-items-center") do
-                div(class: "stat-title") { "Ruby on Rails" }
-                div(class: "stat-value text-primary") { "8.1" }
-                div(class: "stat-desc") { "Современный стек" }
+                div(class: "stat-title text-base-content/70") { "Ruby on Rails" }
+                div(class: "stat-value text-base-content") { "8.1" }
+                div(class: "stat-desc text-base-content/60") { "Современный стек" }
               end
 
               div(class: "stat place-items-center") do
-                div(class: "stat-title") { "Open Source" }
-                div(class: "stat-value text-secondary") { "MIT" }
-                div(class: "stat-desc") { "Свободная лицензия" }
+                div(class: "stat-title text-base-content/70") { "Open Source" }
+                div(class: "stat-value text-base-content") { "MIT" }
+                div(class: "stat-desc text-base-content/60") { "Свободная лицензия" }
               end
 
               div(class: "stat place-items-center") do
-                div(class: "stat-title") { "Сделано в" }
-                div(class: "stat-value text-accent") { "🇷🇺" }
-                div(class: "stat-desc") { "России" }
+                div(class: "stat-title text-base-content/70") { "Сделано в" }
+                div(class: "stat-value text-base-content") { "🇷🇺" }
+                div(class: "stat-desc text-base-content/60") { "России" }
               end
             end
           end
@@ -95,11 +91,11 @@ module Landing
     end
 
     def render_key_features
-      section(id: "features", class: "py-20 bg-base-100") do
+      section(id: "features", class: "py-20 bg-base-200") do
         div(class: "container mx-auto px-4") do
           # Section header
           div(class: "text-center mb-16") do
-            h2(class: "text-4xl md:text-5xl font-bold mb-4") do
+            h2(class: "text-4xl md:text-5xl font-bold mb-4 text-base-content") do
               plain "Ключевые преимущества платформы"
             end
             p(class: "text-xl text-base-content/70") do
@@ -114,8 +110,7 @@ module Landing
               "Уникальная архитектура с мета-слоем, где ИИ управляет ИИ. " \
               "Интеллектуальные агенты автономно выполняют бизнес-процессы, " \
               "а оркестратор координирует их работу, распределяет задачи и " \
-              "обеспечивает качество результатов.",
-              "primary"
+              "обеспечивает качество результатов."
             )
 
             render_feature_card(
@@ -123,16 +118,14 @@ module Landing
               "Получайте доступ к GPT, Claude, DeepSeek, Gemini, Grok, Mistral " \
               "через единый интерфейс. OpenAI-совместимый стандарт для простой " \
               "миграции, умная маршрутизация запросов для оптимизации скорости " \
-              "и стоимости.",
-              "secondary"
+              "и стоимости."
             )
 
             render_feature_card(
               "🧠 Интеллектуальные агенты",
               "Специализированные ИИ-агенты для различных задач — анализ данных, " \
               "валидация, трансформация, генерация отчетов и интеграция систем. " \
-              "Каждый агент обладает контекстной памятью и способностью к обучению.",
-              "accent"
+              "Каждый агент обладает контекстной памятью и способностью к обучению."
             )
 
             render_feature_card(
@@ -140,16 +133,14 @@ module Landing
               "Мета-слой непрерывно мониторит работу агентов, верифицирует их " \
               "действия, управляет памятью и потоками данных. При возникновении " \
               "проблем система автоматически адаптирует стратегии и восстанавливает " \
-              "работоспособность.",
-              "info"
+              "работоспособность."
             )
 
             render_feature_card(
               "📦 Готовые решения из коробки",
               "Модульная архитектура для быстрого старта — от управления документами " \
               "и аналитики до корпоративных систем и интеграций. Каждый модуль " \
-              "интегрирован с агентной инфраструктурой и готов к масштабированию.",
-              "success"
+              "интегрирован с агентной инфраструктурой и готов к масштабированию."
             )
 
             render_feature_card(
@@ -157,31 +148,29 @@ module Landing
               "Российская разработка, независимая от иностранного ПО. Стабильный " \
               "доступ без VPN из России и СНГ. Оплата в рублях или криптовалюте. " \
               "Все данные защищены сквозным шифрованием с полным контролем над " \
-              "инфраструктурой.",
-              "warning"
+              "инфраструктурой."
             )
           end
         end
       end
     end
 
-    def render_feature_card(title, description, color)
+    def render_feature_card(title, description)
       Card responsive: true,
-           class: "shadow-xl hover:shadow-2xl transition-all duration-300 " \
-                  "border-2 border-transparent hover:border-#{color}" do
+           class: "shadow-lg hover:shadow-xl transition-shadow duration-300 bg-base-100 border border-base-300" do
         div(class: "card-body") do
-          h3(class: "card-title text-2xl mb-4 text-#{color}") { title }
-          p(class: "text-base-content/80 leading-relaxed text-lg") { description }
+          h3(class: "card-title text-2xl mb-4 text-base-content") { title }
+          p(class: "text-base-content/70 leading-relaxed text-lg") { description }
         end
       end
     end
 
     def render_tech_stack
-      section(class: "py-20 bg-base-200") do
+      section(class: "py-20 bg-base-100") do
         div(class: "container mx-auto px-4") do
           # Section header
           div(class: "text-center mb-16") do
-            h2(class: "text-4xl md:text-5xl font-bold mb-4") do
+            h2(class: "text-4xl md:text-5xl font-bold mb-4 text-base-content") do
               plain "Современный технологический стек"
             end
             p(class: "text-xl text-base-content/70") do
@@ -192,12 +181,12 @@ module Landing
           # Tech categories
           div(class: "grid grid-cols-1 lg:grid-cols-3 gap-8") do
             # Backend
-            Card responsive: true, class: "shadow-xl" do
+            Card responsive: true, class: "shadow-lg bg-base-100 border border-base-300" do
               div(class: "card-body") do
-                h3(class: "card-title text-2xl mb-4 text-primary") do
+                h3(class: "card-title text-2xl mb-4 text-base-content") do
                   plain "🔧 Backend"
                 end
-                ul(class: "space-y-2 text-base-content/80") do
+                ul(class: "space-y-2 text-base-content/70 text-lg") do
                   li { plain "Ruby 3.3.6" }
                   li { plain "Rails 8.1.0" }
                   li { plain "Puma 7.1.0" }
@@ -210,12 +199,12 @@ module Landing
             end
 
             # Frontend
-            Card responsive: true, class: "shadow-xl" do
+            Card responsive: true, class: "shadow-lg bg-base-100 border border-base-300" do
               div(class: "card-body") do
-                h3(class: "card-title text-2xl mb-4 text-secondary") do
+                h3(class: "card-title text-2xl mb-4 text-base-content") do
                   plain "🎨 Frontend"
                 end
-                ul(class: "space-y-2 text-base-content/80") do
+                ul(class: "space-y-2 text-base-content/70 text-lg") do
                   li { plain "Phlex (Ruby DSL для HTML)" }
                   li { plain "PhlexyUI (DaisyUI компоненты)" }
                   li { plain "Turbo (SPA-подобное ускорение)" }
@@ -227,12 +216,12 @@ module Landing
             end
 
             # AI & Security
-            Card responsive: true, class: "shadow-xl" do
+            Card responsive: true, class: "shadow-lg bg-base-100 border border-base-300" do
               div(class: "card-body") do
-                h3(class: "card-title text-2xl mb-4 text-accent") do
+                h3(class: "card-title text-2xl mb-4 text-base-content") do
                   plain "🔐 AI & Security"
                 end
-                ul(class: "space-y-2 text-base-content/80") do
+                ul(class: "space-y-2 text-base-content/70 text-lg") do
                   li { plain "OpenAI API" }
                   li { plain "Anthropic Claude API" }
                   li { plain "Devise (Authentication)" }
@@ -249,11 +238,11 @@ module Landing
     end
 
     def render_quick_start
-      section(class: "py-20 bg-base-100") do
+      section(class: "py-20 bg-base-200") do
         div(class: "container mx-auto px-4") do
           # Section header
           div(class: "text-center mb-16") do
-            h2(class: "text-4xl md:text-5xl font-bold mb-4") { "Быстрый старт" }
+            h2(class: "text-4xl md:text-5xl font-bold mb-4 text-base-content") { "Быстрый старт" }
             p(class: "text-xl text-base-content/70") do
               plain "Начните работу за несколько минут"
             end
@@ -263,13 +252,13 @@ module Landing
           div(class: "max-w-4xl mx-auto") do
             div(class: "grid grid-cols-1 md:grid-cols-2 gap-8") do
               # Step 1
-              Card responsive: true, class: "shadow-xl bg-primary/5" do
+              Card responsive: true, class: "shadow-lg bg-base-100 border-2 border-base-300" do
                 div(class: "card-body") do
-                  Badge :primary, class: "mb-4 badge-lg" do
+                  Badge :neutral, class: "mb-4 badge-lg" do
                     plain "Шаг 1"
                   end
-                  h3(class: "card-title text-xl mb-3") { "Клонируйте репозиторий" }
-                  div(class: "mockup-code text-sm") do
+                  h3(class: "card-title text-xl mb-3 text-base-content") { "Клонируйте репозиторий" }
+                  div(class: "mockup-code text-sm bg-base-300") do
                     pre(data: { prefix: "$" }) do
                       code { "git clone https://github.com/unidel2035/a2d2.git" }
                     end
@@ -281,13 +270,13 @@ module Landing
               end
 
               # Step 2
-              Card responsive: true, class: "shadow-xl bg-secondary/5" do
+              Card responsive: true, class: "shadow-lg bg-base-100 border-2 border-base-300" do
                 div(class: "card-body") do
-                  Badge :secondary, class: "mb-4 badge-lg" do
+                  Badge :neutral, class: "mb-4 badge-lg" do
                     plain "Шаг 2"
                   end
-                  h3(class: "card-title text-xl mb-3") { "Установите зависимости" }
-                  div(class: "mockup-code text-sm") do
+                  h3(class: "card-title text-xl mb-3 text-base-content") { "Установите зависимости" }
+                  div(class: "mockup-code text-sm bg-base-300") do
                     pre(data: { prefix: "$" }) do
                       code { "bundle install" }
                     end
@@ -299,32 +288,32 @@ module Landing
               end
 
               # Step 3
-              Card responsive: true, class: "shadow-xl bg-accent/5" do
+              Card responsive: true, class: "shadow-lg bg-base-100 border-2 border-base-300" do
                 div(class: "card-body") do
-                  Badge :accent, class: "mb-4 badge-lg" do
+                  Badge :neutral, class: "mb-4 badge-lg" do
                     plain "Шаг 3"
                   end
-                  h3(class: "card-title text-xl mb-3") { "Запустите сервер" }
-                  div(class: "mockup-code text-sm") do
+                  h3(class: "card-title text-xl mb-3 text-base-content") { "Запустите сервер" }
+                  div(class: "mockup-code text-sm bg-base-300") do
                     pre(data: { prefix: "$" }) do
                       code { "bin/dev" }
                     end
                   end
                   p(class: "text-sm text-base-content/60 mt-2") do
                     plain "Откройте "
-                    code(class: "text-accent") { "http://localhost:3000" }
+                    code(class: "text-base-content font-semibold") { "http://localhost:3000" }
                   end
                 end
               end
 
               # Step 4
-              Card responsive: true, class: "shadow-xl bg-success/5" do
+              Card responsive: true, class: "shadow-lg bg-base-100 border-2 border-base-300" do
                 div(class: "card-body") do
                   Badge :success, class: "mb-4 badge-lg" do
                     plain "Шаг 4"
                   end
-                  h3(class: "card-title text-xl mb-3") { "Готово! 🎉" }
-                  p(class: "text-base-content/80") do
+                  h3(class: "card-title text-xl mb-3 text-base-content") { "Готово! 🎉" }
+                  p(class: "text-base-content/70") do
                     plain "Платформа запущена и готова к работе. Изучите документацию "
                     plain "на GitHub для настройки ИИ-агентов и интеграций."
                   end
@@ -335,13 +324,13 @@ module Landing
 
           # System requirements
           div(class: "mt-16 max-w-3xl mx-auto") do
-            div(class: "alert alert-info shadow-lg") do
+            div(class: "alert bg-base-100 shadow-lg border border-base-300") do
               div do
                 svg(
                   xmlns: "http://www.w3.org/2000/svg",
                   fill: "none",
                   viewBox: "0 0 24 24",
-                  class: "stroke-current flex-shrink-0 w-6 h-6"
+                  class: "stroke-current text-base-content flex-shrink-0 w-6 h-6"
                 ) do |s|
                   s.path(
                     stroke_linecap: "round",
@@ -351,8 +340,8 @@ module Landing
                   )
                 end
                 div do
-                  h3(class: "font-bold") { "Системные требования" }
-                  div(class: "text-sm") do
+                  h3(class: "font-bold text-base-content") { "Системные требования" }
+                  div(class: "text-sm text-base-content/70") do
                     plain "Ruby 3.3.6+, Rails 8.1.0, Node.js 18+, SQLite3 (для разработки)"
                   end
                 end
@@ -364,18 +353,15 @@ module Landing
     end
 
     def render_footer
-      footer(class: "footer footer-center p-10 bg-base-200 text-base-content") do
+      footer(class: "footer footer-center p-10 bg-base-100 text-base-content border-t border-base-300") do
         div do
           div(class: "mb-4") do
-            h3(
-              class: "text-3xl font-bold bg-gradient-to-r from-primary " \
-                     "via-secondary to-accent bg-clip-text text-transparent"
-            ) do
+            h3(class: "text-3xl font-bold text-base-content") do
               plain "A2D2"
             end
           end
 
-          p(class: "font-semibold text-lg") do
+          p(class: "font-semibold text-lg text-base-content") do
             plain "Automation to Automation Delivery"
           end
 
@@ -391,28 +377,28 @@ module Landing
               href: "https://github.com/unidel2035/a2d2",
               target: "_blank",
               rel: "noopener noreferrer",
-              class: "link link-hover text-lg"
+              class: "link link-hover text-lg text-base-content/80 hover:text-base-content"
             ) { "GitHub" }
 
             a(
               href: "https://github.com/unidel2035/a2d2#readme",
               target: "_blank",
               rel: "noopener noreferrer",
-              class: "link link-hover text-lg"
+              class: "link link-hover text-lg text-base-content/80 hover:text-base-content"
             ) { "Документация" }
 
             a(
               href: "https://github.com/unidel2035/a2d2/issues",
               target: "_blank",
               rel: "noopener noreferrer",
-              class: "link link-hover text-lg"
+              class: "link link-hover text-lg text-base-content/80 hover:text-base-content"
             ) { "Issues" }
 
             a(
               href: "https://github.com/unidel2035/a2d2/discussions",
               target: "_blank",
               rel: "noopener noreferrer",
-              class: "link link-hover text-lg"
+              class: "link link-hover text-lg text-base-content/80 hover:text-base-content"
             ) { "Discussions" }
           end
         end
