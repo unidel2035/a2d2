@@ -38,10 +38,6 @@ module Landing
                 svg_github_icon
                 span(class: "hidden sm:inline") { "GitHub" }
               end
-              if defined?(helpers.new_user_session_path)
-                a(href: helpers.new_user_session_path, class: "btn btn-ghost btn-sm") { "Вход" }
-                a(href: helpers.new_user_registration_path, class: "btn btn-primary btn-sm") { "Начать" }
-              end
             end
           end
         end
