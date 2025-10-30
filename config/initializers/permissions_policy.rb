@@ -2,21 +2,15 @@
 
 # Permissions-Policy configuration
 # Controls which browser features can be used
-# Note: Rails' built-in permissions_policy sets the Feature-Policy header (old name)
-# For better browser compatibility, we also set Permissions-Policy header manually
+# Note: We only use the modern Permissions-Policy header, not the deprecated Feature-Policy
 
-# Configure using Rails' native permissions_policy
+# Disable the deprecated Feature-Policy header that Rails generates
 Rails.application.config.permissions_policy do |policy|
-  policy.camera :none
-  policy.geolocation :none
-  policy.microphone :none
-  policy.payment :none
-  # Note: USB is not supported in Rails' permissions_policy DSL
-  # It will be set manually below
+  # Empty configuration to prevent Rails from setting Feature-Policy header
 end
 
-# Additionally set the modern Permissions-Policy header format
-# This is more compatible with modern browsers
+# Set only the modern Permissions-Policy header
+# This prevents the warning about duplicate policies
 Rails.application.config.action_dispatch.default_headers.merge!(
   'Permissions-Policy' => 'camera=(), geolocation=(), microphone=(), payment=(), usb=()'
 )

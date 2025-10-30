@@ -19,7 +19,6 @@ module Layouts
           csp_meta_tag
 
           stylesheet_link_tag "application", data: { turbo_track: "reload" }
-          script(src: "https://cdn.tailwindcss.com")
           link(
             href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
             rel: "stylesheet",
