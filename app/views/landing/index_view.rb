@@ -445,7 +445,7 @@ module Landing
             end
           end
 
-          div(class: "divider") end
+          div(class: "divider")
 
           div(class: "flex items-center justify-between") do
             span(class: "text-sm text-base-content/60") { "Экономия:" }
