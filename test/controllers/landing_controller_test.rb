@@ -2,19 +2,19 @@ require "test_helper"
 
 class LandingControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get root_url
+    get landing_url
     assert_response :success
   end
 
   test "should render Phlex component" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем, что A2D2 присутствует в ответе
     assert_match /A2D2/, response.body
   end
 
   test "should include hero section" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем наличие героя секции
     assert_match /Automation to Automation Delivery/, response.body
@@ -22,7 +22,7 @@ class LandingControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should include key features section" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем наличие секции с ключевыми преимуществами
     assert_match /Ключевые преимущества платформы/, response.body
@@ -32,7 +32,7 @@ class LandingControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should include tech stack section" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем наличие секции технологий
     assert_match /Современный технологический стек/, response.body
@@ -41,7 +41,7 @@ class LandingControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should include quick start section" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем наличие секции быстрого старта
     assert_match /Быстрый старт/, response.body
@@ -50,14 +50,14 @@ class LandingControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should include GitHub link" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем наличие ссылки на GitHub
     assert_match /https:\/\/github\.com\/unidel2035\/a2d2/, response.body
   end
 
   test "should not include gradients" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем отсутствие градиентов в классах
     assert_no_match /bg-gradient/, response.body
@@ -65,7 +65,7 @@ class LandingControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not include purple colors" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем отсутствие фиолетовых цветов
     assert_no_match /text-primary|text-secondary|text-accent/, response.body
@@ -73,7 +73,7 @@ class LandingControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should use neutral colors" do
-    get root_url
+    get landing_url
     assert_response :success
     # Проверяем использование нейтральных цветов
     assert_match /btn-neutral|badge-neutral/, response.body
