@@ -29,7 +29,7 @@ module Layouts
           )
 
           # Configure Tailwind with DaisyUI
-          unsafe_raw <<~HTML
+          raw(<<~HTML.html_safe)
             <script>
               tailwind.config = {
                 theme: {

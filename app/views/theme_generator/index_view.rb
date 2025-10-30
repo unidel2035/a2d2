@@ -90,7 +90,7 @@ module ThemeGenerator
 
     def render_styles
       style do
-        unsafe_raw(<<~CSS)
+        raw(<<~CSS.html_safe)
           /* Custom styles for the theme generator */
           .sidebar {
             width: 280px;
@@ -415,7 +415,7 @@ module ThemeGenerator
 
             div(class: "css-output", id: "cssOutput") do
               pre do
-                unsafe_raw(<<~CSS)
+                raw(<<~CSS.html_safe)
                   [data-theme="mytheme"] {
                     color-scheme: light;
                     --rounded-box: 1rem;
@@ -466,7 +466,7 @@ module ThemeGenerator
 
     def render_scripts
       script do
-        unsafe_raw(<<~JS)
+        raw(<<~JS.html_safe)
           let currentTheme = {
             colors: {
               primary: '#570df8',
