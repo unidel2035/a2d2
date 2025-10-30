@@ -18,12 +18,34 @@ module Layouts
           csrf_meta_tags
           csp_meta_tag
 
-          stylesheet_link_tag "application", data: { turbo_track: "reload" }
+          # Tailwind CSS via CDN
+          script(src: "https://cdn.tailwindcss.com")
+
+          # DaisyUI via CDN
           link(
             href: "https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css",
             rel: "stylesheet",
             type: "text/css"
           )
+
+          # Configure Tailwind with DaisyUI
+          unsafe_raw <<~HTML
+            <script>
+              tailwind.config = {
+                theme: {
+                  extend: {
+                    colors: {
+                      primary: '#3b82f6',
+                      secondary: '#6366f1',
+                      accent: '#8b5cf6',
+                    }
+                  }
+                }
+              }
+            </script>
+          HTML
+
+          stylesheet_link_tag "application", data: { turbo_track: "reload" }
           javascript_importmap_tags
         end
 
