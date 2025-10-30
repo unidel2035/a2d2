@@ -36,8 +36,8 @@ SecureHeaders::Configuration.default do |config|
   # Comprehensive policy to prevent XSS and other code injection attacks
   config.csp = {
     default_src: %w['self'],
-    script_src: %w['self' 'unsafe-inline' https://cdn.jsdelivr.net],
-    style_src: %w['self' 'unsafe-inline' https://cdn.jsdelivr.net],
+    script_src: %w['self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdn.tailwindcss.com],
+    style_src: %w['self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdn.tailwindcss.com],
     img_src: %w['self' data: https:],
     font_src: %w['self' data: https://cdn.jsdelivr.net],
     connect_src: %w['self'],
