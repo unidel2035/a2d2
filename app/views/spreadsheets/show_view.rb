@@ -114,7 +114,7 @@ module Spreadsheets
 
     def render_styles
       style do
-        unsafe_raw(<<~CSS)
+        raw(<<~CSS.html_safe)
           * {
             box-sizing: border-box;
           }
@@ -336,7 +336,7 @@ module Spreadsheets
 
     def render_scripts
       script do
-        unsafe_raw(<<~JS)
+        raw(<<~JS.html_safe)
           let currentCell = null;
           const spreadsheetId = #{@spreadsheet.id};
           const sheetId = #{@current_sheet.id};

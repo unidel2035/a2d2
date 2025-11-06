@@ -86,7 +86,7 @@ module MaintenanceMailer
 
     def render_styles
       style do
-        unsafe_raw(<<~CSS)
+        raw(<<~CSS.html_safe)
           body {
             font-family: Arial, sans-serif;
             line-height: 1.6;

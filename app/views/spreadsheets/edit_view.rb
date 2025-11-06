@@ -76,7 +76,7 @@ module Spreadsheets
 
     def render_styles
       style do
-        unsafe_raw(<<~CSS)
+        raw(<<~CSS.html_safe)
           .form-container {
             max-width: 600px;
             margin: 40px auto;
